@@ -30,6 +30,8 @@ public class Controller {
 
     public Group create(){
 
+        System.out.println();
+
         //Pane pane = new Pane();
         //root.setPrefSize(GRID_WIDTH * TILE_SIZE, GRID_HEIGHT * TILE_SIZE);
         //parent.setPrefSize(this.board.gridWidth * this.board.tileSize,
@@ -44,6 +46,8 @@ public class Controller {
 
         //spawn
         generateShape();
+        render(group);
+
 
         AnimationTimer timer = new AnimationTimer() {
             @Override
@@ -51,7 +55,9 @@ public class Controller {
                 time += 0.017;
 
                 if (time >= 0.5) {
-                    //update();
+                    //moveShape(Direction.DOWN);
+                    moveShape(Direction.RIGHT);
+                    //moveShape(Direction.LEFT);
                     render(group);
                     time = 0;
                 }
@@ -64,10 +70,13 @@ public class Controller {
     }
 
     public void render(Group group){
+        group.getChildren().clear();
         for(int colIndex=0; colIndex<this.board.gridWidth; colIndex++){
             for(int rowIndex=0; rowIndex<this.board.gridHeight; rowIndex++){
                 if(this.board.boardGrid[colIndex][rowIndex]!=null){
+                    //System.out.println(this.board.boardGrid[colIndex][rowIndex].rectangle.);
                     group.getChildren().add(this.board.boardGrid[colIndex][rowIndex].rectangle);
+
                 }
             }
 
@@ -81,25 +90,42 @@ public class Controller {
     }
 
 
-    /*public void moveShape(Direction direction) {
+    public void moveShape(Direction direction) {
 
         //check for out bounds
 
-        //c
+        //calculate new center tile coordinates
         int newColIndex = this.currentActiveShape.centerPieceColumnIndex += direction.colIndex;
         int newRowIndex = this.currentActiveShape.centerPieceRowIndex += direction.rowIndex;
 
-        //
-        List<Tile> newShape = new ArrayList<Tile>();
+
+
+          //Creating new shape
+        List<Tile> newTileList = new ArrayList<Tile>();
         for(Tile tile : this.currentActiveShape.tiles){
-            Tile newTile = new Tile(25, Color.BLUE, newColIndex, newRowIndex, tile.position , tile.);
-            newShape.add(
+            Tile newTile = new Tile(25, Color.BLUE, newColIndex, newRowIndex, tile.position , tile.directions);
+            newTileList.add(newTile);
+
+            //Remove old tile from board
+            this.board.boardGrid[tile.columnIndex][tile.rowIndex]=null;
+
+
+            //set old tiles to null
+            tile = null;
         }
 
+        this.currentActiveShape = null;
 
+        //Create a new shape
+        Shape newShape = new Shape(newTileList);
+        this.currentActiveShape = newShape;
 
+        for(Tile newTile: this.currentActiveShape.tiles){
+            //Update board with new tile
+            this.board.boardGrid[newTile.columnIndex][newTile.rowIndex]=newTile;
+        }
 
-    }*/
+    }
 
 
     /*

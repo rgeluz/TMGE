@@ -18,6 +18,8 @@ public class Shape {
 
     public Shape(List<Tile> tiles){
         this.tiles = tiles;
+        this.centerPieceColumnIndex = tiles.get(0).columnIndex;
+        this.centerPieceRowIndex = tiles.get(0).rowIndex;
     }
 
     //TODO
@@ -27,15 +29,7 @@ public class Shape {
         }
     }
 
-    //TODO
-    /*
-        set center tile coordinates
-     */
-    public void moveShape(int columnIndex, int rowIndex){
-            this.centerPieceColumnIndex = columnIndex;
-            this.centerPieceRowIndex = rowIndex;
 
-    }
 
 
     //TODO
