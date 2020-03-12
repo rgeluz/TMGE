@@ -1,0 +1,61 @@
+package com.INF122.TMGE;
+
+import javafx.scene.Group;
+import javafx.scene.paint.Color;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Shape {
+
+
+    //instance variables
+    private Color defaultColor;
+    private Color shapeColor;
+    public int centerPieceColumnIndex;
+    public int centerPieceRowIndex;
+    public List<Tile> tiles;  //four tiles for tetris, two tiles for drmario
+
+    public Shape(List<Tile> tiles){
+        this.tiles = tiles;
+    }
+
+    //TODO
+    public void renderShape(Group group){
+        for(Tile tile: tiles){
+            tile.renderTile(group);
+        }
+    }
+
+    //TODO
+    /*
+        set center tile coordinates
+     */
+    public void moveShape(int columnIndex, int rowIndex){
+            this.centerPieceColumnIndex = columnIndex;
+            this.centerPieceRowIndex = rowIndex;
+
+    }
+
+
+    //TODO
+    public void rotateShape(){
+        for(Tile tile: tiles){
+            //TODO
+        }
+    }
+
+    //TODO
+    /*
+        used to copy shape from shape protoype
+     */
+    /*public static Shape generateShape(){
+
+
+
+
+
+        return shape;
+    }*/
+
+}
