@@ -1,9 +1,11 @@
 package com.INF122.TMGE;
 
 import javafx.application.Application;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -60,14 +62,36 @@ public class Main extends Application {
 
     public void testGame(Stage stage){
 
-        Board board = new Board(24,11, 25);
+
+        int gridHeight = 12;
+        int gridWidth = 11;
+        int tileSize = 25;
+        Board board = new Board(gridHeight,gridWidth, tileSize);
         Controller controller = new Controller(board);
-        Scene scene = new Scene(controller.create(),11*25, 24*25);
+        Group group = controller.create();
+        Scene scene = new Scene(group,gridWidth*tileSize, gridHeight*tileSize);
+
+        //Key event handler
+        scene.setOnKeyPressed(e -> {
+            if (e.getCode() == KeyCode.UP) { //ROTATE SHAPE CLOCKWISE
+                controller.rotateShape();
+            } else if (e.getCode() == KeyCode.LEFT) {
+                controller.moveShape(Direction.LEFT);
+            } else if (e.getCode() == KeyCode.RIGHT) {
+                controller.moveShape(Direction.RIGHT);
+            } else if (e.getCode() == KeyCode.DOWN) {
+                controller.moveShape(Direction.DOWN);
+            }
+
+            controller.render(group);
+
+        });
+
         stage.setScene(scene);
         stage.show();
 
 
-        //Add event handler
+
 
 
     }

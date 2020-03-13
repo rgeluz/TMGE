@@ -2,25 +2,22 @@ package com.INF122.TMGE;
 
 import javafx.animation.AnimationTimer;
 import javafx.scene.Group;
-import javafx.scene.Parent;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 
 public class Controller {
 
     Board board;
+    int tileSize;
     private List<Shape> prototypeShapes = new ArrayList<Shape>();
     private Shape currentActiveShape;
     private double time;
 
     public Controller(Board board) {
         this.board = board;
+        this.tileSize = board.tileSize;
     }
 
     /*public void addProtoypeShape(Tile... tiles){
@@ -55,8 +52,8 @@ public class Controller {
                 time += 0.017;
 
                 if (time >= 0.5) {
-                    //moveShape(Direction.DOWN);
-                    moveShape(Direction.RIGHT);
+                    moveShape(Direction.DOWN);
+                    //moveShape(Direction.RIGHT);
                     //moveShape(Direction.LEFT);
                     render(group);
                     time = 0;
@@ -89,6 +86,45 @@ public class Controller {
 
     }
 
+    public boolean isColliding(List<Tile> newTileList){
+        boolean isCollidingWithSelf = false;
+        for(Tile newTile: newTileList){
+            if(this.board.boardGrid[newTile.columnIndex][newTile.rowIndex]!=null){
+
+                for(Tile activeTile: this.currentActiveShape.tiles){
+                    isCollidingWithSelf = false;
+                    if((activeTile.rowIndex==newTile.rowIndex) && (activeTile.columnIndex==newTile.columnIndex)){
+                        isCollidingWithSelf= true;
+                        break;
+                    }
+                }
+                if(!isCollidingWithSelf){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public boolean isBottom(List<Tile> newTileList){
+        for(Tile newTile: newTileList){
+            if( newTile.rowIndex <0 || newTile.rowIndex >= board.gridHeight){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean isLeftOrRightWall(List<Tile> newTileList){
+        for(Tile newTile: newTileList){
+            if( newTile.columnIndex <0 || newTile.columnIndex >= board.gridWidth){
+                return false;
+            }
+        }
+        return true;
+    }
+
+
 
     public void moveShape(Direction direction) {
 
@@ -99,16 +135,73 @@ public class Controller {
         int newRowIndex = this.currentActiveShape.centerPieceRowIndex += direction.rowIndex;
 
 
-
           //Creating new shape
         List<Tile> newTileList = new ArrayList<Tile>();
         for(Tile tile : this.currentActiveShape.tiles){
-            Tile newTile = new Tile(25, Color.BLUE, newColIndex, newRowIndex, tile.position , tile.directions);
+            Tile newTile = new Tile(this.tileSize, Color.BLUE, newColIndex, newRowIndex, tile.position , tile.directions);
+            newTileList.add(newTile);
+        }
+
+        //Exit function if it reaches the side //TODO
+        if(direction==Direction.LEFT || direction==Direction.RIGHT){
+            if(isLeftOrRightWall(newTileList) ){
+
+
+
+            }
+        } else if(direction==Direction.DOWN){
+
+            if(isBottom(newTileList) &&  !isColliding(newTileList) ){
+                //Remove old shape
+                for(Tile tile : this.currentActiveShape.tiles){
+                    //Remove old tile from board
+                    this.board.boardGrid[tile.columnIndex][tile.rowIndex]=null;
+
+                    //set old tiles to null
+                    tile = null;
+                }
+
+                this.currentActiveShape = null;
+
+                //Create a new shape
+                Shape newShape = new Shape(newTileList);
+                this.currentActiveShape = newShape;
+
+                //Update board
+                for(Tile newTile: this.currentActiveShape.tiles){
+                    //Update board with new tile
+                    this.board.boardGrid[newTile.columnIndex][newTile.rowIndex]=newTile;
+                }
+            } else {
+                //spawn new shape
+                generateShape();
+            }
+
+
+        } //If Down
+
+
+
+    }
+
+    public void rotateShape(){
+
+        List<Tile> newTileList = new ArrayList<Tile>();
+        for(Tile tile : this.currentActiveShape.tiles){
+            List<Direction> newDirections = new ArrayList<>();
+            for(Direction direction: tile.directions){
+                Direction newDirection = direction.next();
+                newDirections.add(newDirection);
+            }
+
+            Tile newTile = new Tile(this.tileSize, Color.BLUE,tile.centerPieceColumnIndex, tile.centerPieceRowIndex, tile.position , newDirections);
             newTileList.add(newTile);
 
+        }
+
+        for(Tile tile : this.currentActiveShape.tiles){
             //Remove old tile from board
             this.board.boardGrid[tile.columnIndex][tile.rowIndex]=null;
-
 
             //set old tiles to null
             tile = null;
@@ -120,10 +213,12 @@ public class Controller {
         Shape newShape = new Shape(newTileList);
         this.currentActiveShape = newShape;
 
+        //Update board
         for(Tile newTile: this.currentActiveShape.tiles){
             //Update board with new tile
             this.board.boardGrid[newTile.columnIndex][newTile.rowIndex]=newTile;
         }
+
 
     }
 

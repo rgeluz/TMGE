@@ -48,6 +48,7 @@ public class Board {
         return group;
     }
 
+    //TODO Remove later
     public void placeTile(Tile tile){
         this.boardGrid[tile.columnIndex][tile.rowIndex] = tile;
     }
@@ -66,12 +67,6 @@ public class Board {
            return false;
        }
     }
-
-
-
-
-
-
 
 
 } //end of Board class

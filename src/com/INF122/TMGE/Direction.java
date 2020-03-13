@@ -14,5 +14,15 @@ public enum Direction {
         this.rowIndex = rowIndex;
     }
 
+    //Get next direction
+    public Direction next() {
+        int nextIndex = ordinal() + 1;
+
+        if (nextIndex == Direction.values().length) {
+            nextIndex = 0;
+        }
+
+        return Direction.values()[nextIndex];
+    }
 
 }

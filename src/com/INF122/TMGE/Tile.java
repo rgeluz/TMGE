@@ -20,11 +20,11 @@ public class Tile {
     public List<Direction> directions;
 
 
-    public Tile(int tileSize, Color color, int cencolIndex, int cenrowIndex, int position, List<Direction> directions){
+    public Tile(int tileSize, Color color, int cenColIndex, int cenRowIndex, int position, List<Direction> directions){
         this.tileSize = tileSize;
         this.position = position;
-        this.centerPieceColumnIndex = cencolIndex;
-        this.centerPieceRowIndex = cenrowIndex;
+        this.centerPieceColumnIndex = cenColIndex;
+        this.centerPieceRowIndex = cenRowIndex;
         this.directions = directions;
 
         this.rectangle = new Rectangle();
@@ -47,11 +47,11 @@ public class Tile {
 
     }
 
-    public Tile(int tileSize, Color color, int cencolIndex, int cenrowIndex, int position, Direction... directions){
+    public Tile(int tileSize, Color color, int cenColIndex, int cenRowIndex, int position, Direction... directions){
         this.tileSize = tileSize;
         this.position = position;
-        this.centerPieceColumnIndex = cencolIndex;
-        this.centerPieceRowIndex = cenrowIndex;
+        this.centerPieceColumnIndex = cenColIndex;
+        this.centerPieceRowIndex = cenRowIndex;
         this.directions = Arrays.asList(directions);
 
 
