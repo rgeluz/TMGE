@@ -297,8 +297,8 @@ public class Controller {
         List<List<Tile>> listOfFullRows = getFullRows(this.includeTetrisBorder);
         if(listOfFullRows.size()>0){
             removeFullRowTiles(listOfFullRows);
+            render();
             shiftDownTiles(this.includeTetrisBorder);
-            //render();
         }
     }
 
@@ -363,11 +363,8 @@ public class Controller {
                     //int newColIndex = tile.columnIndex + direction.colIndex;
                     //int newRowIndex = tile.rowIndex + direction.rowIndex;
                     int newRowIndex = tile.rowIndex + 1;
-
-                    Tile newTile = new Tile(tile.tileSize, tile.setColor, tile.tileColor,tile.setTileBorder,
-                            tile.setImage, tile.tileImage,
-                            tile.columnIndex, newRowIndex, tile.position, tile.directions);
-                    listOfTilesToUpdate.add(newTile);
+                    tile.rowIndex = newRowIndex;
+                    listOfTilesToUpdate.add(tile);
                 }
             }
         }
