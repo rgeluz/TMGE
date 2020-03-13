@@ -94,7 +94,8 @@ public class Controller {
                     Tile newBoarderTile = new Tile(this.tileSize, false, null,false,
                             true, image, colIndex, rowIndex,
                             0,Direction.DOWN);
-                    this.board.boardGrid[colIndex][rowIndex]=newBoarderTile;
+                    //this.board.boardGrid[colIndex][rowIndex]=newBoarderTile;
+                    this.board.placeTile(newBoarderTile);
                 }
             }
         }
@@ -105,7 +106,8 @@ public class Controller {
             Tile newBoarderTile = new Tile(this.tileSize, false, null,false,
                     true, image, colIndex, floorRowIndex,
                     0,Direction.DOWN);
-            this.board.boardGrid[colIndex][floorRowIndex]=newBoarderTile;
+            //this.board.boardGrid[colIndex][floorRowIndex]=newBoarderTile;
+            this.board.placeTile(newBoarderTile);
         }
         render();
     }
@@ -117,10 +119,13 @@ public class Controller {
         this.group.getChildren().clear();
         for(int colIndex=0; colIndex<this.board.gridWidth; colIndex++){
             for(int rowIndex=0; rowIndex<this.board.gridHeight; rowIndex++){
-                if(this.board.boardGrid[colIndex][rowIndex]!=null){
+                //if(this.board.boardGrid[colIndex][rowIndex]!=null){
                     //System.out.println(this.board.boardGrid[colIndex][rowIndex].rectangle.);
-                    this.group.getChildren().add(this.board.boardGrid[colIndex][rowIndex].rectangle);
-
+                    //this.group.getChildren().add(this.board.boardGrid[colIndex][rowIndex].rectangle);
+                //}
+                Tile tile = this.board.getTile(colIndex,rowIndex);
+                if(tile!=null){
+                    this.group.getChildren().add(tile.rectangle);
                 }
             }
         }
@@ -149,7 +154,8 @@ public class Controller {
 
             for(Tile tile : this.currentActiveShape.tiles){
                 //Remove old tile from board
-                this.board.boardGrid[tile.columnIndex][tile.rowIndex]=null;
+                //this.board.boardGrid[tile.columnIndex][tile.rowIndex]=null;
+                this.board.removeTile(tile);
 
                 //set old tiles to null
                 tile = null;
@@ -164,7 +170,8 @@ public class Controller {
             //Update board
             for(Tile newTile: this.currentActiveShape.tiles){
                 //Update board with new tile
-                this.board.boardGrid[newTile.columnIndex][newTile.rowIndex]=newTile;
+                //this.board.boardGrid[newTile.columnIndex][newTile.rowIndex]=newTile;
+                this.board.placeTile(newTile);
             }
 
         }
@@ -216,7 +223,7 @@ public class Controller {
         //Remove old shape
         for(Tile tile : this.currentActiveShape.tiles){
             //Remove old tile from board
-            this.board.boardGrid[tile.columnIndex][tile.rowIndex]=null;
+            this.board.removeTile(tile);
 
             //set old tiles to null
             tile = null;
@@ -231,7 +238,7 @@ public class Controller {
         //Update board
         for(Tile newTile: this.currentActiveShape.tiles){
             //Update board with new tile
-            this.board.boardGrid[newTile.columnIndex][newTile.rowIndex]=newTile;
+            this.board.placeTile(newTile);
         }
     }
 
@@ -243,7 +250,8 @@ public class Controller {
     public boolean isColliding(List<Tile> newTileList){
         boolean isCollidingWithSelf = false;
         for(Tile newTile: newTileList){
-            if(this.board.boardGrid[newTile.columnIndex][newTile.rowIndex]!=null){
+            Tile tile = this.board.getTile(newTile.columnIndex,newTile.rowIndex);
+            if(tile!=null){
                 for(Tile activeTile: this.currentActiveShape.tiles){
                     isCollidingWithSelf = false;
                     if((activeTile.rowIndex==newTile.rowIndex) && (activeTile.columnIndex==newTile.columnIndex)){
@@ -340,7 +348,7 @@ public class Controller {
         for(List<Tile> tilesInRow : listOfFullRows){
             for(Tile tile : tilesInRow){
                 //Remove old tile from board
-                this.board.boardGrid[tile.columnIndex][tile.rowIndex]=null;
+                this.board.removeTile(tile);
 
                 //set old tiles to null
                 tile = null;
@@ -383,7 +391,7 @@ public class Controller {
 
         //Insert new tiles
         for(Tile newTile : listOfTilesToUpdate){
-            this.board.boardGrid[newTile.columnIndex][newTile.rowIndex]=newTile;
+            this.board.placeTile(newTile);
         }
     }
 
@@ -403,7 +411,7 @@ public class Controller {
         //check if spawn area is occupied
         boolean isOccupied =false;
         for (Tile newTile : this.currentActiveShape.tiles) {
-            if(this.board.boardGrid[newTile.columnIndex][newTile.rowIndex]!=null){
+            if(this.board.getTile(newTile.columnIndex,newTile.rowIndex)!=null){
                 isOccupied = true;
             }
         }
@@ -413,7 +421,7 @@ public class Controller {
         if(!isOccupied){
             //add tiles to board
             for (Tile newTile : this.currentActiveShape.tiles) {
-                this.board.boardGrid[newTile.columnIndex][newTile.rowIndex] = newTile;
+                this.board.placeTile(newTile);
             }
         } else {
             //TODO later add Game Over JavaFx message
