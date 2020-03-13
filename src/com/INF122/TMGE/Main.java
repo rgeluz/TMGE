@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -67,24 +68,61 @@ public class Main extends Application {
         int gridHeight = 20;
         int gridWidth = 12;
         int tileSize = 30;
-        Board board = new Board(gridHeight,gridWidth, tileSize);
-        Controller controller = new Controller(board);
-        Group group = controller.create();
+
+        //Board Player1
+        Board board1 = new Board(gridHeight,gridWidth, tileSize);
+        int board1Width = gridWidth*tileSize;
+        int board1Height = gridHeight*tileSize;
+
+        Controller controller1 = new Controller(board1);
+        Group group1 = controller1.create();
+
+        //Board Player2
+        Board board2 = new Board(gridHeight,gridWidth, tileSize);
+        int board2Width = gridWidth*tileSize;
+        int board2Height = gridHeight*tileSize;
+
+        Controller controller2 = new Controller(board2);
+        Group group2 = controller2.create();
+
+
+        //Master window
+        HBox hbox = new HBox(group1,group2);
+        int masterWindowWidth = board1Width * 2; //need to double width
+        int masterWindowHeight = board1Height;
         Color backgroundColor = Color.BLACK;
-        Scene scene = new Scene(group, gridWidth * tileSize, gridHeight * tileSize, backgroundColor);
+
+
+
+        //Scene scene = new Scene(group, gridWidth * tileSize, gridHeight * tileSize, backgroundColor);
+        Scene scene = new Scene(hbox, masterWindowWidth, masterWindowHeight, backgroundColor);
 
         //Key event handler
         scene.setOnKeyPressed(e -> {
-            if (e.getCode() == KeyCode.UP) { //ROTATE SHAPE CLOCKWISE
-                controller.rotateShape();
-            } else if (e.getCode() == KeyCode.LEFT) {
-                controller.moveShape(Direction.LEFT);
-            } else if (e.getCode() == KeyCode.RIGHT) {
-                controller.moveShape(Direction.RIGHT);
-            } else if (e.getCode() == KeyCode.DOWN) {
-                controller.moveShape(Direction.DOWN);
+
+            //Player 1
+            if (e.getCode() == KeyCode.W) { //ROTATE SHAPE CLOCKWISE
+                controller1.rotateShape();
+            } else if (e.getCode() == KeyCode.A) {
+                controller1.moveShape(Direction.LEFT);
+            } else if (e.getCode() == KeyCode.D) {
+                controller1.moveShape(Direction.RIGHT);
+            } else if (e.getCode() == KeyCode.S) {
+                controller1.moveShape(Direction.DOWN);
             }
-            controller.render();
+            controller1.render();
+
+            //Player 2
+            if (e.getCode() == KeyCode.UP) { //ROTATE SHAPE CLOCKWISE
+                controller2.rotateShape();
+            } else if (e.getCode() == KeyCode.LEFT) {
+                controller2.moveShape(Direction.LEFT);
+            } else if (e.getCode() == KeyCode.RIGHT) {
+                controller2.moveShape(Direction.RIGHT);
+            } else if (e.getCode() == KeyCode.DOWN) {
+                controller2.moveShape(Direction.DOWN);
+            }
+            controller2.render();
         });
 
         stage.setScene(scene);
