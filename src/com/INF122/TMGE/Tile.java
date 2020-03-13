@@ -1,7 +1,9 @@
 package com.INF122.TMGE;
 
 import javafx.scene.Group;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 
 import java.util.Arrays;
@@ -11,8 +13,11 @@ public class Tile {
 
     //instance variables
     public int tileSize;
+    public boolean setColor;
     public Color tileColor;
     public boolean setBoarder;
+    public boolean setImage;
+    public Image tileImage;
     public Rectangle rectangle;
     public int columnIndex;
     public int rowIndex;
@@ -23,10 +28,13 @@ public class Tile {
 
 
 
-    public Tile(int tileSize, Color color, boolean setBoarder, int cenColIndex, int cenRowIndex, int position, List<Direction> directions){
+    public Tile(int tileSize, boolean setColor, Color color, boolean setBoarder, boolean setImage, Image image, int cenColIndex, int cenRowIndex, int position, List<Direction> directions){
         this.tileSize = tileSize;
+        this.setColor = setColor;
         this.tileColor = color;
         this.setBoarder=setBoarder;
+        this.setImage = setImage;
+        this.tileImage = image;
         this.position = position;
         this.centerPieceColumnIndex = cenColIndex;
         this.centerPieceRowIndex = cenRowIndex;
@@ -35,9 +43,14 @@ public class Tile {
         this.rectangle = new Rectangle();
         this.rectangle.setHeight(this.tileSize);
         this.rectangle.setWidth(this.tileSize);
-        this.setColor(color);
-        if(setBoarder){
+        if(this.setColor){
+            this.setColor(this.tileColor);
+        }
+        if(this.setBoarder){
             this.setBoarder();
+        }
+        if(this.setImage){
+            this.setImage(this.tileImage);
         }
 
 
@@ -55,10 +68,13 @@ public class Tile {
 
     }
 
-    public Tile(int tileSize, Color color, boolean setBoarder, int cenColIndex, int cenRowIndex, int position, Direction... directions){
+    public Tile(int tileSize, boolean setColor, Color color, boolean setBoarder, boolean setImage, Image image, int cenColIndex, int cenRowIndex, int position, Direction... directions){
         this.tileSize = tileSize;
+        this.setColor = setColor;
         this.tileColor = color;
         this.setBoarder=setBoarder;
+        this.setImage = setImage;
+        this.tileImage = image;
         this.position = position;
         this.centerPieceColumnIndex = cenColIndex;
         this.centerPieceRowIndex = cenRowIndex;
@@ -67,9 +83,14 @@ public class Tile {
         this.rectangle = new Rectangle();
         this.rectangle.setHeight(this.tileSize);
         this.rectangle.setWidth(this.tileSize);
-        this.setColor(color);
-        if(setBoarder){
+        if(this.setColor){
+            this.setColor(this.tileColor);
+        }
+        if(this.setBoarder){
             this.setBoarder();
+        }
+        if(this.setImage){
+            this.setImage(this.tileImage);
         }
 
         int dx = 0, dy = 0;
@@ -98,8 +119,9 @@ public class Tile {
     /*
         maybe look into using image view
      */
-    public void setImage(){
-
+    public void setImage(Image image){
+        ImagePattern imagePattern = new ImagePattern(image);
+        this.rectangle.setFill(imagePattern);
     }
 
     public void setCoordinates(int columnIndex, int rowIndex){
