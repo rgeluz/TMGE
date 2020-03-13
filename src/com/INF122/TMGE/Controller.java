@@ -18,7 +18,7 @@ public class Controller {
 
     Board board;
     Group group;
-    int tileSize;
+    //int tileSize;
     private Shape currentActiveShape;
     private double time;
 
@@ -32,7 +32,8 @@ public class Controller {
      */
     public Controller(Board board) {
         this.board = board;
-        this.tileSize = board.tileSize;
+        // tileSize has been outsourced to board, which is passed in to Tetris first
+       // this.tileSize = board.tileSize;
     }
 
     /**
@@ -91,7 +92,7 @@ public class Controller {
             if(colIndex==0 || colIndex==(this.board.gridWidth-1)){  //leftmost and rightmost columns
                 for(int rowIndex=0; rowIndex<this.board.gridHeight; rowIndex++){
                     //create new tile
-                    Tile newBoarderTile = new Tile(this.tileSize, false, null,false,
+                    Tile newBoarderTile = new Tile(board.tileSize, false, null,false,
                             true, image, colIndex, rowIndex,
                             0,Direction.DOWN);
                     this.board.boardGrid[colIndex][rowIndex]=newBoarderTile;
@@ -102,7 +103,7 @@ public class Controller {
         //create floor
         int floorRowIndex=this.board.gridHeight-1;
         for(int colIndex=0; colIndex<this.board.gridWidth; colIndex++){
-            Tile newBoarderTile = new Tile(this.tileSize, false, null,false,
+            Tile newBoarderTile = new Tile(board.tileSize, false, null,false,
                     true, image, colIndex, floorRowIndex,
                     0,Direction.DOWN);
             this.board.boardGrid[colIndex][floorRowIndex]=newBoarderTile;
