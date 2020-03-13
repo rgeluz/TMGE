@@ -1,5 +1,6 @@
 package com.INF122.TMGE;
 
+import com.INF122.TMGE.tetris.TetrisShapeFactory;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
@@ -138,7 +139,7 @@ public class Controller {
         //Creating new shape
         List<Tile> newTileList = new ArrayList<Tile>();
         for(Tile tile : this.currentActiveShape.tiles){
-            Tile newTile = new Tile(this.tileSize, Color.BLUE, newColIndex, newRowIndex, tile.position , tile.directions);
+            Tile newTile = new Tile(tile.tileSize, tile.tileColor, newColIndex, newRowIndex, tile.position , tile.directions);
             newTileList.add(newTile);
         }
 
@@ -194,7 +195,7 @@ public class Controller {
                     newDirections.add(newDirection);
                 }
 
-                Tile newTile = new Tile(this.tileSize, Color.BLUE,tile.centerPieceColumnIndex, tile.centerPieceRowIndex, tile.position , newDirections);
+                Tile newTile = new Tile(tile.tileSize, tile.tileColor, tile.centerPieceColumnIndex, tile.centerPieceRowIndex, tile.position , newDirections);
                 newTileList.add(newTile);
 
             }
@@ -229,26 +230,8 @@ public class Controller {
     */
     public void generateShape() {
 
-        Tile tile1 = new Tile(25, Color.BLUE, (this.board.gridWidth-1)/2, 0, 0 , Direction.DOWN); //Center Tile
-        Tile tile2 = new Tile(25, Color.BLUE, (this.board.gridWidth-1)/2, 0,1 , Direction.RIGHT);
-        Tile tile3 = new Tile(25, Color.BLUE,(this.board.gridWidth-1)/2, 0, 1 , Direction.LEFT);
-        Tile tile4 = new Tile(25, Color.BLUE,(this.board.gridWidth-1)/2, 0, 1 , Direction.DOWN);
 
-        List<Tile> tiles = new ArrayList<Tile>();
-        tiles.add(tile1);
-        tiles.add(tile2);
-        tiles.add(tile3);
-        tiles.add(tile4);
-
-
-        //int randomIndex = new Random().nextInt(this.prototypeShapes.size());
-        //Shape shape = this.prototypeShapes.get(randomIndex).generateShape();
-        //Shape shape = Shape.generateShape();
-
-        Shape newShape = new Shape(tiles);
-
-        //start shape at top
-        //shape.move(this.gridWidth / 2); //TODO later
+        Shape newShape = TetrisShapeFactory.getRandomShape(this.board);
 
         //set newly created shape as the currently active shape
         this.currentActiveShape = newShape;
@@ -268,18 +251,11 @@ public class Controller {
             for (Tile newTile : this.currentActiveShape.tiles) {
                 this.board.boardGrid[newTile.columnIndex][newTile.rowIndex] = newTile;
             }
-
-
         } else {
             //TODO later add Game Over JavaFx message
             System.out.println("GAME OVER");
             System.exit(0);
         }
-
-
-
-
-
 
     }
 }

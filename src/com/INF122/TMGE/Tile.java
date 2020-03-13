@@ -10,7 +10,8 @@ import java.util.List;
 public class Tile {
 
     //instance variables
-    private int tileSize;
+    public int tileSize;
+    public Color tileColor;
     public Rectangle rectangle;
     public int columnIndex;
     public int rowIndex;
@@ -22,6 +23,7 @@ public class Tile {
 
     public Tile(int tileSize, Color color, int cenColIndex, int cenRowIndex, int position, List<Direction> directions){
         this.tileSize = tileSize;
+        this.tileColor = color;
         this.position = position;
         this.centerPieceColumnIndex = cenColIndex;
         this.centerPieceRowIndex = cenRowIndex;
@@ -49,15 +51,16 @@ public class Tile {
 
     public Tile(int tileSize, Color color, int cenColIndex, int cenRowIndex, int position, Direction... directions){
         this.tileSize = tileSize;
+        this.tileColor = color;
         this.position = position;
         this.centerPieceColumnIndex = cenColIndex;
         this.centerPieceRowIndex = cenRowIndex;
         this.directions = Arrays.asList(directions);
 
-
         this.rectangle = new Rectangle();
         this.rectangle.setHeight(this.tileSize);
         this.rectangle.setWidth(this.tileSize);
+
         this.setColor(color);
 
 
