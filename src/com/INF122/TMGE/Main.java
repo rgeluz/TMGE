@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -63,13 +64,14 @@ public class Main extends Application {
     public void testGame(Stage stage){
 
 
-        int gridHeight = 20;
+        int gridHeight = 10;
         int gridWidth = 10;
         int tileSize = 30;
         Board board = new Board(gridHeight,gridWidth, tileSize);
         Controller controller = new Controller(board);
         Group group = controller.create();
-        Scene scene = new Scene(group,gridWidth*tileSize, gridHeight*tileSize);
+        Color backgroundColor = Color.BLACK;
+        Scene scene = new Scene(group, gridWidth * tileSize, gridHeight * tileSize, backgroundColor);
 
         //Key event handler
         scene.setOnKeyPressed(e -> {
@@ -82,15 +84,11 @@ public class Main extends Application {
             } else if (e.getCode() == KeyCode.DOWN) {
                 controller.moveShape(Direction.DOWN);
             }
-            controller.render(group);
+            controller.render();
         });
 
         stage.setScene(scene);
         stage.show();
-
-
-
-
 
     }
 }

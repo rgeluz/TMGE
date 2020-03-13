@@ -8,7 +8,6 @@ import java.util.List;
 
 public class Shape {
 
-
     //instance variables
     private Color defaultColor;
     private Color shapeColor;
@@ -22,34 +21,10 @@ public class Shape {
         this.centerPieceRowIndex = tiles.get(0).rowIndex;
     }
 
-    //TODO
     public void renderShape(Group group){
         for(Tile tile: tiles){
             tile.renderTile(group);
         }
     }
-
-
-
-
-    //TODO
-    public void rotateShape(){
-        for(Tile tile: tiles){
-            //TODO
-        }
-    }
-
-    //TODO
-    /*
-        used to copy shape from shape protoype
-     */
-    /*public static Shape generateShape(){
-
-
-
-
-
-        return shape;
-    }*/
 
 }

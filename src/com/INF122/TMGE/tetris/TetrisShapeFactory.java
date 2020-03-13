@@ -14,6 +14,7 @@ public class TetrisShapeFactory {
     static int spawnColIndex;
     static int spawnRowIndex;
     static int tileSize;
+    static boolean setBoarder = true; //toggle to add boarder to tile
 
     /**
      * Get a random shape from shape factory.
@@ -36,6 +37,7 @@ public class TetrisShapeFactory {
         spawnRowIndex = 0;
         tileSize = board.tileSize;
 
+
         switch(type){
             case I_TETROMINO:
                 return create_I_Tetromino();
@@ -56,10 +58,10 @@ public class TetrisShapeFactory {
     }
 
     private static Shape create_I_Tetromino(){
-        Tile tile1 = new Tile(tileSize, Color.CYAN, spawnColIndex,spawnRowIndex, 0 , Direction.DOWN); //Center Tile
-        Tile tile2 = new Tile(tileSize, Color.CYAN, spawnColIndex,spawnRowIndex,1 , Direction.RIGHT);
-        Tile tile3 = new Tile(tileSize, Color.CYAN,spawnColIndex,spawnRowIndex, 1 , Direction.LEFT);
-        Tile tile4 = new Tile(tileSize, Color.CYAN,spawnColIndex,spawnRowIndex, 1 , Direction.RIGHT, Direction.RIGHT);
+        Tile tile1 = new Tile(tileSize, Color.CYAN, setBoarder, spawnColIndex,spawnRowIndex, 0 , Direction.DOWN); //Center Tile
+        Tile tile2 = new Tile(tileSize, Color.CYAN, setBoarder, spawnColIndex,spawnRowIndex,1 , Direction.RIGHT);
+        Tile tile3 = new Tile(tileSize, Color.CYAN, setBoarder, spawnColIndex,spawnRowIndex, 1 , Direction.LEFT);
+        Tile tile4 = new Tile(tileSize, Color.CYAN, setBoarder, spawnColIndex,spawnRowIndex, 1 , Direction.RIGHT, Direction.RIGHT);
 
         List<Tile> tiles = new ArrayList<Tile>();
         tiles.add(tile1);
@@ -70,10 +72,10 @@ public class TetrisShapeFactory {
     }
 
     private static Shape create_O_Tetromino(){
-        Tile tile1 = new Tile(tileSize, Color.YELLOW, spawnColIndex,spawnRowIndex, 0 , Direction.DOWN); //Center Tile
-        Tile tile2 = new Tile(tileSize, Color.YELLOW, spawnColIndex,spawnRowIndex,1 , Direction.RIGHT);
-        Tile tile3 = new Tile(tileSize, Color.YELLOW,spawnColIndex,spawnRowIndex, 1 , Direction.RIGHT, Direction.DOWN);
-        Tile tile4 = new Tile(tileSize, Color.YELLOW,spawnColIndex,spawnRowIndex, 1 , Direction.DOWN);
+        Tile tile1 = new Tile(tileSize, Color.YELLOW, setBoarder, spawnColIndex,spawnRowIndex, 0 , Direction.DOWN); //Center Tile
+        Tile tile2 = new Tile(tileSize, Color.YELLOW, setBoarder, spawnColIndex,spawnRowIndex,1 , Direction.RIGHT);
+        Tile tile3 = new Tile(tileSize, Color.YELLOW, setBoarder, spawnColIndex,spawnRowIndex, 1 , Direction.RIGHT, Direction.DOWN);
+        Tile tile4 = new Tile(tileSize, Color.YELLOW, setBoarder, spawnColIndex,spawnRowIndex, 1 , Direction.DOWN);
 
         List<Tile> tiles = new ArrayList<Tile>();
         tiles.add(tile1);
@@ -84,10 +86,10 @@ public class TetrisShapeFactory {
     }
 
     private static Shape create_T_Tetromino(){
-        Tile tile1 = new Tile(tileSize, Color.VIOLET, spawnColIndex,spawnRowIndex, 0 , Direction.DOWN); //Center Tile
-        Tile tile2 = new Tile(tileSize, Color.VIOLET, spawnColIndex,spawnRowIndex,1 , Direction.RIGHT);
-        Tile tile3 = new Tile(tileSize, Color.VIOLET,spawnColIndex,spawnRowIndex, 1 , Direction.LEFT);
-        Tile tile4 = new Tile(tileSize, Color.VIOLET,spawnColIndex,spawnRowIndex, 1 , Direction.DOWN);
+        Tile tile1 = new Tile(tileSize, Color.VIOLET, setBoarder, spawnColIndex,spawnRowIndex, 0 , Direction.DOWN); //Center Tile
+        Tile tile2 = new Tile(tileSize, Color.VIOLET, setBoarder, spawnColIndex,spawnRowIndex,1 , Direction.RIGHT);
+        Tile tile3 = new Tile(tileSize, Color.VIOLET, setBoarder, spawnColIndex,spawnRowIndex, 1 , Direction.LEFT);
+        Tile tile4 = new Tile(tileSize, Color.VIOLET, setBoarder, spawnColIndex,spawnRowIndex, 1 , Direction.DOWN);
 
         List<Tile> tiles = new ArrayList<Tile>();
         tiles.add(tile1);
@@ -98,10 +100,10 @@ public class TetrisShapeFactory {
     }
 
     private static Shape create_J_Tetromino(){
-        Tile tile1 = new Tile(tileSize, Color.BLUE, spawnColIndex,spawnRowIndex, 0 , Direction.DOWN); //Center Tile
-        Tile tile2 = new Tile(tileSize, Color.BLUE, spawnColIndex,spawnRowIndex,1 , Direction.LEFT);
-        Tile tile3 = new Tile(tileSize, Color.BLUE,spawnColIndex,spawnRowIndex, 1 , Direction.RIGHT);
-        Tile tile4 = new Tile(tileSize, Color.BLUE,spawnColIndex,spawnRowIndex, 1 , Direction.RIGHT,Direction.DOWN);
+        Tile tile1 = new Tile(tileSize, Color.BLUE, setBoarder, spawnColIndex,spawnRowIndex, 0 , Direction.DOWN); //Center Tile
+        Tile tile2 = new Tile(tileSize, Color.BLUE, setBoarder, spawnColIndex,spawnRowIndex,1 , Direction.LEFT);
+        Tile tile3 = new Tile(tileSize, Color.BLUE, setBoarder, spawnColIndex,spawnRowIndex, 1 , Direction.RIGHT);
+        Tile tile4 = new Tile(tileSize, Color.BLUE, setBoarder, spawnColIndex,spawnRowIndex, 1 , Direction.RIGHT,Direction.DOWN);
 
         List<Tile> tiles = new ArrayList<Tile>();
         tiles.add(tile1);
@@ -112,10 +114,10 @@ public class TetrisShapeFactory {
     }
 
     private static Shape create_L_Tetromino(){
-        Tile tile1 = new Tile(tileSize, Color.ORANGE, spawnColIndex,spawnRowIndex, 0 , Direction.DOWN); //Center Tile
-        Tile tile2 = new Tile(tileSize, Color.ORANGE, spawnColIndex,spawnRowIndex,1 , Direction.LEFT);
-        Tile tile3 = new Tile(tileSize, Color.ORANGE,spawnColIndex,spawnRowIndex, 1 , Direction.RIGHT);
-        Tile tile4 = new Tile(tileSize, Color.ORANGE,spawnColIndex,spawnRowIndex, 1 , Direction.LEFT, Direction.DOWN);
+        Tile tile1 = new Tile(tileSize, Color.ORANGE, setBoarder, spawnColIndex,spawnRowIndex, 0 , Direction.DOWN); //Center Tile
+        Tile tile2 = new Tile(tileSize, Color.ORANGE, setBoarder, spawnColIndex,spawnRowIndex,1 , Direction.LEFT);
+        Tile tile3 = new Tile(tileSize, Color.ORANGE, setBoarder, spawnColIndex,spawnRowIndex, 1 , Direction.RIGHT);
+        Tile tile4 = new Tile(tileSize, Color.ORANGE, setBoarder, spawnColIndex,spawnRowIndex, 1 , Direction.LEFT, Direction.DOWN);
 
         List<Tile> tiles = new ArrayList<Tile>();
         tiles.add(tile1);
@@ -126,10 +128,10 @@ public class TetrisShapeFactory {
     }
 
     private static Shape create_S_Tetromino(){
-        Tile tile1 = new Tile(tileSize, Color.SPRINGGREEN, spawnColIndex,spawnRowIndex, 0 , Direction.DOWN); //Center Tile
-        Tile tile2 = new Tile(tileSize, Color.SPRINGGREEN, spawnColIndex,spawnRowIndex,1 , Direction.RIGHT);
-        Tile tile3 = new Tile(tileSize, Color.SPRINGGREEN,spawnColIndex,spawnRowIndex, 1 , Direction.DOWN);
-        Tile tile4 = new Tile(tileSize, Color.SPRINGGREEN,spawnColIndex,spawnRowIndex, 1 , Direction.DOWN, Direction.LEFT);
+        Tile tile1 = new Tile(tileSize, Color.SPRINGGREEN, setBoarder, spawnColIndex,spawnRowIndex, 0 , Direction.DOWN); //Center Tile
+        Tile tile2 = new Tile(tileSize, Color.SPRINGGREEN, setBoarder, spawnColIndex,spawnRowIndex,1 , Direction.RIGHT);
+        Tile tile3 = new Tile(tileSize, Color.SPRINGGREEN, setBoarder, spawnColIndex,spawnRowIndex, 1 , Direction.DOWN);
+        Tile tile4 = new Tile(tileSize, Color.SPRINGGREEN, setBoarder, spawnColIndex,spawnRowIndex, 1 , Direction.DOWN, Direction.LEFT);
 
         List<Tile> tiles = new ArrayList<Tile>();
         tiles.add(tile1);
@@ -141,10 +143,10 @@ public class TetrisShapeFactory {
 
     //TODO
     private static Shape create_Z_Tetromino(){
-        Tile tile1 = new Tile(tileSize, Color.RED, spawnColIndex,spawnRowIndex, 0 , Direction.DOWN); //Center Tile
-        Tile tile2 = new Tile(tileSize, Color.RED, spawnColIndex,spawnRowIndex,1 , Direction.LEFT);
-        Tile tile3 = new Tile(tileSize, Color.RED,spawnColIndex,spawnRowIndex, 1 , Direction.DOWN);
-        Tile tile4 = new Tile(tileSize, Color.RED,spawnColIndex,spawnRowIndex, 1 , Direction.DOWN, Direction.RIGHT);
+        Tile tile1 = new Tile(tileSize, Color.RED, setBoarder, spawnColIndex,spawnRowIndex, 0 , Direction.DOWN); //Center Tile
+        Tile tile2 = new Tile(tileSize, Color.RED, setBoarder, spawnColIndex,spawnRowIndex,1 , Direction.LEFT);
+        Tile tile3 = new Tile(tileSize, Color.RED, setBoarder, spawnColIndex,spawnRowIndex, 1 , Direction.DOWN);
+        Tile tile4 = new Tile(tileSize, Color.RED, setBoarder, spawnColIndex,spawnRowIndex, 1 , Direction.DOWN, Direction.RIGHT);
 
         List<Tile> tiles = new ArrayList<Tile>();
         tiles.add(tile1);

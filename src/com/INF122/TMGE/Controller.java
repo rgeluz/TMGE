@@ -4,6 +4,9 @@ import com.INF122.TMGE.tetris.TetrisShapeFactory;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +14,7 @@ import java.util.List;
 public class Controller {
 
     Board board;
+    Group group;
     int tileSize;
     private List<Shape> prototypeShapes = new ArrayList<Shape>();
     private Shape currentActiveShape;
@@ -37,15 +41,16 @@ public class Controller {
                               //this.board.gridHeight * this.board.tileSize
                             //);
         Group group = new Group();
+        this.group = group;
 
         //Canvas canvas = new Canvas(GRID_WIDTH * TILE_SIZE, GRID_HEIGHT * TILE_SIZE);
         //g = canvas.getGraphicsContext2D();
 
         //root.getChildren().addAll(canvas);
 
-        //spawn
+        //first spawn
         generateShape();
-        render(group);
+        render();
 
 
         AnimationTimer timer = new AnimationTimer() {
@@ -55,7 +60,7 @@ public class Controller {
 
                 if (time >= 0.5) {
                     moveShape(Direction.DOWN);
-                    render(group);
+                    render();
                     time = 0;
                 }
             }
@@ -66,13 +71,13 @@ public class Controller {
         return group;
     }
 
-    public void render(Group group){
-        group.getChildren().clear();
+    public void render(){
+        this.group.getChildren().clear();
         for(int colIndex=0; colIndex<this.board.gridWidth; colIndex++){
             for(int rowIndex=0; rowIndex<this.board.gridHeight; rowIndex++){
                 if(this.board.boardGrid[colIndex][rowIndex]!=null){
                     //System.out.println(this.board.boardGrid[colIndex][rowIndex].rectangle.);
-                    group.getChildren().add(this.board.boardGrid[colIndex][rowIndex].rectangle);
+                    this.group.getChildren().add(this.board.boardGrid[colIndex][rowIndex].rectangle);
 
                 }
             }
@@ -80,11 +85,6 @@ public class Controller {
         }
     }
 
-
-
-    public void addPrototypeShape() {
-
-    }
 
     public boolean isColliding(List<Tile> newTileList){
         boolean isCollidingWithSelf = false;
@@ -130,16 +130,14 @@ public class Controller {
 
     public void moveShape(Direction direction) {
 
-
         //calculate new center tile coordinates
         int newColIndex = this.currentActiveShape.centerPieceColumnIndex + direction.colIndex;
         int newRowIndex = this.currentActiveShape.centerPieceRowIndex + direction.rowIndex;
 
-
         //Creating new shape
         List<Tile> newTileList = new ArrayList<Tile>();
         for(Tile tile : this.currentActiveShape.tiles){
-            Tile newTile = new Tile(tile.tileSize, tile.tileColor, newColIndex, newRowIndex, tile.position , tile.directions);
+            Tile newTile = new Tile(tile.tileSize, tile.tileColor, tile.setBoarder, newColIndex, newRowIndex, tile.position , tile.directions);
             newTileList.add(newTile);
         }
 
@@ -157,7 +155,6 @@ public class Controller {
                 generateShape();
             }
         }
-
 
     }
 
@@ -195,7 +192,7 @@ public class Controller {
                     newDirections.add(newDirection);
                 }
 
-                Tile newTile = new Tile(tile.tileSize, tile.tileColor, tile.centerPieceColumnIndex, tile.centerPieceRowIndex, tile.position , newDirections);
+                Tile newTile = new Tile(tile.tileSize, tile.tileColor, tile.setBoarder, tile.centerPieceColumnIndex, tile.centerPieceRowIndex, tile.position , newDirections);
                 newTileList.add(newTile);
 
             }
@@ -220,16 +217,14 @@ public class Controller {
                 this.board.boardGrid[newTile.columnIndex][newTile.rowIndex]=newTile;
             }
 
-
         }
     }
 
 
-    /*
-       Spawns new shape from top of grid
-    */
+    /**
+     * Spawns new shape from top of grid
+     */
     public void generateShape() {
-
 
         Shape newShape = TetrisShapeFactory.getRandomShape(this.board);
 
@@ -254,6 +249,23 @@ public class Controller {
         } else {
             //TODO later add Game Over JavaFx message
             System.out.println("GAME OVER");
+
+            //TODO Finishlater
+            //Text gameoverText = new Text(10,20,"GAME OVER");
+            //gameoverText.setFill(Color.RED);
+            //gameoverText.setX( 100/*( ((board.gridWidth-1)*tileSize)/2)*/ );
+            //gameoverText.setY( 100/*( ((board.gridHeight-1)*tileSize)/2)*/ );
+            //gameoverText.setStyle("-fx-font: 70 arial;");
+            //this.group.getChildren().add(gameoverText);
+
+            Text t = new Text();
+            t.setX(20.0f);
+            t.setY(65.0f);
+            t.setText("Perspective");
+            t.setFill(Color.YELLOW);
+            t.setFont(Font.font(null, FontWeight.BOLD, 36));
+            this.group.getChildren().add(t);
+
             System.exit(0);
         }
 
