@@ -98,6 +98,9 @@ public class Controller {
                         break;
                     }
                 }
+                //if its not colliding with itself
+                //but there is a existing object,
+                //then return isColliding=true
                 if(!isCollidingWithSelf){
                     return true;
                 }
@@ -129,13 +132,12 @@ public class Controller {
     public void moveShape(Direction direction) {
 
 
-
         //calculate new center tile coordinates
         int newColIndex = this.currentActiveShape.centerPieceColumnIndex + direction.colIndex;
         int newRowIndex = this.currentActiveShape.centerPieceRowIndex + direction.rowIndex;
 
 
-          //Creating new shape
+        //Creating new shape
         List<Tile> newTileList = new ArrayList<Tile>();
         for(Tile tile : this.currentActiveShape.tiles){
             Tile newTile = new Tile(this.tileSize, Color.BLUE, newColIndex, newRowIndex, tile.position , tile.directions);
@@ -143,41 +145,44 @@ public class Controller {
         }
 
         //Exit function if it reaches the side //TODO
-        /*if(direction==Direction.LEFT || direction==Direction.RIGHT){
-            if(!isLeftOrRightWall(newTileList) ){
-
+        if(direction==Direction.LEFT || direction==Direction.RIGHT){
+            if( !isLeftOrRightWall(newTileList) && !isColliding(newTileList) ){
+                updateBoard(newTileList);
             }
         } else if(direction==Direction.DOWN){
-
-        } //If Down */
-
-        //check for out bounds
-        if(!isBottom(newTileList) &&  !isColliding(newTileList) ){
-            //Remove old shape
-            for(Tile tile : this.currentActiveShape.tiles){
-                //Remove old tile from board
-                this.board.boardGrid[tile.columnIndex][tile.rowIndex]=null;
-
-                //set old tiles to null
-                tile = null;
+            //check for out bounds and collision
+            if( !isBottom(newTileList) && !isColliding(newTileList) ){
+                updateBoard(newTileList);
+            } else {
+                //spawn new shape
+                generateShape();
             }
+        } //If Down
 
-            this.currentActiveShape = null;
 
-            //Create a new shape
-            Shape newShape = new Shape(newTileList);
-            this.currentActiveShape = newShape;
+    }
 
-            //Update board
-            for(Tile newTile: this.currentActiveShape.tiles){
-                //Update board with new tile
-                this.board.boardGrid[newTile.columnIndex][newTile.rowIndex]=newTile;
-            }
-        } else {
-            //spawn new shape
-            generateShape();
+    private void updateBoard(List<Tile> newTileList){
+        //Remove old shape
+        for(Tile tile : this.currentActiveShape.tiles){
+            //Remove old tile from board
+            this.board.boardGrid[tile.columnIndex][tile.rowIndex]=null;
+
+            //set old tiles to null
+            tile = null;
         }
 
+        this.currentActiveShape = null;
+
+        //Create a new shape
+        Shape newShape = new Shape(newTileList);
+        this.currentActiveShape = newShape;
+
+        //Update board
+        for(Tile newTile: this.currentActiveShape.tiles){
+            //Update board with new tile
+            this.board.boardGrid[newTile.columnIndex][newTile.rowIndex]=newTile;
+        }
     }
 
     public void rotateShape(){

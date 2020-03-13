@@ -82,9 +82,7 @@ public class Main extends Application {
             } else if (e.getCode() == KeyCode.DOWN) {
                 controller.moveShape(Direction.DOWN);
             }
-
             controller.render(group);
-
         });
 
         stage.setScene(scene);
