@@ -47,7 +47,7 @@ public class Controller {
         Group group = new Group();
         this.group = group;
 
-        //TODO for tetris
+        //TODO for tetris - added to Tetris constructor
         this.tetrisLineCount = 0;
         this.includeTetrisBorder = true;
         if(this.includeTetrisBorder){
@@ -77,7 +77,7 @@ public class Controller {
         return group;
     }
 
-    //TODO used for tetris border
+    //TODO used for tetris border - copy added to Tetris
     private void addTetrisBorder(){
         Image image = null;
         try {
@@ -302,7 +302,7 @@ public class Controller {
         }
     }
 
-    //TODO for tetris
+    //TODO for tetris - copy added to Tetris
     public List<List<Tile>> getFullRows(boolean isBorder){
         List<List<Tile>> listOfFullRows = new ArrayList<List<Tile>>();
 
@@ -335,7 +335,7 @@ public class Controller {
         return listOfFullRows;
     }
 
-    //TODO for tetris
+    //TODO for tetris - copy added to Tetris
     private void removeFullRowTiles(List<List<Tile>> listOfFullRows){
         for(List<Tile> tilesInRow : listOfFullRows){
             for(Tile tile : tilesInRow){
@@ -348,7 +348,7 @@ public class Controller {
         }
     }
 
-    //TODO for tetris
+    //TODO for tetris - copy added to Tetris
     private void shiftDownTiles(boolean isBorder){
         List<Tile> listOfTilesToUpdate = new ArrayList<Tile>();
 
@@ -397,7 +397,7 @@ public class Controller {
      */
     public void generateShape() {
 
-        //TODO for tetris game
+        //TODO for tetris game - copy added to Tetris
         Shape newShape = TetrisShapeFactory.getRandomShape(this.board);
 
         //set newly created shape as the currently active shape
