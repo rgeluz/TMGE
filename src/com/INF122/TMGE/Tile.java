@@ -47,7 +47,7 @@ public class Tile {
             this.setColor(this.tileColor);
         }
         if(this.setTileBorder){
-            this.setBoarder();
+            this.setBorder();
         }
         if(this.setImage){
             this.setImage(this.tileImage);
@@ -86,7 +86,7 @@ public class Tile {
             this.setColor(this.tileColor);
         }
         if(this.setTileBorder){
-            this.setBoarder();
+            this.setBorder();
         }
         if(this.setImage){
             this.setImage(this.tileImage);
@@ -112,7 +112,7 @@ public class Tile {
         this.rectangle.setFill(color);
     }
 
-    public void setBoarder() { this.rectangle.setStroke(Color.WHITE); }
+    public void setBorder() { this.rectangle.setStroke(Color.WHITE); }
 
     //TODO finish later
     /*
