@@ -63,7 +63,7 @@ public class Main extends Application {
     public void testGame(Stage stage){
 
 
-        int gridHeight = 12;
+        int gridHeight = 24;
         int gridWidth = 11;
         int tileSize = 25;
         Board board = new Board(gridHeight,gridWidth, tileSize);
