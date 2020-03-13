@@ -48,7 +48,10 @@ public class Board {
         return group;
     }
 
-    //TODO Remove later
+    public Tile getTile(int columnIndex, int rowIndex){
+        return this.boardGrid[columnIndex][rowIndex];
+    }
+
     public void placeTile(Tile tile){
         this.boardGrid[tile.columnIndex][tile.rowIndex] = tile;
     }

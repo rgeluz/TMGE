@@ -107,6 +107,8 @@ public class Tile {
     }
 
 
+
+
     //TODO for now just set color, replace with image later
     public void setColor(Color color){
         this.rectangle.setFill(color);
