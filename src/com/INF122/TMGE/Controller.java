@@ -22,7 +22,7 @@ public class Controller {
     private Shape currentActiveShape;
     private double time;
 
-    //TODO move this to tetris
+    //TODO move this to tetris - added to tetris
     int tetrisLineCount;
     boolean includeTetrisBorder;
 
