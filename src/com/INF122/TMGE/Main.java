@@ -65,7 +65,7 @@ public class Main extends Application {
 
 
         int gridHeight = 20;
-        int gridWidth = 10;
+        int gridWidth = 12;
         int tileSize = 30;
         Board board = new Board(gridHeight,gridWidth, tileSize);
         Controller controller = new Controller(board);

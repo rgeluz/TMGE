@@ -3,11 +3,14 @@ package com.INF122.TMGE;
 import com.INF122.TMGE.tetris.TetrisShapeFactory;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Group;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,6 +43,9 @@ public class Controller {
         Group group = new Group();
         this.group = group;
 
+        //TODO for tetris
+        addTetrisBoarder();
+
         //first spawn
         generateShape();
         render();
@@ -59,6 +65,40 @@ public class Controller {
         timer.start();
 
         return group;
+    }
+
+    //TODO used for tetris boarder
+    private void addTetrisBoarder(){
+        Image image = null;
+        try {
+            image = new Image(new FileInputStream("resources/BlockGrey.png"));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        //create left and right wall
+        for(int colIndex=0; colIndex<this.board.gridWidth; colIndex++){
+            if(colIndex==0 || colIndex==(this.board.gridWidth-1)){  //leftmost and rightmost columns
+                for(int rowIndex=0; rowIndex<this.board.gridHeight; rowIndex++){
+                    //create new tile
+                    Tile newBoarderTile = new Tile(this.tileSize, false, null,false,
+                            true, image, colIndex, rowIndex,
+                            0,Direction.DOWN);
+                    this.board.boardGrid[colIndex][rowIndex]=newBoarderTile;
+                }
+            }
+        }
+
+        //create floor
+        int floorRowIndex=this.board.gridHeight-1;
+        for(int colIndex=0; colIndex<this.board.gridWidth; colIndex++){
+            Tile newBoarderTile = new Tile(this.tileSize, false, null,false,
+                    true, image, colIndex, floorRowIndex,
+                    0,Direction.DOWN);
+            this.board.boardGrid[colIndex][floorRowIndex]=newBoarderTile;
+        }
+
+        render();
     }
 
     /**
