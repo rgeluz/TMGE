@@ -54,8 +54,6 @@ public class Controller {
 
                 if (time >= 0.5) {
                     moveShape(Direction.DOWN);
-                    //moveShape(Direction.RIGHT);
-                    //moveShape(Direction.LEFT);
                     render(group);
                     time = 0;
                 }
@@ -144,20 +142,20 @@ public class Controller {
             newTileList.add(newTile);
         }
 
-        //Exit function if it reaches the side //TODO
+        //Update Board if not out of bounds and no collision
         if(direction==Direction.LEFT || direction==Direction.RIGHT){
             if( !isLeftOrRightWall(newTileList) && !isColliding(newTileList) ){
                 updateBoard(newTileList);
             }
         } else if(direction==Direction.DOWN){
-            //check for out bounds and collision
+            //check for out of bounds and collision
             if( !isBottom(newTileList) && !isColliding(newTileList) ){
                 updateBoard(newTileList);
             } else {
                 //spawn new shape
                 generateShape();
             }
-        } //If Down
+        }
 
 
     }
@@ -247,24 +245,40 @@ public class Controller {
         //Shape shape = this.prototypeShapes.get(randomIndex).generateShape();
         //Shape shape = Shape.generateShape();
 
-        Shape shape = new Shape(tiles);
+        Shape newShape = new Shape(tiles);
 
         //start shape at top
         //shape.move(this.gridWidth / 2); //TODO later
 
         //set newly created shape as the currently active shape
-        this.currentActiveShape = shape;
+        this.currentActiveShape = newShape;
 
-        //add tiles to board
-        for (Tile tile : shape.tiles) {
-            this.board.boardGrid[tile.columnIndex][tile.rowIndex] = tile;
+        //check if spawn area is occupied
+        boolean isOccupied =false;
+        for (Tile newTile : this.currentActiveShape.tiles) {
+            if(this.board.boardGrid[newTile.columnIndex][newTile.rowIndex]!=null){
+                isOccupied = true;
+            }
         }
 
         //TODO
         //check if shape reaches top
-        //if(){
-        //TODO later add Game Over message
-        //}
+        if(!isOccupied){
+            //add tiles to board
+            for (Tile newTile : this.currentActiveShape.tiles) {
+                this.board.boardGrid[newTile.columnIndex][newTile.rowIndex] = newTile;
+            }
+
+
+        } else {
+            //TODO later add Game Over JavaFx message
+            System.out.println("GAME OVER");
+            System.exit(0);
+        }
+
+
+
+
 
 
     }
