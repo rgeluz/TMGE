@@ -22,6 +22,10 @@ public class Controller {
     private Shape currentActiveShape;
     private double time;
 
+    //TODO move this to tetris
+    int tetrisLineCount;
+    boolean includeTetrisBorder;
+
     /**
      * Constructor
      * @param board
@@ -44,7 +48,12 @@ public class Controller {
         this.group = group;
 
         //TODO for tetris
-        addTetrisBoarder();
+        this.tetrisLineCount = 0;
+        this.includeTetrisBorder = true;
+        if(this.includeTetrisBorder){
+            addTetrisBorder();
+        }
+
 
         //first spawn
         generateShape();
@@ -57,6 +66,7 @@ public class Controller {
 
                 if (time >= 0.5) {
                     moveShape(Direction.DOWN);
+                    checkForFullRows();
                     render();
                     time = 0;
                 }
@@ -67,8 +77,8 @@ public class Controller {
         return group;
     }
 
-    //TODO used for tetris boarder
-    private void addTetrisBoarder(){
+    //TODO used for tetris border
+    private void addTetrisBorder(){
         Image image = null;
         try {
             image = new Image(new FileInputStream("resources/BlockGrey.png"));
@@ -97,7 +107,6 @@ public class Controller {
                     0,Direction.DOWN);
             this.board.boardGrid[colIndex][floorRowIndex]=newBoarderTile;
         }
-
         render();
     }
 
@@ -131,7 +140,7 @@ public class Controller {
                     newDirections.add(newDirection);
                 }
 
-                Tile newTile = new Tile(tile.tileSize, tile.setColor, tile.tileColor, tile.setBoarder,
+                Tile newTile = new Tile(tile.tileSize, tile.setColor, tile.tileColor, tile.setTileBorder,
                         tile.setImage, tile.tileImage,
                         tile.centerPieceColumnIndex, tile.centerPieceRowIndex, tile.position , newDirections);
                 newTileList.add(newTile);
@@ -175,7 +184,7 @@ public class Controller {
         //Creating new shape
         List<Tile> newTileList = new ArrayList<Tile>();
         for(Tile tile : this.currentActiveShape.tiles){
-            Tile newTile = new Tile(tile.tileSize, tile.setColor, tile.tileColor, tile.setBoarder,
+            Tile newTile = new Tile(tile.tileSize, tile.setColor, tile.tileColor, tile.setTileBorder,
                                     tile.setImage, tile.tileImage,
                                     newColIndex, newRowIndex, tile.position , tile.directions);
             newTileList.add(newTile);
@@ -194,6 +203,7 @@ public class Controller {
                 //spawn new shape
                 generateShape();
             }
+            checkForFullRows();
         }
 
     }
@@ -278,6 +288,106 @@ public class Controller {
             }
         }
         return false;
+    }
+
+    //TODO for tetris
+    public void checkForFullRows(){
+        //TODO this is only for tetris, need to move outside
+        //check for any full rows
+        List<List<Tile>> listOfFullRows = getFullRows(this.includeTetrisBorder);
+        if(listOfFullRows.size()>0){
+            removeFullRowTiles(listOfFullRows);
+            shiftDownTiles(this.includeTetrisBorder);
+            //render();
+        }
+    }
+
+    //TODO for tetris
+    public List<List<Tile>> getFullRows(boolean isBorder){
+        List<List<Tile>> listOfFullRows = new ArrayList<List<Tile>>();
+
+
+        int floorRowIndex;
+        if(isBorder){
+            floorRowIndex = this.board.gridHeight-2;
+        }else {
+            floorRowIndex = this.board.gridHeight-1;
+        }
+        for(int rowIndex=0; rowIndex<=floorRowIndex; rowIndex++){
+            int tileCount=0;
+            List<Tile> tilesInRow = new ArrayList<Tile>();
+            for(int colIndex=0; colIndex<this.board.gridWidth; colIndex++){
+                if(this.board.boardGrid[colIndex][rowIndex]!=null){
+                    tileCount++;
+                }
+                tilesInRow.add(this.board.boardGrid[colIndex][rowIndex]);
+            }
+            /**/
+            if(tileCount>=this.board.gridWidth){
+                this.tetrisLineCount++;
+                listOfFullRows.add(tilesInRow);
+                System.out.println("line count: " + this.tetrisLineCount);
+                System.out.println("FULL ROW");
+                //return true;
+            }
+        }
+        //return false;
+        return listOfFullRows;
+    }
+
+    //TODO for tetris
+    private void removeFullRowTiles(List<List<Tile>> listOfFullRows){
+        for(List<Tile> tilesInRow : listOfFullRows){
+            for(Tile tile : tilesInRow){
+                //Remove old tile from board
+                this.board.boardGrid[tile.columnIndex][tile.rowIndex]=null;
+
+                //set old tiles to null
+                tile = null;
+            }
+        }
+    }
+
+    //TODO for tetris
+    private void shiftDownTiles(boolean isBorder){
+        List<Tile> listOfTilesToUpdate = new ArrayList<Tile>();
+
+
+
+        for(int rowIndex=0; rowIndex<this.board.gridHeight; rowIndex++){
+            for(int colIndex=0; colIndex<this.board.gridWidth; colIndex++){
+                if(this.board.boardGrid[colIndex][rowIndex]!=null){ //tile exist at coordinates
+                    Tile tile = this.board.boardGrid[colIndex][rowIndex];
+                    //calculate new center tile coordinates
+                    //Direction direction = Direction.DOWN;
+                    //int newColIndex = tile.columnIndex + direction.colIndex;
+                    //int newRowIndex = tile.rowIndex + direction.rowIndex;
+                    int newRowIndex = tile.rowIndex + 1;
+
+                    Tile newTile = new Tile(tile.tileSize, tile.setColor, tile.tileColor,tile.setTileBorder,
+                            tile.setImage, tile.tileImage,
+                            tile.columnIndex, newRowIndex, tile.position, tile.directions);
+                    listOfTilesToUpdate.add(newTile);
+                }
+            }
+        }
+
+        //Clear Board Grid. Set every element in 2D array to null.
+        for(int rowIndex=0; rowIndex<this.board.gridHeight; rowIndex++){
+            for(int colIndex=0; colIndex<this.board.gridWidth; colIndex++){
+                this.board.boardGrid[colIndex][rowIndex]=null;
+            }
+        }
+
+        //add back tetris border
+        if(this.includeTetrisBorder) {
+            addTetrisBorder();
+        }
+
+        //Insert new tiles
+        for(Tile newTile : listOfTilesToUpdate){
+            this.board.boardGrid[newTile.columnIndex][newTile.rowIndex]=newTile;
+        }
     }
 
 

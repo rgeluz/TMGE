@@ -18,8 +18,10 @@ public class TetrisShapeFactory {
     static int spawnRowIndex;
     static int tileSize;
     static boolean setColor = false;
-    static boolean setBoarder = false; //toggle to add boarder to tile
+    public static boolean setTileBorder = false; //toggle to add boarder to tile
     static boolean setImage = true; //if image is set to true, color should be set to false
+
+
 
     /**
      * Get a random shape from shape factory.
@@ -69,10 +71,10 @@ public class TetrisShapeFactory {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        Tile tile1 = new Tile(tileSize, setColor, Color.CYAN, setBoarder, setImage, image, spawnColIndex,spawnRowIndex, 0 , Direction.DOWN); //Center Tile
-        Tile tile2 = new Tile(tileSize, setColor, Color.CYAN, setBoarder, setImage, image, spawnColIndex,spawnRowIndex,1 , Direction.RIGHT);
-        Tile tile3 = new Tile(tileSize, setColor, Color.CYAN, setBoarder, setImage, image, spawnColIndex,spawnRowIndex, 1 , Direction.LEFT);
-        Tile tile4 = new Tile(tileSize, setColor, Color.CYAN, setBoarder, setImage, image, spawnColIndex,spawnRowIndex, 1 , Direction.RIGHT, Direction.RIGHT);
+        Tile tile1 = new Tile(tileSize, setColor, Color.CYAN, setTileBorder, setImage, image, spawnColIndex,spawnRowIndex, 0 , Direction.DOWN); //Center Tile
+        Tile tile2 = new Tile(tileSize, setColor, Color.CYAN, setTileBorder, setImage, image, spawnColIndex,spawnRowIndex,1 , Direction.RIGHT);
+        Tile tile3 = new Tile(tileSize, setColor, Color.CYAN, setTileBorder, setImage, image, spawnColIndex,spawnRowIndex, 1 , Direction.LEFT);
+        Tile tile4 = new Tile(tileSize, setColor, Color.CYAN, setTileBorder, setImage, image, spawnColIndex,spawnRowIndex, 1 , Direction.RIGHT, Direction.RIGHT);
 
         List<Tile> tiles = new ArrayList<Tile>();
         tiles.add(tile1);
@@ -89,10 +91,10 @@ public class TetrisShapeFactory {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        Tile tile1 = new Tile(tileSize, setColor, Color.YELLOW, setBoarder, setImage, image, spawnColIndex,spawnRowIndex, 0 , Direction.DOWN); //Center Tile
-        Tile tile2 = new Tile(tileSize, setColor, Color.YELLOW, setBoarder, setImage, image, spawnColIndex,spawnRowIndex,1 , Direction.RIGHT);
-        Tile tile3 = new Tile(tileSize, setColor, Color.YELLOW, setBoarder, setImage, image, spawnColIndex,spawnRowIndex, 1 , Direction.RIGHT, Direction.DOWN);
-        Tile tile4 = new Tile(tileSize, setColor, Color.YELLOW, setBoarder, setImage, image, spawnColIndex,spawnRowIndex, 1 , Direction.DOWN);
+        Tile tile1 = new Tile(tileSize, setColor, Color.YELLOW, setTileBorder, setImage, image, spawnColIndex,spawnRowIndex, 0 , Direction.DOWN); //Center Tile
+        Tile tile2 = new Tile(tileSize, setColor, Color.YELLOW, setTileBorder, setImage, image, spawnColIndex,spawnRowIndex,1 , Direction.RIGHT);
+        Tile tile3 = new Tile(tileSize, setColor, Color.YELLOW, setTileBorder, setImage, image, spawnColIndex,spawnRowIndex, 1 , Direction.RIGHT, Direction.DOWN);
+        Tile tile4 = new Tile(tileSize, setColor, Color.YELLOW, setTileBorder, setImage, image, spawnColIndex,spawnRowIndex, 1 , Direction.DOWN);
 
         List<Tile> tiles = new ArrayList<Tile>();
         tiles.add(tile1);
@@ -109,10 +111,10 @@ public class TetrisShapeFactory {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        Tile tile1 = new Tile(tileSize, setColor, Color.VIOLET, setBoarder, setImage, image, spawnColIndex,spawnRowIndex, 0 , Direction.DOWN); //Center Tile
-        Tile tile2 = new Tile(tileSize, setColor, Color.VIOLET, setBoarder, setImage, image, spawnColIndex,spawnRowIndex,1 , Direction.RIGHT);
-        Tile tile3 = new Tile(tileSize, setColor, Color.VIOLET, setBoarder, setImage, image, spawnColIndex,spawnRowIndex, 1 , Direction.LEFT);
-        Tile tile4 = new Tile(tileSize, setColor, Color.VIOLET, setBoarder, setImage, image, spawnColIndex,spawnRowIndex, 1 , Direction.DOWN);
+        Tile tile1 = new Tile(tileSize, setColor, Color.VIOLET, setTileBorder, setImage, image, spawnColIndex,spawnRowIndex, 0 , Direction.DOWN); //Center Tile
+        Tile tile2 = new Tile(tileSize, setColor, Color.VIOLET, setTileBorder, setImage, image, spawnColIndex,spawnRowIndex,1 , Direction.RIGHT);
+        Tile tile3 = new Tile(tileSize, setColor, Color.VIOLET, setTileBorder, setImage, image, spawnColIndex,spawnRowIndex, 1 , Direction.LEFT);
+        Tile tile4 = new Tile(tileSize, setColor, Color.VIOLET, setTileBorder, setImage, image, spawnColIndex,spawnRowIndex, 1 , Direction.DOWN);
 
         List<Tile> tiles = new ArrayList<Tile>();
         tiles.add(tile1);
@@ -129,10 +131,10 @@ public class TetrisShapeFactory {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        Tile tile1 = new Tile(tileSize, setColor, Color.BLUE, setBoarder, setImage, image, spawnColIndex,spawnRowIndex, 0 , Direction.DOWN); //Center Tile
-        Tile tile2 = new Tile(tileSize, setColor, Color.BLUE, setBoarder, setImage, image, spawnColIndex,spawnRowIndex,1 , Direction.LEFT);
-        Tile tile3 = new Tile(tileSize, setColor, Color.BLUE, setBoarder, setImage, image, spawnColIndex,spawnRowIndex, 1 , Direction.RIGHT);
-        Tile tile4 = new Tile(tileSize, setColor, Color.BLUE, setBoarder, setImage, image, spawnColIndex,spawnRowIndex, 1 , Direction.RIGHT,Direction.DOWN);
+        Tile tile1 = new Tile(tileSize, setColor, Color.BLUE, setTileBorder, setImage, image, spawnColIndex,spawnRowIndex, 0 , Direction.DOWN); //Center Tile
+        Tile tile2 = new Tile(tileSize, setColor, Color.BLUE, setTileBorder, setImage, image, spawnColIndex,spawnRowIndex,1 , Direction.LEFT);
+        Tile tile3 = new Tile(tileSize, setColor, Color.BLUE, setTileBorder, setImage, image, spawnColIndex,spawnRowIndex, 1 , Direction.RIGHT);
+        Tile tile4 = new Tile(tileSize, setColor, Color.BLUE, setTileBorder, setImage, image, spawnColIndex,spawnRowIndex, 1 , Direction.RIGHT,Direction.DOWN);
 
         List<Tile> tiles = new ArrayList<Tile>();
         tiles.add(tile1);
@@ -149,10 +151,10 @@ public class TetrisShapeFactory {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        Tile tile1 = new Tile(tileSize, setColor, Color.ORANGE, setBoarder, setImage, image, spawnColIndex,spawnRowIndex, 0 , Direction.DOWN); //Center Tile
-        Tile tile2 = new Tile(tileSize, setColor, Color.ORANGE, setBoarder, setImage, image, spawnColIndex,spawnRowIndex,1 , Direction.LEFT);
-        Tile tile3 = new Tile(tileSize, setColor, Color.ORANGE, setBoarder, setImage, image, spawnColIndex,spawnRowIndex, 1 , Direction.RIGHT);
-        Tile tile4 = new Tile(tileSize, setColor, Color.ORANGE, setBoarder, setImage, image, spawnColIndex,spawnRowIndex, 1 , Direction.LEFT, Direction.DOWN);
+        Tile tile1 = new Tile(tileSize, setColor, Color.ORANGE, setTileBorder, setImage, image, spawnColIndex,spawnRowIndex, 0 , Direction.DOWN); //Center Tile
+        Tile tile2 = new Tile(tileSize, setColor, Color.ORANGE, setTileBorder, setImage, image, spawnColIndex,spawnRowIndex,1 , Direction.LEFT);
+        Tile tile3 = new Tile(tileSize, setColor, Color.ORANGE, setTileBorder, setImage, image, spawnColIndex,spawnRowIndex, 1 , Direction.RIGHT);
+        Tile tile4 = new Tile(tileSize, setColor, Color.ORANGE, setTileBorder, setImage, image, spawnColIndex,spawnRowIndex, 1 , Direction.LEFT, Direction.DOWN);
 
         List<Tile> tiles = new ArrayList<Tile>();
         tiles.add(tile1);
@@ -169,10 +171,10 @@ public class TetrisShapeFactory {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        Tile tile1 = new Tile(tileSize, setColor, Color.SPRINGGREEN, setBoarder, setImage, image, spawnColIndex,spawnRowIndex, 0 , Direction.DOWN); //Center Tile
-        Tile tile2 = new Tile(tileSize, setColor, Color.SPRINGGREEN, setBoarder, setImage, image, spawnColIndex,spawnRowIndex,1 , Direction.RIGHT);
-        Tile tile3 = new Tile(tileSize, setColor, Color.SPRINGGREEN, setBoarder, setImage, image, spawnColIndex,spawnRowIndex, 1 , Direction.DOWN);
-        Tile tile4 = new Tile(tileSize, setColor, Color.SPRINGGREEN, setBoarder, setImage, image, spawnColIndex,spawnRowIndex, 1 , Direction.DOWN, Direction.LEFT);
+        Tile tile1 = new Tile(tileSize, setColor, Color.SPRINGGREEN, setTileBorder, setImage, image, spawnColIndex,spawnRowIndex, 0 , Direction.DOWN); //Center Tile
+        Tile tile2 = new Tile(tileSize, setColor, Color.SPRINGGREEN, setTileBorder, setImage, image, spawnColIndex,spawnRowIndex,1 , Direction.RIGHT);
+        Tile tile3 = new Tile(tileSize, setColor, Color.SPRINGGREEN, setTileBorder, setImage, image, spawnColIndex,spawnRowIndex, 1 , Direction.DOWN);
+        Tile tile4 = new Tile(tileSize, setColor, Color.SPRINGGREEN, setTileBorder, setImage, image, spawnColIndex,spawnRowIndex, 1 , Direction.DOWN, Direction.LEFT);
 
         List<Tile> tiles = new ArrayList<Tile>();
         tiles.add(tile1);
@@ -190,10 +192,10 @@ public class TetrisShapeFactory {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        Tile tile1 = new Tile(tileSize, setColor, Color.RED, setBoarder, setImage, image, spawnColIndex,spawnRowIndex, 0 , Direction.DOWN); //Center Tile
-        Tile tile2 = new Tile(tileSize, setColor, Color.RED, setBoarder, setImage, image, spawnColIndex,spawnRowIndex,1 , Direction.LEFT);
-        Tile tile3 = new Tile(tileSize, setColor, Color.RED, setBoarder, setImage, image, spawnColIndex,spawnRowIndex, 1 , Direction.DOWN);
-        Tile tile4 = new Tile(tileSize, setColor, Color.RED, setBoarder, setImage, image, spawnColIndex,spawnRowIndex, 1 , Direction.DOWN, Direction.RIGHT);
+        Tile tile1 = new Tile(tileSize, setColor, Color.RED, setTileBorder, setImage, image, spawnColIndex,spawnRowIndex, 0 , Direction.DOWN); //Center Tile
+        Tile tile2 = new Tile(tileSize, setColor, Color.RED, setTileBorder, setImage, image, spawnColIndex,spawnRowIndex,1 , Direction.LEFT);
+        Tile tile3 = new Tile(tileSize, setColor, Color.RED, setTileBorder, setImage, image, spawnColIndex,spawnRowIndex, 1 , Direction.DOWN);
+        Tile tile4 = new Tile(tileSize, setColor, Color.RED, setTileBorder, setImage, image, spawnColIndex,spawnRowIndex, 1 , Direction.DOWN, Direction.RIGHT);
 
         List<Tile> tiles = new ArrayList<Tile>();
         tiles.add(tile1);

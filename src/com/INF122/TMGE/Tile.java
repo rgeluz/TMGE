@@ -15,7 +15,7 @@ public class Tile {
     public int tileSize;
     public boolean setColor;
     public Color tileColor;
-    public boolean setBoarder;
+    public boolean setTileBorder;
     public boolean setImage;
     public Image tileImage;
     public Rectangle rectangle;
@@ -28,11 +28,11 @@ public class Tile {
 
 
 
-    public Tile(int tileSize, boolean setColor, Color color, boolean setBoarder, boolean setImage, Image image, int cenColIndex, int cenRowIndex, int position, List<Direction> directions){
+    public Tile(int tileSize, boolean setColor, Color color, boolean setTileBorder, boolean setImage, Image image, int cenColIndex, int cenRowIndex, int position, List<Direction> directions){
         this.tileSize = tileSize;
         this.setColor = setColor;
         this.tileColor = color;
-        this.setBoarder=setBoarder;
+        this.setTileBorder =setTileBorder;
         this.setImage = setImage;
         this.tileImage = image;
         this.position = position;
@@ -46,13 +46,12 @@ public class Tile {
         if(this.setColor){
             this.setColor(this.tileColor);
         }
-        if(this.setBoarder){
+        if(this.setTileBorder){
             this.setBoarder();
         }
         if(this.setImage){
             this.setImage(this.tileImage);
         }
-
 
         int dx = 0, dy = 0;
 
@@ -68,11 +67,11 @@ public class Tile {
 
     }
 
-    public Tile(int tileSize, boolean setColor, Color color, boolean setBoarder, boolean setImage, Image image, int cenColIndex, int cenRowIndex, int position, Direction... directions){
+    public Tile(int tileSize, boolean setColor, Color color, boolean setTileBorder, boolean setImage, Image image, int cenColIndex, int cenRowIndex, int position, Direction... directions){
         this.tileSize = tileSize;
         this.setColor = setColor;
         this.tileColor = color;
-        this.setBoarder=setBoarder;
+        this.setTileBorder =setTileBorder;
         this.setImage = setImage;
         this.tileImage = image;
         this.position = position;
@@ -86,7 +85,7 @@ public class Tile {
         if(this.setColor){
             this.setColor(this.tileColor);
         }
-        if(this.setBoarder){
+        if(this.setTileBorder){
             this.setBoarder();
         }
         if(this.setImage){
