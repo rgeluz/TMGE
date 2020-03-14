@@ -98,6 +98,22 @@ public class Main extends Application {
 
         //TODO important to note, the first coordinate is the column index,
         //     and the second is the row index of the grid pane
+
+        //TODO very hacky, but don't have to time to be picky!
+        //TODO this adds spaces above player 1
+        Label emptyLabel1 = new Label("");
+        gridPaneCenter.add(emptyLabel1, 0, 4);
+        Label emptyLabel2 = new Label("");
+        gridPaneCenter.add(emptyLabel2, 0, 5);
+        Label emptyLabel3 = new Label("");
+        gridPaneCenter.add(emptyLabel3, 0, 6);
+        Label emptyLabel4 = new Label("");
+        gridPaneCenter.add(emptyLabel4, 0, 7);
+        Label emptyLabel5 = new Label("");
+        gridPaneCenter.add(emptyLabel5, 0, 8);
+        Label emptyLabel6 = new Label("");
+        gridPaneCenter.add(emptyLabel6, 0, 9);
+
         //Player 1
         Label player1Label = new Label("Player1");
         player1Label.setPadding(new Insets(10, 10, 10, 10));
@@ -132,39 +148,47 @@ public class Main extends Application {
         gridPaneCenter.add(player1LineCountField, 1,12);
 
 
-
+        //TODO this adds four space between player 1 and player 2
+        Label emptyLabel7 = new Label("");
+        gridPaneCenter.add(emptyLabel7, 0, 13);
+        Label emptyLabel8 = new Label("");
+        gridPaneCenter.add(emptyLabel8, 0, 14);
+        Label emptyLabel9 = new Label("");
+        gridPaneCenter.add(emptyLabel9, 0, 15);
+        Label emptyLabel10 = new Label("");
+        gridPaneCenter.add(emptyLabel10, 0, 16);
 
 
         //Player 2
         Label player2Label = new Label("Player2");
         player2Label.setPadding(new Insets(10, 10, 10, 10));
-        gridPaneCenter.add(player2Label, 0,  13);
+        gridPaneCenter.add(player2Label, 0,  17);
 
         TextField player2NameField = new TextField();
         player2NameField.setDisable(true);
         player2NameField.setMaxWidth(100);
         player2NameField.setPadding(new Insets(10, 10, 10, 10));
-        gridPaneCenter.add(player2NameField, 1,13);
+        gridPaneCenter.add(player2NameField, 1,17);
 
         Label player2Score = new Label("Score: ");
         player2Score.setPadding(new Insets(10, 10, 10, 10));
-        gridPaneCenter.add(player2Score, 0, 14);
+        gridPaneCenter.add(player2Score, 0, 18);
 
         TextField player2ScoreField = new TextField();
         player2ScoreField.setDisable(true);
         player2ScoreField.setMaxWidth(100);
         player2ScoreField.setPadding(new Insets(10, 10, 10, 10));
-        gridPaneCenter.add(player2ScoreField, 1,14);
+        gridPaneCenter.add(player2ScoreField, 1,18);
 
         Label player2LineCount = new Label("Lines: ");
         player2LineCount.setPadding(new Insets(10, 10, 10, 10));
-        gridPaneCenter.add(player2LineCount, 0, 15);
+        gridPaneCenter.add(player2LineCount, 0, 19);
 
         TextField player2LineCountField = new TextField();
         player2LineCountField.setDisable(true);
         player2LineCountField.setMaxWidth(100);
         player2LineCountField.setPadding(new Insets(10, 10, 10, 10));
-        gridPaneCenter.add(player2LineCountField, 1,15);
+        gridPaneCenter.add(player2LineCountField, 1,19);
 
 
         //gridPaneCenter.setBackground(background);
