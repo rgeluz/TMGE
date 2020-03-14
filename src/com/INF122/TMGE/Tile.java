@@ -1,5 +1,6 @@
 package com.INF122.TMGE;
 
+import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
@@ -31,7 +32,7 @@ public class Tile implements Cloneable{
     public int centerPieceColumnIndex;
     public int centerPieceRowIndex;
     public List<Direction> directions;
-    public BufferedImage tileBImage; //TODO: phase tileImage into tileBImage
+    //TODO: convert BufferedImage instance to Image
 
 
 
@@ -119,60 +120,69 @@ public class Tile implements Cloneable{
     public void setColor(Color color) {
         this.rectangle.setFill(color);
 
-        setBlockImage(color);
+        this.tileImage = setBlockImage(color);
 
     }
 
-    public void setBlockImage(Color color) {
+    public Image setBlockImage(Color color) {
         // TODO: return tile image based on color and game (for now code in tetris)
         if (color == Color.BLUE)
             try {
-                tileBImage = ImageIO.read(new File("resources\\BlockBlue.png"));
+                BufferedImage tmp = ImageIO.read(new File("resources\\BlockBlue.png"));
+                return SwingFXUtils.toFXImage(tmp, null);
             } catch(IOException ioEx) {
                 System.out.println("This image cannot be found");
             }
         else if (color == Color.CYAN)
             try {
-                tileBImage = ImageIO.read(new File("resources\\BlockCyan.png"));
+                BufferedImage tmp = ImageIO.read(new File("resources\\BlockCyan.png"));
+                return SwingFXUtils.toFXImage(tmp, null);
             } catch(IOException ioEx) {
                 System.out.println("This image cannot be found");
             }
         else if (color == Color.GREEN)
             try {
-                tileBImage = ImageIO.read(new File("resources\\BlockGreen.png"));
+                BufferedImage tmp = ImageIO.read(new File("resources\\BlockGreen.png"));
+                return SwingFXUtils.toFXImage(tmp, null);
             } catch(IOException ioEx) {
                 System.out.println("This image cannot be found");
             }
         else if (color == Color.GREY)
             try {
-                tileBImage = ImageIO.read(new File("resources\\BlockGrey.png"));
+                BufferedImage tmp = ImageIO.read(new File("resources\\BlockGrey.png"));
+                return SwingFXUtils.toFXImage(tmp, null);
             } catch(IOException ioEx) {
                 System.out.println("This image cannot be found");
             }
         else if (color == Color.ORANGE)
             try {
-                tileBImage = ImageIO.read(new File("resources\\BlockOrange.png"));
+                BufferedImage tmp = ImageIO.read(new File("resources\\BlockOrange.png"));
+                return SwingFXUtils.toFXImage(tmp, null);
             } catch(IOException ioEx) {
                 System.out.println("This image cannot be found");
             }
         else if (color == Color.PURPLE)
             try {
-                tileBImage = ImageIO.read(new File("resources\\BlockPurple.png"));
+                BufferedImage tmp = ImageIO.read(new File("resources\\BlockPurple.png"));
+                return SwingFXUtils.toFXImage(tmp, null);
             } catch(IOException ioEx) {
                 System.out.println("This image cannot be found");
             }
         else if (color == Color.RED)
             try {
-                tileBImage = ImageIO.read(new File("resources\\BlockRed.png"));
+                BufferedImage tmp = ImageIO.read(new File("resources\\BlockRed.png"));
+                return SwingFXUtils.toFXImage(tmp, null);
             } catch(IOException ioEx) {
                 System.out.println("This image cannot be found");
             }
         else if (color == Color.YELLOW)
             try {
-                tileBImage = ImageIO.read(new File("resources\\BlockYellow.png"));
+                BufferedImage tmp = ImageIO.read(new File("resources\\BlockYellow.png"));
+                return SwingFXUtils.toFXImage(tmp, null);
             } catch(IOException ioEx) {
                 System.out.println("This image cannot be found");
             }
+        return this.tileImage; // preserves the original image if a new one isn't found
     }
 
     public void setBorder() {
