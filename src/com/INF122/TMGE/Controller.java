@@ -135,47 +135,63 @@ public class Controller {
     /**
      *
      */
-    public void rotateShape(){
-
-        if(this.currentActiveShape.centerPieceRowIndex>0){ //don't allow rotation when shape is at the top of board
-            List<Tile> newTileList = new ArrayList<Tile>();
-            for(Tile tile : this.currentActiveShape.tiles){
-                List<Direction> newDirections = new ArrayList<>();
-                for(Direction direction: tile.directions){
-                    Direction newDirection = direction.next();
-                    newDirections.add(newDirection);
-                }
-
-                Tile newTile = new Tile(tile.tileSize, tile.setColor, tile.tileColor, tile.setTileBorder,
-                        tile.setImage, tile.tileImage,
-                        tile.centerPieceColumnIndex, tile.centerPieceRowIndex, tile.position , newDirections);
-                newTileList.add(newTile);
-
+    
+    public void rotateShape() {
+    	if(this.currentActiveShape.centerPieceRowIndex>0){ //don't allow rotation when shape is at the top of board
+            List<Tile> newTileList = getNewOrientation(this.currentActiveShape.tiles);
+            
+            if (!(isColliding(newTileList))) {
+            	updateBoard(newTileList);
             }
-
-            for(Tile tile : this.currentActiveShape.tiles){
-                //Remove old tile from board
-                //this.board.boardGrid[tile.columnIndex][tile.rowIndex]=null;
-                this.board.removeTile(tile);
-
-                //set old tiles to null
-                tile = null;
-            }
-
-            this.currentActiveShape = null;
-
-            //Create a new shape
-            Shape newShape = new Shape(newTileList);
-            this.currentActiveShape = newShape;
-
-            //Update board
-            for(Tile newTile: this.currentActiveShape.tiles){
-                //Update board with new tile
-                //this.board.boardGrid[newTile.columnIndex][newTile.rowIndex]=newTile;
-                this.board.placeTile(newTile);
-            }
-
         }
+    }
+    
+    
+    //gets new pieces for rotation
+    public List<Tile> getNewOrientation(List<Tile> tiles){
+    	List<Tile> newTileList = new ArrayList<Tile>();
+    	for(Tile tile : tiles){
+            List<Direction> newDirections = new ArrayList<>();
+            for(Direction direction: tile.directions){
+                Direction newDirection = direction.next();
+                newDirections.add(newDirection);
+            }
+
+            Tile newTile = new Tile(tile.tileSize, tile.setColor, tile.tileColor, tile.setTileBorder,
+                    tile.setImage, tile.tileImage,
+                    tile.centerPieceColumnIndex, tile.centerPieceRowIndex, tile.position , newDirections);
+            newTileList.add(newTile);
+        }
+    	
+    	if(!isColliding(newTileList)) {
+    		//if the new tiles are not colliding with anything, return
+    		return newTileList;
+    	}
+    	else {
+    		//if there is a collision, try and offset left once or right once
+    		if(!isColliding(offsetTile(newTileList, Direction.LEFT))) {
+    			newTileList = offsetTile(newTileList, Direction.LEFT);
+    			return newTileList;
+    		} else if(!isColliding(offsetTile(newTileList, Direction.RIGHT))) {
+    			newTileList = offsetTile(newTileList, Direction.RIGHT);
+    			return newTileList;
+    		}
+    		else return getNewOrientation(newTileList);
+    	}
+    }
+    
+    public List<Tile> offsetTile(List<Tile> tiles, Direction direction){
+    	//offsets the tile list in a direction
+    	int newColIndex = this.currentActiveShape.centerPieceColumnIndex + direction.colIndex;
+        int newRowIndex = this.currentActiveShape.centerPieceRowIndex + direction.rowIndex;
+        List<Tile> newTileList = new ArrayList<Tile>();
+    	for(Tile tile : tiles){
+    		Tile newTile = new Tile(tile.tileSize, tile.setColor, tile.tileColor, tile.setTileBorder,
+                    tile.setImage, tile.tileImage,
+                    newColIndex, newRowIndex, tile.position , tile.directions);
+            newTileList.add(newTile);
+    	}
+    	return newTileList;
     }
 
 
@@ -215,6 +231,7 @@ public class Controller {
         }
 
     }
+    
 
     /**
      *
@@ -292,12 +309,13 @@ public class Controller {
      */
     public boolean isLeftOrRightWall(List<Tile> newTileList){
         for(Tile newTile: newTileList){
-            if( newTile.columnIndex <0 || newTile.columnIndex >= board.gridWidth){
+            if( newTile.columnIndex <=0 || newTile.columnIndex >= board.gridWidth-1){
                 return true;
             }
         }
         return false;
     }
+    
 
     //TODO for tetris
     public void checkForFullRows(){
