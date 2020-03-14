@@ -6,6 +6,10 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -25,6 +29,7 @@ public class Tile {
     public int centerPieceColumnIndex;
     public int centerPieceRowIndex;
     public List<Direction> directions;
+    public BufferedImage tileBImage; //TODO: phase tileImage into tileBImage
 
 
 
@@ -109,8 +114,63 @@ public class Tile {
 
 
     //TODO for now just set color, replace with image later
-    public void setColor(Color color){
+    public void setColor(Color color) {
         this.rectangle.setFill(color);
+
+        setBlockImage(color);
+
+    }
+
+    public void setBlockImage(Color color) {
+        // TODO: return tile image based on color and game (for now code in tetris)
+        if (color == Color.BLUE)
+            try {
+                tileBImage = ImageIO.read(new File("resources\\BlockBlue.png"));
+            } catch(IOException ioEx) {
+                System.out.println("This image cannot be found");
+            }
+        else if (color == Color.CYAN)
+            try {
+                tileBImage = ImageIO.read(new File("resources\\BlockCyan.png"));
+            } catch(IOException ioEx) {
+                System.out.println("This image cannot be found");
+            }
+        else if (color == Color.GREEN)
+            try {
+                tileBImage = ImageIO.read(new File("resources\\BlockGreen.png"));
+            } catch(IOException ioEx) {
+                System.out.println("This image cannot be found");
+            }
+        else if (color == Color.GREY)
+            try {
+                tileBImage = ImageIO.read(new File("resources\\BlockGrey.png"));
+            } catch(IOException ioEx) {
+                System.out.println("This image cannot be found");
+            }
+        else if (color == Color.ORANGE)
+            try {
+                tileBImage = ImageIO.read(new File("resources\\BlockOrange.png"));
+            } catch(IOException ioEx) {
+                System.out.println("This image cannot be found");
+            }
+        else if (color == Color.PURPLE)
+            try {
+                tileBImage = ImageIO.read(new File("resources\\BlockPurple.png"));
+            } catch(IOException ioEx) {
+                System.out.println("This image cannot be found");
+            }
+        else if (color == Color.RED)
+            try {
+                tileBImage = ImageIO.read(new File("resources\\BlockRed.png"));
+            } catch(IOException ioEx) {
+                System.out.println("This image cannot be found");
+            }
+        else if (color == Color.YELLOW)
+            try {
+                tileBImage = ImageIO.read(new File("resources\\BlockYellow.png"));
+            } catch(IOException ioEx) {
+                System.out.println("This image cannot be found");
+            }
     }
 
     public void setBorder() { this.rectangle.setStroke(Color.WHITE); }
