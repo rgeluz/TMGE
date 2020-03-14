@@ -173,9 +173,11 @@ public class Tile {
             }
     }
 
-    public void setBorder() { this.rectangle.setStroke(Color.WHITE); }
+    public void setBorder() {
+        this.rectangle.setStroke(Color.WHITE);
+    }
 
-    //TODO finish later
+    //TODO finish later - phase into BufferedImage
     /*
         maybe look into using image view
      */
