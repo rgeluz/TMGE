@@ -139,7 +139,7 @@ public class DrMarioShapeFactory {
     private static Shape create_Blue_Blue_Pill(){
         Image imageBlue = null;
         try {
-            imageBlue = new Image(new FileInputStream("resources/Blue.png"));
+            imageBlue = new Image(new FileInputStream("resources/BlockBlue.png"));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
