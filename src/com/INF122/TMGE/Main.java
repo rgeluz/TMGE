@@ -8,11 +8,18 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 
 public class Main extends Application {
 
@@ -55,18 +62,48 @@ public class Main extends Application {
 
         //TODO very hacky, but don't have to time to be picky!
         //TODO this adds spaces above player 1
+
+
+
+
         Label emptyLabel1 = new Label("");
-        gridPaneCenter.add(emptyLabel1, 0, 4);
+        gridPaneCenter.add(emptyLabel1, 0, 1);
         Label emptyLabel2 = new Label("");
-        gridPaneCenter.add(emptyLabel2, 0, 5);
+        gridPaneCenter.add(emptyLabel2, 0, 2);
         Label emptyLabel3 = new Label("");
-        gridPaneCenter.add(emptyLabel3, 0, 6);
+        gridPaneCenter.add(emptyLabel3, 0, 3);
         Label emptyLabel4 = new Label("");
-        gridPaneCenter.add(emptyLabel4, 0, 7);
+        gridPaneCenter.add(emptyLabel4, 0, 4);
         Label emptyLabel5 = new Label("");
-        gridPaneCenter.add(emptyLabel5, 0, 8);
+
+        //Game Logo
+        Image imageTetrisLogo = null;
+        Image imageDrMarioLogo = null;
+        try{
+            imageDrMarioLogo = new Image(new FileInputStream("resources/DrMarioLogo.png"));
+            imageTetrisLogo = new Image(new FileInputStream("resources/TetrisLogo.png"));
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        ImageView imageViewDrMario = new ImageView(imageDrMarioLogo);
+        ImageView imageViewTetris = new ImageView(imageTetrisLogo);
+        imageViewDrMario.setFitWidth(tileSize*5);
+        imageViewDrMario.setFitHeight(tileSize*2);
+        imageViewTetris.setFitWidth(tileSize*5);
+        imageViewTetris.setFitHeight(tileSize*2);
+
+        if(GAME_TO_TEST==GameEnum.DRMARIO){
+            gridPaneCenter.getChildren().add(imageViewDrMario);
+        } else if (GAME_TO_TEST==GameEnum.TETRIS){
+            gridPaneCenter.getChildren().add(imageViewTetris);
+        }
+
+
+        gridPaneCenter.add(emptyLabel5, 0, 5);
         Label emptyLabel6 = new Label("");
-        gridPaneCenter.add(emptyLabel6, 0, 9);
+        gridPaneCenter.add(emptyLabel6, 0, 6);
 
         //Player 1
         Label player1Label = new Label("Player1");
