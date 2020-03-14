@@ -4,6 +4,7 @@ import com.INF122.TMGE.*;
 import javafx.scene.Group;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -19,6 +20,7 @@ public class Tetris {
     boolean includeTetrisBorder;
     Controller c;
     Group g;
+    Pane p;
     Board b;
 
     TextField playerNameField;
@@ -49,6 +51,7 @@ public class Tetris {
                         playerLineCountField);
         if(this.includeTetrisBorder){
             g = c.create();
+            //p = c.create();
         }
     }
     //TODO take private methods from Controller and refactor them into Tetris
@@ -86,13 +89,14 @@ public class Tetris {
     }
 
     public void render(){
-        this.g.getChildren().clear();
+        //this.g.getChildren().clear();
+        this.p.getChildren().clear();
         for(int colIndex=0; colIndex<this.b.gridWidth; colIndex++){
             for(int rowIndex=0; rowIndex<this.b.gridHeight; rowIndex++){
                 if(this.b.boardGrid[colIndex][rowIndex]!=null){
                     //System.out.println(this.board.boardGrid[colIndex][rowIndex].rectangle.);
-                    this.g.getChildren().add(this.b.boardGrid[colIndex][rowIndex].rectangle);
-
+                    //this.g.getChildren().add(this.b.boardGrid[colIndex][rowIndex].rectangle);
+                    this.p.getChildren().add(this.b.boardGrid[colIndex][rowIndex].rectangle);
                 }
             }
         }
@@ -238,7 +242,8 @@ public class Tetris {
             t.setText("Perspective");
             t.setFill(Color.YELLOW);
             t.setFont(Font.font(null, FontWeight.BOLD, 36));
-            this.g.getChildren().add(t);
+            //this.g.getChildren().add(t);
+            this.p.getChildren().add(t);
 
             System.exit(0);
         }

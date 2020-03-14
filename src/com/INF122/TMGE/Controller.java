@@ -6,10 +6,7 @@ import javafx.animation.AnimationTimer;
 import javafx.scene.Group;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
+import javafx.scene.layout.Pane;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -19,10 +16,13 @@ import java.util.List;
 public class Controller {
 
     Board board;
-    Group group;
-    //int tileSize;
+    Group tileGroup;
+    Pane pane;
+
+    int tileSize;
     private Shape currentActiveShape;
     private double time;
+    int rowToBeRemovedIndex;
 
 
     TextField playerNameField;
@@ -56,20 +56,23 @@ public class Controller {
         this.playerScoreField.setText("0");
         this.playerLineCountField.setText("0");
         // tileSize has been outsourced to board, which is passed in to Tetris first
-       // this.tileSize = board.tileSize;
+        this.tileSize = board.tileSize;
     }
 
     /**
      *
      * @return
      */
-    public Group create(){
+    public /*Pane*/ Group create(){
 
         System.out.println("");
 
         //JavaFX group
         Group group = new Group();
-        this.group = group;
+        this.tileGroup = group;
+        //Pane pane = new Pane();
+        //this.pane = pane;
+
 
         //TODO for tetris - added to Tetris constructor
         this.tetrisLineCount = 0;
@@ -91,6 +94,7 @@ public class Controller {
                 if (time >= 0.5) {
                     moveShape(Direction.DOWN);
                     checkForFullRows();
+                    //sweep();
                     render();
                     time = 0;
                 }
@@ -98,7 +102,8 @@ public class Controller {
         };
         timer.start();
 
-        return group;
+        return this.tileGroup;
+        //return pane;
     }
 
     //TODO used for tetris border - copy added to Tetris
@@ -133,23 +138,36 @@ public class Controller {
             //this.board.boardGrid[colIndex][floorRowIndex]=newBoarderTile;
             this.board.placeTile(newBoarderTile);
         }
-        render();
+        //render();
     }
 
     /**
      *
      */
     public void render(){
-        this.group.getChildren().clear();
+        this.tileGroup.getChildren().clear();
+        //this.pane.getChildren().clear();
+        //clearPane();
         for(int colIndex=0; colIndex<this.board.gridWidth; colIndex++){
             for(int rowIndex=0; rowIndex<this.board.gridHeight; rowIndex++){
-                //if(this.board.boardGrid[colIndex][rowIndex]!=null){
-                    //System.out.println(this.board.boardGrid[colIndex][rowIndex].rectangle.);
-                    //this.group.getChildren().add(this.board.boardGrid[colIndex][rowIndex].rectangle);
-                //}
                 Tile tile = this.board.getTile(colIndex,rowIndex);
                 if(tile!=null){
-                    this.group.getChildren().add(tile.rectangle);
+                    this.tileGroup.getChildren().add(tile.rectangle);
+                    //this.pane.getChildren().add(tile.rectangle);
+                }
+            }
+        }
+    }
+
+    public void clearPane(){
+        for(int colIndex=0; colIndex<this.board.gridWidth; colIndex++){
+            for(int rowIndex=0; rowIndex<this.board.gridHeight; rowIndex++){
+                Tile tile = this.board.getTile(colIndex, rowIndex);
+                if(tile!=null){
+                    if(tile.rectangle!=null){
+                        //this.pane.getChildren().remove(tile.rectangle);
+                        this.tileGroup.getChildren().remove(tile.rectangle);
+                    }
                 }
             }
         }
@@ -246,12 +264,14 @@ public class Controller {
             //check for out of bounds and collision
             if( !isBottom(newTileList) && !isColliding(newTileList) ){
                 updateBoard(newTileList);
+                ;
             } else {
                 //spawn new shape
                 generateShape();
             }
-            checkForFullRows();
         }
+        //checkForFullRows();
+        //render();
 
     }
     
@@ -325,6 +345,7 @@ public class Controller {
         return false;
     }
 
+
     /**
      *
      * @param newTileList
@@ -347,8 +368,15 @@ public class Controller {
         List<List<Tile>> listOfFullRows = getFullRows(this.includeTetrisBorder);
         if(listOfFullRows.size()>0){
             removeFullRowTiles(listOfFullRows);
-            render();
-            shiftDownTiles(this.includeTetrisBorder);
+            //render();
+            for(int i=0;i<listOfFullRows.size();i++){
+
+                //render();
+            }
+            int shiftAmount = listOfFullRows.size();
+            shiftDownTiles(this.includeTetrisBorder, shiftAmount);
+
+            //render();
         }
     }
 
@@ -367,13 +395,19 @@ public class Controller {
             int tileCount=0;
             List<Tile> tilesInRow = new ArrayList<Tile>();
             for(int colIndex=0; colIndex<this.board.gridWidth; colIndex++){
-                if(this.board.boardGrid[colIndex][rowIndex]!=null){
+                //if(this.board.boardGrid[colIndex][rowIndex]!=null){
+                   // tileCount++;
+                //}
+                if(this.board.getTile(colIndex,rowIndex)!=null){
                     tileCount++;
+                    //tilesInRow.add(this.board.boardGrid[colIndex][rowIndex]);
+                    tilesInRow.add(this.board.getTile(colIndex,rowIndex));
                 }
-                tilesInRow.add(this.board.boardGrid[colIndex][rowIndex]);
+
             }
             /**/
-            if(tileCount>=this.board.gridWidth){
+            if(tileCount>=this.board.gridWidth){ //Found full row
+                this.rowToBeRemovedIndex=rowIndex;
                 this.tetrisLineCount++;
                 listOfFullRows.add(tilesInRow);
                 System.out.println("line count: " + this.tetrisLineCount);
@@ -381,6 +415,7 @@ public class Controller {
 
                 //update player line count:
                 this.playerLineCountField.setText(Integer.toString(this.tetrisLineCount) );
+
                 //return true;
             }
         }
@@ -402,22 +437,69 @@ public class Controller {
     }
 
     //TODO for tetris - copy added to Tetris
-    private void shiftDownTiles(boolean isBorder){
+    private void shiftDownTiles(boolean isBorder, int shiftAmount){
         List<Tile> listOfTilesToUpdate = new ArrayList<Tile>();
 
+        int floorRowIndex=this.board.gridHeight-2;
 
-
-        for(int rowIndex=0; rowIndex<this.board.gridHeight; rowIndex++){
+        //update all existing tiles y coordinates with shifted y coordinates
+        //only shif tile above the row that is being removed
+        for(int rowIndex=0; rowIndex<this.rowToBeRemovedIndex; rowIndex++){
             for(int colIndex=0; colIndex<this.board.gridWidth; colIndex++){
-                if(this.board.boardGrid[colIndex][rowIndex]!=null){ //tile exist at coordinates
-                    Tile tile = this.board.boardGrid[colIndex][rowIndex];
-                    //calculate new center tile coordinates
-                    //Direction direction = Direction.DOWN;
-                    //int newColIndex = tile.columnIndex + direction.colIndex;
-                    //int newRowIndex = tile.rowIndex + direction.rowIndex;
-                    int newRowIndex = tile.rowIndex + 1;
-                    tile.rowIndex = newRowIndex;
-                    listOfTilesToUpdate.add(tile);
+                if(this.board.getTile(colIndex,rowIndex)!=null){ //tile exist at coordinates
+                    if(isBorder){
+                        if(rowIndex<=floorRowIndex){ //Ignore the floor wall
+                            int leftWallIndex=0;
+                            int rightWallIndex=this.board.gridWidth-1;
+                            if(colIndex>leftWallIndex && colIndex<rightWallIndex){ //Ignore the the left and right walls
+
+                                Tile tile = this.board.getTile(colIndex,rowIndex);
+
+                                //Don't shift the active shape tiles
+                                /*boolean anActiveTile = false;
+                                for(Tile activeTile : this.currentActiveShape.tiles){
+                                    if(activeTile.columnIndex==tile.columnIndex &&
+                                        activeTile.rowIndex==tile.rowIndex){
+                                        anActiveTile = true;
+                                    }
+                                }
+                                if(!anActiveTile){
+
+                                }*/
+                                tile.rowIndex+=shiftAmount;
+                                tile.setCoordinates(tile.columnIndex,tile.rowIndex);
+                                listOfTilesToUpdate.add(tile);
+
+                                /*Tile newTile = null;
+                                try {
+                                    newTile = tile.deepCopyClone();
+                                } catch (CloneNotSupportedException e) {
+                                    e.printStackTrace();
+                                }
+                                int newRowIndex = tile.rowIndex + 1;
+                                newTile.rowIndex = newRowIndex;
+                                if(newTile!=null){
+                                    listOfTilesToUpdate.add(newTile);
+                                }*/
+                            }
+                        }
+                    } else {
+                        Tile tile = this.board.getTile(colIndex,rowIndex);
+                        tile.rowIndex+=shiftAmount;
+                        tile.setCoordinates(tile.columnIndex,tile.rowIndex);
+                        listOfTilesToUpdate.add(tile);
+                        /*Tile newTile = null;
+                        try {
+                            newTile = tile.deepCopyClone();
+                        } catch (CloneNotSupportedException e) {
+                            e.printStackTrace();
+                        }
+                        int newRowIndex = tile.rowIndex + 1;
+                        newTile.rowIndex = newRowIndex;
+                        if(newTile!=null){
+                            listOfTilesToUpdate.add(newTile);
+                        }*/
+                    }
                 }
             }
         }
@@ -425,19 +507,29 @@ public class Controller {
         //Clear Board Grid. Set every element in 2D array to null.
         for(int rowIndex=0; rowIndex<this.board.gridHeight; rowIndex++){
             for(int colIndex=0; colIndex<this.board.gridWidth; colIndex++){
+                Tile tile = this.board.getTile(colIndex, rowIndex);
                 this.board.boardGrid[colIndex][rowIndex]=null;
+                //this.pane.getChildren().remove(tile.rectangle);
+                //this.group.getChildren().remove(tile.rectangle);
             }
         }
+
+        //Render border after clear
+        //render();
 
         //add back tetris border
         if(this.includeTetrisBorder) {
             addTetrisBorder();
         }
+        //render();
 
         //Insert new tiles
         for(Tile newTile : listOfTilesToUpdate){
             this.board.placeTile(newTile);
         }
+
+        //render again
+        //render();
     }
 
 
@@ -485,15 +577,16 @@ public class Controller {
             //gameoverText.setStyle("-fx-font: 70 arial;");
             //this.group.getChildren().add(gameoverText);
 
-            Text t = new Text();
+            //Text t = new Text();
             //t.setX(20.0f);
             //t.setY(65.0f);
-            t.setX(100);
-            t.setY(200);
-            t.setText("Perspective");
-            t.setFill(Color.YELLOW);
-            t.setFont(Font.font(null, FontWeight.BOLD, 36));
-            this.group.getChildren().add(t);
+            //t.setX(100);
+            //t.setY(200);
+            //t.setText("Perspective");
+            //t.setFill(Color.YELLOW);
+            //t.setFont(Font.font(null, FontWeight.BOLD, 36));
+            //this.group.getChildren().add(t);
+            //this.pane.getChildren().add(t);
 
             //System.exit(0);
         }

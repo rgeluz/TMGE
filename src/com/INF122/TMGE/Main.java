@@ -41,8 +41,11 @@ public class Main extends Application {
 
     public void testGame(Stage stage){
 
-
-        final GameEnum GAME_TO_TEST = GameEnum.DRMARIO;
+        /*
+            Toggle the value below to switch between games
+            eg. GameEnum.DRMARIO <----> Game.TETRIS
+        */
+        final GameEnum GAME_TO_TEST = GameEnum.TETRIS;
 
         int gridHeight = 20;
         int gridWidth = 12;
@@ -94,10 +97,13 @@ public class Main extends Application {
         imageViewTetris.setFitWidth(tileSize*5);
         imageViewTetris.setFitHeight(tileSize*2);
 
+        Color gameColor = null;
         if(GAME_TO_TEST==GameEnum.DRMARIO){
             gridPaneCenter.getChildren().add(imageViewDrMario);
+            gameColor = Color.AQUAMARINE;
         } else if (GAME_TO_TEST==GameEnum.TETRIS){
             gridPaneCenter.getChildren().add(imageViewTetris);
+            gameColor = Color.AQUA;
         }
 
 
@@ -204,7 +210,7 @@ public class Main extends Application {
                                                 player1ScoreField,
                                                 player1LineCountField);
         Group group1 = controller1.create();
-
+        //Pane pane1 = controller1.create();
 
         //Board Player2
         Board board2 = new Board(gridHeight,gridWidth, tileSize);
@@ -217,10 +223,12 @@ public class Main extends Application {
                                                 player2ScoreField,
                                                 player2LineCountField);
         Group group2 = controller2.create();
+        //Pane pane2 = controller2.create();
 
 
         //Player1
         VBox vbox1 = new VBox(group1);
+        //VBox vbox1 = new VBox(pane1);
         BackgroundFill backgroundFill1 = new BackgroundFill(Color.BLACK,CornerRadii.EMPTY, Insets.EMPTY);
         Background background1 = new Background(backgroundFill1);
         vbox1.setBackground(background1);
@@ -229,12 +237,14 @@ public class Main extends Application {
         VBox vboxCenter = new VBox(gridPaneCenter);
         /*vboxCenter.getChildren().addAll(player1Label, player1Score, player1LineCount,
                 player2Label, player2Score, player2LineCount);*/
-        BackgroundFill backgroundFillCenter = new BackgroundFill(Color.AQUA,CornerRadii.EMPTY, Insets.EMPTY);
+        BackgroundFill backgroundFillCenter = new BackgroundFill(gameColor,CornerRadii.EMPTY, Insets.EMPTY);
         Background backgroundCenter = new Background(backgroundFillCenter);
         vboxCenter.setBackground(backgroundCenter);
 
         //Player2
+
         VBox vbox2 = new VBox(group2);
+        //VBox vbox2 = new VBox(pane2);
         BackgroundFill backgroundFill2 = new BackgroundFill(Color.BLACK,CornerRadii.EMPTY, Insets.EMPTY);
         Background background2 = new Background(backgroundFill2);
         vbox2.setBackground(background2);
