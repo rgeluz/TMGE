@@ -96,8 +96,8 @@ public class Main extends Application {
         gridPaneCenter.setAlignment(Pos.CENTER);
 
 
-        //TODO important to note, the first coordinate is
-
+        //TODO important to note, the first coordinate is the column index,
+        //     and the second is the row index of the grid pane
         //Player 1
         Label player1Label = new Label("Player1");
         player1Label.setPadding(new Insets(10, 10, 10, 10));
@@ -180,7 +180,6 @@ public class Main extends Application {
         //Master window
 
 
-
         //Player1
         VBox vbox1 = new VBox(group1);
         BackgroundFill backgroundFill1 = new BackgroundFill(Color.BLACK,CornerRadii.EMPTY, Insets.EMPTY);
@@ -210,50 +209,9 @@ public class Main extends Application {
 
 
 
-        /*
-            TEST AREA
-         */
-        /*Button left = new Button("left");
-        Button center = new Button("center");
-        Button top = new Button("top");
-
-        //top
-        FlowPane flow = new FlowPane();
-        flow.setPadding(new Insets(10, 10, 10, 10));
-        flow.setStyle("-fx-background-color: DAE6F3;");
-        flow.setHgap(5);
-        flow.getChildren().addAll(left, center);
-
-        //center
-        StackPane root = new StackPane();
-        Button btn1 = new Button(" 1 ");
-        Button btn2 = new Button("22222222");
-        root.getChildren().addAll(btn2, btn1);
-        root.setStyle("-fx-background-color: #87CEFA;");
-
-        //bottom
-        TilePane tile = new TilePane();
-        tile.setPadding(new Insets(10, 10, 10, 10));
-        tile.setPrefColumns(2);
-        tile.setStyle("-fx-background-color: #CD5C5C;");
-        HBox hbox2 = new HBox(8); // spacing = 8
-        hbox2.getChildren().addAll(top, left, center);
-        tile.getChildren().add(hbox2);
-
-        //Pane
-        BorderPane pane = new BorderPane();
-        pane.setLeft(vbox1);
-        pane.setCenter(root);
-        pane.setRight(vbox2);
-        pane.setTop(flow);
-        pane.setBottom(tile);
-*/
-
-
         //Scene scene = new Scene(group, gridWidth * tileSize, gridHeight * tileSize, backgroundColor);
         Scene scene = new Scene(hbox, masterWindowWidth, masterWindowHeight, backgroundColor);
         //Scene scene = new Scene(pane,masterWindowWidth+100, masterWindowHeight+100,backgroundColor);
-
 
 
 
