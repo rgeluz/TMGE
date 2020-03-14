@@ -174,7 +174,6 @@ public class Controller {
                 //this.board.boardGrid[newTile.columnIndex][newTile.rowIndex]=newTile;
                 this.board.placeTile(newTile);
             }
-
         }
     }
 
@@ -211,7 +210,9 @@ public class Controller {
                 //spawn new shape
                 generateShape();
             }
-            checkForFullRows();
+            //checkForFullRows();
+            sweep();
+
         }
 
     }
@@ -299,6 +300,52 @@ public class Controller {
         return false;
     }
 
+    //  ======================= EXPERIMENTAL =========================
+
+    // sweep()
+
+    public void sweep()
+    {
+        for (int i = this.currentActiveShape.top; i <= this.currentActiveShape.bottom; i++)
+        {
+            if (isFull(i)) //Checks if the current row where the bottom of the shape is has a full row
+            {
+                shiftDown(i);//Shifts all items down if condition is true.
+            }
+        }
+    }
+
+    public boolean isFull(int row)
+    {
+        for (int i = 0; i < this.board.gridWidth-2; i++)
+        {
+            if (this.board.boardGrid[i][row] == null) //checks if that current row has any empty spots.
+            {
+                return false;
+            }
+        }
+        System.out.println("ROW IS FULL");
+        return true; //If no empty spaces return true;
+    }
+
+    public void shiftDown(int currentRow) {
+        for (int i = currentRow; i > 1; i--) //Start at row that is full and iterate all the way to row 1
+        {
+            for (int j = 1; j < this.board.gridWidth - 1; j++) //iterate to the right columms
+            {
+//                this.board.boardGrid[j][i].rowIndex = this.board.boardGrid[j][i-1].rowIndex;
+//                this.board.boardGrid[j][i].columnIndex = this.board.boardGrid[j][i-1].columnIndex; //Set current tile to tile directly above it.
+//                this.board.boardGrid[j][i].tileColor = this.board.boardGrid[j][i-1].tileColor; //Set current tile to tile directly above it.
+//                this.board.boardGrid[j][i].tileImage = this.board.boardGrid[j][i-1].tileImage; //Set current tile to tile directly above it.
+
+                this.board.boardGrid[j][i] = null;
+                this.board.boardGrid[j][i] = new Tile(this.board.boardGrid[j][i-1]);
+
+
+            }
+        }
+    }
+    // ========================= EXPERIMENTAL =========================
     //TODO for tetris
     public void checkForFullRows(){
         //TODO this is only for tetris, need to move outside
