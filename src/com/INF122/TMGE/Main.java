@@ -70,22 +70,7 @@ public class Main extends Application {
         int gridWidth = 12;
         int tileSize = 30;
 
-        //Board Player1
-        Board board1 = new Board(gridHeight,gridWidth, tileSize);
-        int board1Width = gridWidth*tileSize;
-        int board1Height = gridHeight*tileSize;
 
-        Controller controller1 = new Controller(board1);
-        Group group1 = controller1.create();
-
-
-        //Board Player2
-        Board board2 = new Board(gridHeight,gridWidth, tileSize);
-        int board2Width = gridWidth*tileSize;
-        int board2Height = gridHeight*tileSize;
-
-        Controller controller2 = new Controller(board2);
-        Group group2 = controller2.create();
 
 
         //Center
@@ -129,7 +114,6 @@ public class Main extends Application {
         Label player1Score = new Label("Score: ");
         player1Score.setPadding(new Insets(10, 10, 10, 10));
         gridPaneCenter.add(player1Score, 0, 11);
-
 
         TextField player1ScoreField = new TextField();
         player1ScoreField.setDisable(true);
@@ -201,7 +185,30 @@ public class Main extends Application {
 
 
 
-        //Master window
+        //________________Master window______________________//
+
+        //Board Player1
+        Board board1 = new Board(gridHeight,gridWidth, tileSize);
+        int board1Width = gridWidth*tileSize;
+        int board1Height = gridHeight*tileSize;
+
+        Controller controller1 = new Controller(board1,
+                                                player1NameField,
+                                                player1ScoreField,
+                                                player1LineCountField);
+        Group group1 = controller1.create();
+
+
+        //Board Player2
+        Board board2 = new Board(gridHeight,gridWidth, tileSize);
+        int board2Width = gridWidth*tileSize;
+        int board2Height = gridHeight*tileSize;
+
+        Controller controller2 = new Controller(board2,
+                                                player2NameField,
+                                                player2ScoreField,
+                                                player2LineCountField);
+        Group group2 = controller2.create();
 
 
         //Player1

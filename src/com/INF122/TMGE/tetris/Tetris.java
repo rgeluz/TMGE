@@ -2,6 +2,7 @@ package com.INF122.TMGE.tetris;
 
 import com.INF122.TMGE.*;
 import javafx.scene.Group;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -19,16 +20,32 @@ public class Tetris {
     Controller c;
     Group g;
     Board b;
+
+    TextField playerNameField;
+    TextField playerScoreField;
+    TextField playerLineCountField;
+
     // TODO - refactor Controller so duplicate arguments are removed and instead passed in by this class
     // TODO - refactor tileSize that is now based on Board.tileSize
     private Shape currentActiveShape;
     private double time;
 
-    Tetris(Board bo) {
+
+
+    Tetris(Board bo,
+           TextField playerNameField,
+           TextField playerScoreField,
+           TextField playerLineCountField) {
         this.tetrisLineCount = 0;
         this.includeTetrisBorder = true;
         this.b = bo;
-        c = new Controller(bo);
+        this.playerNameField = playerNameField;
+        this.playerScoreField = playerScoreField;
+        this.playerLineCountField = playerLineCountField;
+        c = new Controller(bo,
+                        playerNameField,
+                        playerScoreField,
+                        playerLineCountField);
         if(this.includeTetrisBorder){
             g = c.create();
         }
@@ -116,6 +133,9 @@ public class Tetris {
                 listOfFullRows.add(tilesInRow);
                 System.out.println("line count: " + this.tetrisLineCount);
                 System.out.println("FULL ROW");
+
+                //update player line count:
+                this.playerLineCountField.setText(Integer.toString(this.tetrisLineCount) );
                 //return true;
             }
         }

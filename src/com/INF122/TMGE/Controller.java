@@ -3,6 +3,7 @@ package com.INF122.TMGE;
 import com.INF122.TMGE.tetris.TetrisShapeFactory;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Group;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -22,6 +23,14 @@ public class Controller {
     private Shape currentActiveShape;
     private double time;
 
+
+    TextField playerNameField;
+    TextField playerScoreField;
+    TextField playerLineCountField;
+
+
+
+
     //TODO move this to tetris - added to tetris
     int tetrisLineCount;
     boolean includeTetrisBorder;
@@ -30,8 +39,14 @@ public class Controller {
      * Constructor
      * @param board
      */
-    public Controller(Board board) {
+    public Controller(Board board,
+                      TextField playerNameField,
+                      TextField playerScoreField,
+                      TextField playerLineCountField) {
         this.board = board;
+        this.playerNameField = playerNameField;
+        this.playerScoreField = playerScoreField;
+        this.playerLineCountField = playerLineCountField;
         // tileSize has been outsourced to board, which is passed in to Tetris first
        // this.tileSize = board.tileSize;
     }
@@ -355,6 +370,9 @@ public class Controller {
                 listOfFullRows.add(tilesInRow);
                 System.out.println("line count: " + this.tetrisLineCount);
                 System.out.println("FULL ROW");
+
+                //update player line count:
+                this.playerLineCountField.setText(Integer.toString(this.tetrisLineCount) );
                 //return true;
             }
         }
