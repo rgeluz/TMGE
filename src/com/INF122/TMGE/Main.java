@@ -2,6 +2,7 @@ package com.INF122.TMGE;
 
 import javafx.application.Application;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -88,19 +89,82 @@ public class Main extends Application {
 
 
         //Center
-        int centerWidth = 100;
-
+        int centerWidth = 300;
+        int fieldWidth = 100;
         GridPane gridPaneCenter = new GridPane();
         gridPaneCenter.setPrefWidth(centerWidth);
+        gridPaneCenter.setAlignment(Pos.CENTER);
 
+
+        //TODO important to note, the first coordinate is
+
+        //Player 1
         Label player1Label = new Label("Player1");
+        player1Label.setPadding(new Insets(10, 10, 10, 10));
+        gridPaneCenter.add(player1Label, 0, 10);
+
+        TextField player1NameField = new TextField();
+        player1NameField.setDisable(true);
+        player1NameField.setMaxWidth(fieldWidth);
+        player1NameField.setPadding(new Insets(10, 10, 10, 10));
+        gridPaneCenter.add(player1NameField, 1,10);
+
+
         Label player1Score = new Label("Score: ");
+        player1Score.setPadding(new Insets(10, 10, 10, 10));
+        gridPaneCenter.add(player1Score, 0, 11);
+
+
+        TextField player1ScoreField = new TextField();
+        player1ScoreField.setDisable(true);
+        player1ScoreField.setMaxWidth(fieldWidth);
+        player1ScoreField.setPadding(new Insets(10, 10, 10, 10));
+        gridPaneCenter.add(player1ScoreField, 1,11);
+
         Label player1LineCount = new Label("Lines:");
+        player1LineCount.setPadding(new Insets(10, 10, 10, 10));
+        gridPaneCenter.add(player1LineCount, 0, 12);
 
+        TextField player1LineCountField = new TextField();
+        player1LineCountField.setDisable(true);
+        player1LineCountField.setMaxWidth(fieldWidth);
+        player1LineCountField.setPadding(new Insets(10, 10, 10, 10));
+        gridPaneCenter.add(player1LineCountField, 1,12);
+
+
+
+
+
+        //Player 2
         Label player2Label = new Label("Player2");
-        Label player2Score = new Label("Score: ");
-        Label player2LineCount = new Label("Lines: ");
+        player2Label.setPadding(new Insets(10, 10, 10, 10));
+        gridPaneCenter.add(player2Label, 0,  13);
 
+        TextField player2NameField = new TextField();
+        player2NameField.setDisable(true);
+        player2NameField.setMaxWidth(100);
+        player2NameField.setPadding(new Insets(10, 10, 10, 10));
+        gridPaneCenter.add(player2NameField, 1,13);
+
+        Label player2Score = new Label("Score: ");
+        player2Score.setPadding(new Insets(10, 10, 10, 10));
+        gridPaneCenter.add(player2Score, 0, 14);
+
+        TextField player2ScoreField = new TextField();
+        player2ScoreField.setDisable(true);
+        player2ScoreField.setMaxWidth(100);
+        player2ScoreField.setPadding(new Insets(10, 10, 10, 10));
+        gridPaneCenter.add(player2ScoreField, 1,14);
+
+        Label player2LineCount = new Label("Lines: ");
+        player2LineCount.setPadding(new Insets(10, 10, 10, 10));
+        gridPaneCenter.add(player2LineCount, 0, 15);
+
+        TextField player2LineCountField = new TextField();
+        player2LineCountField.setDisable(true);
+        player2LineCountField.setMaxWidth(100);
+        player2LineCountField.setPadding(new Insets(10, 10, 10, 10));
+        gridPaneCenter.add(player2LineCountField, 1,15);
 
 
         //gridPaneCenter.setBackground(background);
@@ -115,24 +179,33 @@ public class Main extends Application {
 
         //Master window
 
+
+
         //Player1
         VBox vbox1 = new VBox(group1);
+        BackgroundFill backgroundFill1 = new BackgroundFill(Color.BLACK,CornerRadii.EMPTY, Insets.EMPTY);
+        Background background1 = new Background(backgroundFill1);
+        vbox1.setBackground(background1);
 
         //Center
-        VBox vboxCenter = new VBox();
-        vboxCenter.getChildren().addAll(player1Label,player2Label);
-        BackgroundFill backgroundFill = new BackgroundFill(Color.LIGHTBLUE,CornerRadii.EMPTY, Insets.EMPTY);
-        Background background = new Background(backgroundFill);
-        vboxCenter.setBackground(background);
+        VBox vboxCenter = new VBox(gridPaneCenter);
+        /*vboxCenter.getChildren().addAll(player1Label, player1Score, player1LineCount,
+                player2Label, player2Score, player2LineCount);*/
+        BackgroundFill backgroundFillCenter = new BackgroundFill(Color.AQUA,CornerRadii.EMPTY, Insets.EMPTY);
+        Background backgroundCenter = new Background(backgroundFillCenter);
+        vboxCenter.setBackground(backgroundCenter);
 
         //Player2
         VBox vbox2 = new VBox(group2);
+        BackgroundFill backgroundFill2 = new BackgroundFill(Color.BLACK,CornerRadii.EMPTY, Insets.EMPTY);
+        Background background2 = new Background(backgroundFill2);
+        vbox2.setBackground(background2);
 
 
         HBox hbox = new HBox(vbox1,vboxCenter,vbox2);
         int masterWindowWidth = (board1Width * 2)+centerWidth; //need to double width
         int masterWindowHeight = board1Height;
-        Color backgroundColor = Color.BLACK;
+        Color backgroundColor = Color.BLUE;
 
 
 
