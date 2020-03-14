@@ -1,5 +1,6 @@
 package com.INF122.TMGE;
 
+import com.INF122.TMGE.drmario.DrMarioShapeFactory;
 import com.INF122.TMGE.tetris.TetrisShapeFactory;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Group;
@@ -28,6 +29,8 @@ public class Controller {
     TextField playerScoreField;
     TextField playerLineCountField;
 
+    //For Testing Purposes
+    final GameEnum GAME_TO_TEST;
 
 
 
@@ -39,14 +42,19 @@ public class Controller {
      * Constructor
      * @param board
      */
-    public Controller(Board board,
+    public Controller(GameEnum GAME_TO_TEST,
+                      Board board,
                       TextField playerNameField,
                       TextField playerScoreField,
                       TextField playerLineCountField) {
+        this.GAME_TO_TEST = GAME_TO_TEST;
         this.board = board;
         this.playerNameField = playerNameField;
         this.playerScoreField = playerScoreField;
         this.playerLineCountField = playerLineCountField;
+        this.playerNameField.setText("Player");
+        this.playerScoreField.setText("0");
+        this.playerLineCountField.setText("0");
         // tileSize has been outsourced to board, which is passed in to Tetris first
        // this.tileSize = board.tileSize;
     }
@@ -440,7 +448,12 @@ public class Controller {
     public void generateShape() {
 
         //TODO for tetris game - copy added to Tetris
-        Shape newShape = TetrisShapeFactory.getRandomShape(this.board);
+        Shape newShape = null;
+        if(GAME_TO_TEST==GameEnum.TETRIS){
+            newShape = TetrisShapeFactory.getRandomShape(this.board);
+        } else if (GAME_TO_TEST== GameEnum.DRMARIO){
+            newShape = DrMarioShapeFactory.getRandomShape(this.board);
+        }
 
         //set newly created shape as the currently active shape
         this.currentActiveShape = newShape;
@@ -473,14 +486,16 @@ public class Controller {
             //this.group.getChildren().add(gameoverText);
 
             Text t = new Text();
-            t.setX(20.0f);
-            t.setY(65.0f);
+            //t.setX(20.0f);
+            //t.setY(65.0f);
+            t.setX(100);
+            t.setY(200);
             t.setText("Perspective");
             t.setFill(Color.YELLOW);
             t.setFont(Font.font(null, FontWeight.BOLD, 36));
             this.group.getChildren().add(t);
 
-            System.exit(0);
+            //System.exit(0);
         }
 
     }
