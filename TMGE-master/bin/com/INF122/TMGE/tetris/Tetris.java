@@ -2,9 +2,7 @@ package com.INF122.TMGE.tetris;
 
 import com.INF122.TMGE.*;
 import javafx.scene.Group;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -20,38 +18,19 @@ public class Tetris {
     boolean includeTetrisBorder;
     Controller c;
     Group g;
-    Pane p;
     Board b;
-
-    TextField playerNameField;
-    TextField playerScoreField;
-    TextField playerLineCountField;
-
     // TODO - refactor Controller so duplicate arguments are removed and instead passed in by this class
     // TODO - refactor tileSize that is now based on Board.tileSize
     private Shape currentActiveShape;
     private double time;
-    final GameEnum GAME_TO_TEST = GameEnum.TETRIS;
 
-
-    Tetris(Board bo,
-           TextField playerNameField,
-           TextField playerScoreField,
-           TextField playerLineCountField) {
+    Tetris(Board bo) {
         this.tetrisLineCount = 0;
         this.includeTetrisBorder = true;
         this.b = bo;
-        this.playerNameField = playerNameField;
-        this.playerScoreField = playerScoreField;
-        this.playerLineCountField = playerLineCountField;
-        c = new Controller(GAME_TO_TEST,
-                        bo,
-                        playerNameField,
-                        playerScoreField,
-                        playerLineCountField);
+        c = new Controller(bo);
         if(this.includeTetrisBorder){
             g = c.create();
-            //p = c.create();
         }
     }
     //TODO take private methods from Controller and refactor them into Tetris
@@ -89,14 +68,13 @@ public class Tetris {
     }
 
     public void render(){
-        //this.g.getChildren().clear();
-        this.p.getChildren().clear();
+        this.g.getChildren().clear();
         for(int colIndex=0; colIndex<this.b.gridWidth; colIndex++){
             for(int rowIndex=0; rowIndex<this.b.gridHeight; rowIndex++){
                 if(this.b.boardGrid[colIndex][rowIndex]!=null){
                     //System.out.println(this.board.boardGrid[colIndex][rowIndex].rectangle.);
-                    //this.g.getChildren().add(this.b.boardGrid[colIndex][rowIndex].rectangle);
-                    this.p.getChildren().add(this.b.boardGrid[colIndex][rowIndex].rectangle);
+                    this.g.getChildren().add(this.b.boardGrid[colIndex][rowIndex].rectangle);
+
                 }
             }
         }
@@ -138,9 +116,6 @@ public class Tetris {
                 listOfFullRows.add(tilesInRow);
                 System.out.println("line count: " + this.tetrisLineCount);
                 System.out.println("FULL ROW");
-
-                //update player line count:
-                this.playerLineCountField.setText(Integer.toString(this.tetrisLineCount) );
                 //return true;
             }
         }
@@ -162,8 +137,6 @@ public class Tetris {
 
     private void shiftDownTiles(boolean isBorder){
         List<Tile> listOfTilesToUpdate = new ArrayList<Tile>();
-
-
 
         for(int rowIndex=0; rowIndex<this.b.gridHeight; rowIndex++){
             for(int colIndex=0; colIndex<this.b.gridWidth; colIndex++){
@@ -242,8 +215,7 @@ public class Tetris {
             t.setText("Perspective");
             t.setFill(Color.YELLOW);
             t.setFont(Font.font(null, FontWeight.BOLD, 36));
-            //this.g.getChildren().add(t);
-            this.p.getChildren().add(t);
+            this.g.getChildren().add(t);
 
             System.exit(0);
         }

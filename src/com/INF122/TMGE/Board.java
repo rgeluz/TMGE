@@ -49,27 +49,44 @@ public class Board {
     }
 
     public Tile getTile(int columnIndex, int rowIndex){
-        return this.boardGrid[columnIndex][rowIndex];
+        if(!isTileOffGrid(columnIndex, rowIndex)){
+            return this.boardGrid[columnIndex][rowIndex];
+        } else {
+            throw new IndexOutOfBoundsException("either column index:" + columnIndex +
+                    " or row index:" + rowIndex + " is off the board grid.");
+        }
     }
 
     public void placeTile(Tile tile){
-        this.boardGrid[tile.columnIndex][tile.rowIndex] = tile;
+        if(!isTileOffGrid(tile.columnIndex, tile.rowIndex)){
+            this.boardGrid[tile.columnIndex][tile.rowIndex] = tile;
+        } else {
+            throw new IndexOutOfBoundsException("either column index:" + tile.columnIndex +
+                    " or row index:" + tile.rowIndex + " is off the board grid.");
+        }
     }
 
     public void removeTile(Tile tile){
-        this.boardGrid[tile.columnIndex][tile.rowIndex] = null;
+        if(!isTileOffGrid(tile.columnIndex, tile.rowIndex)){
+            this.boardGrid[tile.columnIndex][tile.rowIndex] = null;
+        }else {
+            throw new IndexOutOfBoundsException("either column index:" + tile.columnIndex +
+                    " or row index:" + tile.rowIndex + " is off the board grid.");
+        }
     }
 
-    public boolean isTileOffGrid(Tile tile){
-       if(tile.columnIndex < 0 ||
-               tile.columnIndex >= this.gridWidth ||
-               tile.rowIndex < 0 ||
-               tile.rowIndex >= this.gridHeight){
+    public boolean isTileOffGrid(int columnIndex, int rowIndex){
+       if(columnIndex < 0 ||
+               columnIndex >= this.gridWidth ||
+               rowIndex < 0 ||
+               rowIndex >= this.gridHeight){
            return true;
        } else {
            return false;
        }
     }
+
+
 
 
 } //end of Board class

@@ -1,15 +1,22 @@
 package com.INF122.TMGE;
 
+import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 
+
+import java.util.ArrayList;
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
-public class Tile {
+public class Tile implements Cloneable{
 
     //instance variables
     public int tileSize;
@@ -25,6 +32,7 @@ public class Tile {
     public int centerPieceColumnIndex;
     public int centerPieceRowIndex;
     public List<Direction> directions;
+    //TODO: convert BufferedImage instance to Image
 
     public Tile(Tile t)
     {
@@ -149,15 +157,80 @@ public class Tile {
 
 
 
-
     //TODO for now just set color, replace with image later
-    public void setColor(Color color){
+    public void setColor(Color color) {
         this.rectangle.setFill(color);
+
+        this.tileImage = setBlockImage(color);
+
     }
 
-    public void setBorder() { this.rectangle.setStroke(Color.WHITE); }
+    public Image setBlockImage(Color color) {
+        // TODO: return tile image based on color and game (for now code in tetris)
+        if (color == Color.BLUE)
+            try {
+                BufferedImage tmp = ImageIO.read(new File("resources\\BlockBlue.png"));
+                return SwingFXUtils.toFXImage(tmp, null);
+            } catch(IOException ioEx) {
+                System.out.println("This image cannot be found");
+            }
+        else if (color == Color.CYAN)
+            try {
+                BufferedImage tmp = ImageIO.read(new File("resources\\BlockCyan.png"));
+                return SwingFXUtils.toFXImage(tmp, null);
+            } catch(IOException ioEx) {
+                System.out.println("This image cannot be found");
+            }
+        else if (color == Color.GREEN)
+            try {
+                BufferedImage tmp = ImageIO.read(new File("resources\\BlockGreen.png"));
+                return SwingFXUtils.toFXImage(tmp, null);
+            } catch(IOException ioEx) {
+                System.out.println("This image cannot be found");
+            }
+        else if (color == Color.GREY)
+            try {
+                BufferedImage tmp = ImageIO.read(new File("resources\\BlockGrey.png"));
+                return SwingFXUtils.toFXImage(tmp, null);
+            } catch(IOException ioEx) {
+                System.out.println("This image cannot be found");
+            }
+        else if (color == Color.ORANGE)
+            try {
+                BufferedImage tmp = ImageIO.read(new File("resources\\BlockOrange.png"));
+                return SwingFXUtils.toFXImage(tmp, null);
+            } catch(IOException ioEx) {
+                System.out.println("This image cannot be found");
+            }
+        else if (color == Color.PURPLE)
+            try {
+                BufferedImage tmp = ImageIO.read(new File("resources\\BlockPurple.png"));
+                return SwingFXUtils.toFXImage(tmp, null);
+            } catch(IOException ioEx) {
+                System.out.println("This image cannot be found");
+            }
+        else if (color == Color.RED)
+            try {
+                BufferedImage tmp = ImageIO.read(new File("resources\\BlockRed.png"));
+                return SwingFXUtils.toFXImage(tmp, null);
+            } catch(IOException ioEx) {
+                System.out.println("This image cannot be found");
+            }
+        else if (color == Color.YELLOW)
+            try {
+                BufferedImage tmp = ImageIO.read(new File("resources\\BlockYellow.png"));
+                return SwingFXUtils.toFXImage(tmp, null);
+            } catch(IOException ioEx) {
+                System.out.println("This image cannot be found");
+            }
+        return this.tileImage; // preserves the original image if a new one isn't found
+    }
 
-    //TODO finish later
+    public void setBorder() {
+        this.rectangle.setStroke(Color.WHITE);
+    }
+
+    //TODO finish later - phase into BufferedImage
     /*
         maybe look into using image view
      */
@@ -180,6 +253,21 @@ public class Tile {
         group.getChildren().add(this.rectangle);
     }
 
+    //Provides a deepCopy of the tile
+    public Tile deepCopyClone() throws CloneNotSupportedException{
+        //assign the shallow copy to new reference variable
+        Tile t = (Tile)super.clone();
+
+        //t.tileImage = new Image("");
+        t.directions = new ArrayList<Direction>();
+        t.rectangle = new Rectangle();
+
+        //create a new object for the titleImage, directions, rectangle
+        //and assign it to shallow copy obtained,
+        //to make it a deep copy
+        return t;
+
+    }
 
 
 
