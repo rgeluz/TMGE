@@ -11,8 +11,7 @@ import javafx.scene.paint.Color;
 
 public class Pills 
 {
-	private int type;
-	List<Tile> caps;
+	List<Capsule> caps;
 	private static boolean setColor = false;
 	private static boolean setTileBorder = false;
 	private static boolean setImg = true;
@@ -20,7 +19,7 @@ public class Pills
     public int centerPieceRowIndex;
 	public static int rotateStatus = 0;
     
-	Pills(List<Tile> c)
+	Pills(List<Capsule> c)
 	{
 		caps = c;
         this.centerPieceColumnIndex = caps.get(0).columnIndex;
@@ -37,9 +36,7 @@ public class Pills
 	
 	public static Pills getPill(Board b)
 	{
-		int w = b.gridWidth;
-		int sz = b.tileSize;
-		List<Tile> caps = new ArrayList<Tile>(); 
+		List<Capsule> caps = new ArrayList<Capsule>(); 
 
 		for(int i = 0; i < 2; i++)
 		{
@@ -55,7 +52,7 @@ public class Pills
 		return new Pills(caps);
 	}
 
-	private static Tile createBlue(Board b, int i)
+	private static Capsule createBlue(Board b, int i)
 	{
         Image image = null;
         try 
@@ -66,25 +63,26 @@ public class Pills
         {
             e.printStackTrace();
         }
-		Tile cap = new Tile(b.tileSize, setColor, Color.BLUE, setTileBorder, setImg, image, b.gridWidth/2, 0, i, Direction.DOWN);
+		Capsule cap = new Capsule(b.tileSize, setColor, Color.BLUE, setTileBorder, setImg, image, b.gridWidth/2, 0, i, Direction.DOWN, 1);
 		return cap;
 	}
 	
-	private static Tile createRed(Board b, int i)
+	private static Capsule createRed(Board b, int i)
 	{
         Image image = null;
         try 
         {
             image = new Image(new FileInputStream("resources/BlockRed.png"));
-        } catch (FileNotFoundException e) 
+        } 
+        catch (FileNotFoundException e) 
         {
             e.printStackTrace();
         }
-		Tile cap = new Tile(b.tileSize, setColor, Color.RED, setTileBorder, setImg, image, b.gridWidth/2, 0, i, Direction.DOWN);
+        Capsule cap = new Capsule(b.tileSize, setColor, Color.RED, setTileBorder, setImg, image, b.gridWidth/2, 0, i, Direction.DOWN, 2);
 		return cap;
 	}
 	
-	private static Tile createYellow(Board b, int i)
+	private static Capsule createYellow(Board b, int i)
 	{
         Image image = null;
         try 
@@ -95,7 +93,7 @@ public class Pills
         {
             e.printStackTrace();
         }
-		Tile cap = new Tile(b.tileSize, setColor, Color.YELLOW, setTileBorder, setImg, image, b.gridWidth/2, 0, i, Direction.DOWN);
+        Capsule cap = new Capsule(b.tileSize, setColor, Color.YELLOW, setTileBorder, setImg, image, b.gridWidth/2, 0, i, Direction.DOWN, 3);
 		return cap;
 	}
 }

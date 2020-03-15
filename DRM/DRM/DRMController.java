@@ -7,9 +7,9 @@ import java.util.List;
 
 import com.INF122.TMGE.Board;
 import com.INF122.TMGE.Direction;
-import com.INF122.TMGE.Shape;
+//import com.INF122.TMGE.Shape;
 import com.INF122.TMGE.Tile;
-import com.INF122.TMGE.tetris.TetrisShapeFactory;
+//import com.INF122.TMGE.tetris.TetrisShapeFactory;
 
 import javafx.animation.AnimationTimer;
 import javafx.scene.Group;
@@ -35,7 +35,8 @@ public class DRMController
      * Constructor
      * @param board
      */
-    public DRMController(Board board) {
+    public DRMController(Board board) 
+    {
         this.board = board;
         // tileSize has been outsourced to board, which is passed in to Tetris first
        // this.tileSize = board.tileSize;
@@ -56,12 +57,12 @@ public class DRMController
         //TODO for tetris - added to Tetris constructor
         this.LineCount = 0;
         this.includeTetrisBorder = true;
-        if(this.includeTetrisBorder){
+        if(this.includeTetrisBorder)
             addTetrisBorder();
-        }
-
 
         //first spawn
+        Levels lvl = new Levels(this.board);
+        lvl.getLvl(1);
         generateShape();
         render();
 
@@ -106,9 +107,9 @@ public class DRMController
                 for(int rowIndex=0; rowIndex<this.board.gridHeight; rowIndex++)
                 {
                     //create new tile
-                    Tile newBoarderTile = new Tile(board.tileSize, false, null,false,
+                    Tile newBoarderTile = new Tile(board.tileSize, false, null, false,
                             true, image, colIndex, rowIndex,
-                            0,Direction.DOWN);
+                            0, 4, Direction.DOWN);
                     //this.board.boardGrid[colIndex][rowIndex]=newBoarderTile;
                     this.board.placeTile(newBoarderTile);
                 }
@@ -117,10 +118,11 @@ public class DRMController
 
         //create floor
         int floorRowIndex=this.board.gridHeight-1;
-        for(int colIndex=0; colIndex<this.board.gridWidth; colIndex++){
+        for(int colIndex=0; colIndex<this.board.gridWidth; colIndex++)
+        {
             Tile newBoarderTile = new Tile(board.tileSize, false, null,false,
                     true, image, colIndex, floorRowIndex,
-                    0,Direction.DOWN);
+                    0, 4, Direction.DOWN);
             //this.board.boardGrid[colIndex][floorRowIndex]=newBoarderTile;
             this.board.placeTile(newBoarderTile);
         }
@@ -145,14 +147,16 @@ public class DRMController
         }
     }
     
-    public boolean isColliding(List<Tile> newTileList){
+    public boolean isColliding(List<Capsule> newTileList){
         boolean isCollidingWithSelf = false;
-        for(Tile newTile: newTileList){
-            Tile tile = this.board.getTile(newTile.columnIndex,newTile.rowIndex);
+        for(Capsule newTile: newTileList){
+        	Tile tile = this.board.getTile(newTile.columnIndex,newTile.rowIndex);
             if(tile!=null){
-                for(Tile activeTile: this.currentActiveShape.caps){
+                for(Capsule activeTile: this.currentActiveShape.caps)
+                {
                     isCollidingWithSelf = false;
-                    if((activeTile.rowIndex==newTile.rowIndex) && (activeTile.columnIndex==newTile.columnIndex)){
+                    if((activeTile.rowIndex==newTile.rowIndex) && (activeTile.columnIndex==newTile.columnIndex))
+                    {
                         isCollidingWithSelf= true;
                         break;
                     }
@@ -173,11 +177,12 @@ public class DRMController
      * @param newTileList
      * @return
      */
-    public boolean isBottom(List<Tile> newTileList){
-        for(Tile newTile: newTileList){
-            if( newTile.rowIndex <0 || newTile.rowIndex >= board.gridHeight){
+    public boolean isBottom(List<Capsule> newTileList)
+    {
+        for(Capsule newTile: newTileList)
+        {
+            if( newTile.rowIndex <0 || newTile.rowIndex >= board.gridHeight)
                 return true;
-            }
         }
         return false;
     }
@@ -187,18 +192,21 @@ public class DRMController
      * @param newTileList
      * @return
      */
-    public boolean isLeftOrRightWall(List<Tile> newTileList){
-        for(Tile newTile: newTileList){
-            if( newTile.columnIndex <0 || newTile.columnIndex >= board.gridWidth){
+    public boolean isLeftOrRightWall(List<Capsule> newTileList)
+    {
+        for(Capsule newTile: newTileList)
+        {
+            if( newTile.columnIndex <0 || newTile.columnIndex >= board.gridWidth)
                 return true;
-            }
         }
         return false;
     }
     
-    private void updateBoard(List<Tile> newTileList){
+    private void updateBoard(List<Capsule> newTileList)
+    {
         //Remove old shape
-        for(Tile tile : this.currentActiveShape.caps){
+        for(Tile tile : this.currentActiveShape.caps)
+        {
             //Remove old tile from board
             this.board.removeTile(tile);
 
@@ -213,26 +221,27 @@ public class DRMController
         this.currentActiveShape = newPill;
 
         //Update board
-        for(Tile newTile: this.currentActiveShape.caps){
+        for(Tile newTile: this.currentActiveShape.caps)
+        {
             //Update board with new tile
             this.board.placeTile(newTile);
         }
     }
     
-    public void moveShape(Direction direction) {
-
+    public void moveShape(Direction direction) 
+    {
         //calculate new center tile coordinates
         int newColIndex = this.currentActiveShape.centerPieceColumnIndex + direction.colIndex;
         int newRowIndex = this.currentActiveShape.centerPieceRowIndex + direction.rowIndex;
 
         //Creating new shape
-        List<Tile> newTileList = new ArrayList<Tile>();
-        int mov = 1;
-        for(Tile tile : this.currentActiveShape.caps)
+        List<Capsule> newTileList = new ArrayList<Capsule>();
+//        int mov = 1;
+        for(Capsule tile : this.currentActiveShape.caps)
         {
-            Tile newTile = new Tile(tile.tileSize, tile.setColor, tile.tileColor, tile.setTileBorder,
+        	Capsule newTile = new Capsule(tile.tileSize, tile.setColor, tile.tileColor, tile.setTileBorder,
                                     tile.setImage, tile.tileImage,
-                                    newColIndex, newRowIndex, tile.position, tile.directions);
+                                    newColIndex, newRowIndex, tile.position, tile.directions, tile.type);
             newTileList.add(newTile);
         }
 
@@ -241,16 +250,38 @@ public class DRMController
         {
             if( !isLeftOrRightWall(newTileList) && !isColliding(newTileList))
                 updateBoard(newTileList);
-            
         } 
         else if(direction==Direction.DOWN)
         {
             //check for out of bounds and collision
             if( !isBottom(newTileList) && !isColliding(newTileList))
-                updateBoard(newTileList);
+        		updateBoard(newTileList);
+
             else 
+            { 
+            	for(Tile t: newTileList)
+        		{
+        			List<Tile> match = checkFourCaps(t);
+        			if(!match.isEmpty())
+        			{
+        				for(Tile c: match)
+        					board.removeTile(c);
+        			}
+        		}
+            	render();
+            	
+            	System.out.println("toRemove");
+            	
+            	List<Tile> move = this.isSingleCap();
+            	if(!move.isEmpty())
+            	{
+            		for(Tile t: move)
+            			this.moveCapDown((Capsule) t);
+            	}
                 generateShape();
+         		
 //            checkForFullRows();
+            }
         }
     }
     
@@ -258,8 +289,8 @@ public class DRMController
     {
         if(this.currentActiveShape.centerPieceRowIndex>0)
         { //don't allow rotation when shape is at the top of board
-            List<Tile> newTileList = new ArrayList<Tile>();
-            for(Tile tile : this.currentActiveShape.caps)
+            List<Capsule> newTileList = new ArrayList<Capsule>();
+            for(Capsule tile : this.currentActiveShape.caps)
             {
                 List<Direction> newDirections = new ArrayList<>();
                 for(Direction direction: tile.directions)
@@ -268,9 +299,9 @@ public class DRMController
                     newDirections.add(newDirection);
                 }
 
-                Tile newTile = new Tile(tile.tileSize, tile.setColor, tile.tileColor, tile.setTileBorder,
+                Capsule newTile = new Capsule(tile.tileSize, tile.setColor, tile.tileColor, tile.setTileBorder,
                         tile.setImage, tile.tileImage,
-                        tile.centerPieceColumnIndex, tile.centerPieceRowIndex, tile.position , newDirections);
+                        tile.centerPieceColumnIndex, tile.centerPieceRowIndex, tile.position , newDirections, tile.type);
                 newTileList.add(newTile);
 
             }
@@ -348,5 +379,120 @@ public class DRMController
 
             System.exit(0);
         }
+    }
+    
+    private List<Tile> checkFourCaps(Tile t) 
+    {
+    	int col = t.columnIndex;
+    	int row = t.rowIndex;
+    	List<Tile> toClear = new ArrayList<Tile>();
+    	
+    	for( int r =0; r < this.board.gridHeight-1; r++)
+    	{
+    		if (r < this.board.gridHeight-4 && this.board.getTile(col, r) != null)
+    		{    		
+    			toClear.add(this.board.getTile(col, r));
+    			for (int c = 1; c < 5; c++)
+    			{
+    				if(this.board.getTile(col, c+r)!= null && this.board.getTile(col, c+r).type != 4 && 
+    				   this.board.getTile(col, c+r).type == this.board.getTile(col, r).type)
+    					toClear.add(this.board.getTile(col, c+r));
+    				
+    				else
+    				{
+    					if (c > 3)
+    						return toClear;
+    					else
+    					{
+    						toClear.clear();
+    						break;
+    					}
+    				}
+    			}
+	    	}
+    	}
+    	
+    	for( int c = 1; c < this.board.gridWidth-2; c++)
+    	{
+    		if (c < this.board.gridWidth-4 && this.board.getTile(c, row) != null)
+    		{    		
+    			toClear.add(this.board.getTile(c, row));
+    			for (int i = 1; i < 5; i++)
+    			{
+//    				System.out.println("c: " + c +" i: " + i + " row: " + row );
+    				if(this.board.getTile(c+i, row)!= null && this.board.getTile(c+i, row).type != 4 &&
+    				   this.board.getTile(c+i, row).type == this.board.getTile(c, row).type)
+    					toClear.add(this.board.getTile(c+i, row));
+    				else
+    				{
+    					if (i > 3)
+    						return toClear;
+    					else
+    					{
+    						toClear.clear();
+    						break;
+    					}
+    				}
+    			}
+	    	}
+    	}
+    	
+    	return toClear;
+    }
+    
+    private List<Tile> isSingleCap()
+    {
+    	List<Tile> toMove = new ArrayList<Tile>();
+        for(int colIndex=0; colIndex<this.board.gridWidth; colIndex++)
+        {
+            for(int rowIndex=0; rowIndex<this.board.gridHeight; rowIndex++)
+            {
+            	Tile toCheck = this.board.getTile(colIndex, rowIndex);
+            	if( toCheck != null && toCheck.isCapsule() &&
+            			toCheck.columnIndex >= 1 && toCheck.columnIndex <= board.gridWidth -2)
+            	{
+                    if(toCheck.rowIndex >= 0 && toCheck.rowIndex <= board.gridHeight -2)
+                    {
+                    	if(this.board.getTile(toCheck.columnIndex-1, toCheck.rowIndex  ) == null &&  //left
+                    	   this.board.getTile(toCheck.columnIndex+1, toCheck.rowIndex  ) == null &&  //right
+                    	   this.board.getTile(toCheck.columnIndex,   toCheck.rowIndex+1) == null)    //down
+                    		toMove.add(toCheck);
+                    }
+            	}
+            }
+        }
+        return toMove;
+    }
+    
+    private void moveCapDown(Capsule tile)
+    {
+        int newColIndex = tile.columnIndex + Direction.DOWN.colIndex;
+        int newRowIndex = tile.rowIndex + Direction.DOWN.rowIndex;
+
+        //Creating new shape
+    	Capsule newTile = new Capsule(tile.tileSize, tile.setColor, tile.tileColor, tile.setTileBorder,
+                                tile.setImage, tile.tileImage,
+                                newColIndex, newRowIndex, tile.position, tile.directions, tile.type);
+    	board.removeTile(tile);
+    	board.placeTile(newTile);
+    	render();
+    	
+        //Update Board if not out of bounds and no collision
+        //check for out of bounds and collision
+        while(newTile.rowIndex != board.gridHeight-2 || board.getTile(newTile.columnIndex, newTile.rowIndex+1) == null)
+        {
+        	System.out.println("Moving");
+            int newRow = newTile.rowIndex + 1;
+
+            //Creating new shape
+        	Capsule oldTile = newTile;
+            newTile = new Capsule(tile.tileSize, tile.setColor, tile.tileColor, tile.setTileBorder,
+                                    tile.setImage, tile.tileImage,
+                                    newTile.columnIndex, newRow, tile.position, tile.directions, tile.type);
+        	board.removeTile(oldTile);
+        	board.placeTile(newTile);
+        	render();
+        }
+        tile = null;
     }
 }
