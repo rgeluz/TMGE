@@ -11,7 +11,6 @@ import javafx.scene.text.Text;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class Tetris {
@@ -51,7 +50,7 @@ public class Tetris {
                     //create new tile
                     Tile newBoarderTile = new Tile(b.tileSize, false, null,false,
                             true, image, colIndex, rowIndex,
-                            0, Collections.singletonList(Direction.DOWN));
+                            0, Direction.DOWN);
                     this.b.boardGrid[colIndex][rowIndex]=newBoarderTile;
                 }
             }
@@ -62,7 +61,7 @@ public class Tetris {
         for(int colIndex=0; colIndex<this.b.gridWidth; colIndex++){
             Tile newBoarderTile = new Tile(b.tileSize, false, null,false,
                     true, image, colIndex, floorRowIndex,
-                    0, Collections.singletonList(Direction.DOWN));
+                    0,Direction.DOWN);
             this.b.boardGrid[colIndex][floorRowIndex]=newBoarderTile;
         }
         render();

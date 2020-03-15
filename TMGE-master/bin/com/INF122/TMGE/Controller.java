@@ -12,7 +12,6 @@ import javafx.scene.text.Text;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class Controller {
@@ -106,7 +105,7 @@ public class Controller {
                     //create new tile
                     Tile newBoarderTile = new Tile(board.tileSize, false, null,false,
                             true, image, colIndex, rowIndex,
-                            0, Direction.DOWN);
+                            0,Direction.DOWN);
                     //this.board.boardGrid[colIndex][rowIndex]=newBoarderTile;
                     this.board.placeTile(newBoarderTile);
                 }
@@ -119,7 +118,7 @@ public class Controller {
         {
             Tile newBoarderTile = new Tile(board.tileSize, false, null,false,
                     true, image, colIndex, floorRowIndex,
-                    0, Direction.DOWN);
+                    0,Direction.DOWN);
             //this.board.boardGrid[colIndex][floorRowIndex]=newBoarderTile;
             this.board.placeTile(newBoarderTile);
         }

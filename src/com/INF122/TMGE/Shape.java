@@ -15,9 +15,6 @@ public class Shape {
     public int centerPieceRowIndex;
     public List<Tile> tiles;  //four tiles for tetris, two tiles for drmario
 
-    public int top;
-    public int bottom;
-
     public Shape(List<Tile> tiles){
         this.tiles = tiles;
         this.centerPieceColumnIndex = tiles.get(0).columnIndex;
