@@ -34,6 +34,47 @@ public class Tile implements Cloneable{
     public List<Direction> directions;
     //TODO: convert BufferedImage instance to Image
 
+    public Tile(Tile t)
+    {
+        this.tileSize = t.tileSize;
+        this.setColor = t.setColor;
+        this.tileColor = t.tileColor;
+        this.setTileBorder = t.setTileBorder;
+        this.setImage = t.setImage;
+        this.tileImage = t.tileImage;
+        this.position = t.position;
+        this.centerPieceColumnIndex = t.centerPieceColumnIndex;
+        this.centerPieceRowIndex = t.centerPieceRowIndex;
+        this.directions = t.directions;
+
+        this.rectangle = new Rectangle();
+        this.rectangle.setHeight(this.tileSize);
+        this.rectangle.setWidth(this.tileSize);
+        if(this.setColor)
+        {
+            this.setColor(this.tileColor);
+        }
+        if(this.setTileBorder)
+        {
+            this.setBorder();
+        }
+        if(this.setImage)
+        {
+            this.setImage(this.tileImage);
+        }
+
+        int dx = 0, dy = 0;
+
+        for (Direction d : directions) {
+            dx += position * d.colIndex;
+            dy += position * d.rowIndex;
+        }
+
+        this.columnIndex = this.centerPieceColumnIndex + dx;
+        this.rowIndex = this.centerPieceRowIndex + dy;
+
+        this.setCoordinates(this.columnIndex,this.rowIndex);
+    }
 
 
     public Tile(int tileSize, boolean setColor, Color color, boolean setTileBorder, boolean setImage, Image image, int cenColIndex, int cenRowIndex, int position, List<Direction> directions){
