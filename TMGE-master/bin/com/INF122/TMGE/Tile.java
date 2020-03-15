@@ -111,7 +111,85 @@ public class Tile {
 
     }
 
+    public Tile(int tileSize, boolean setColor, Color color, boolean setTileBorder, boolean setImage, Image image, int colIndex, int rowIndex, int position, Direction... directions) {
+        this.tileSize = tileSize;
+        this.setColor = setColor;
+        this.tileColor = color;
+        this.setTileBorder =setTileBorder;
+        this.setImage = setImage;
+        this.tileImage = image;
+        this.position = position;
+        this.centerPieceColumnIndex = colIndex; //TODO: change default 0 values to proper values
+        this.centerPieceRowIndex = rowIndex;
+        this.directions = Arrays.asList(directions); // TODO: resolve type conflict - resolved?
+        this.type = 0;
 
+        this.rectangle = new Rectangle();
+        this.rectangle.setHeight(this.tileSize);
+        this.rectangle.setWidth(this.tileSize);
+        if(this.setColor)
+            this.setColor(this.tileColor);
+
+        if(this.setTileBorder)
+            this.setBorder();
+
+        if(this.setImage)
+            this.setImage(this.tileImage);
+
+
+        int dx = 0, dy = 0;
+
+        for (Direction d : directions)
+        {
+            dx += position * d.colIndex;
+            dy += position * d.rowIndex;
+        }
+
+        this.columnIndex = this.centerPieceColumnIndex + dx;
+        this.rowIndex = this.centerPieceRowIndex + dy;
+
+        this.setCoordinates(this.columnIndex, this.rowIndex);
+    }
+
+    public Tile(int tileSize, boolean setColor, Color tileColor, boolean setTileBorder, boolean setImage, Image tileImage, int centerPieceColumnIndex, int centerPieceRowIndex, int position, List<Direction> newDirections) {
+        this.tileSize = tileSize;
+        this.setColor = setColor;
+        this.tileColor = tileColor;
+        this.setTileBorder =setTileBorder;
+        this.setImage = setImage;
+        this.tileImage = tileImage;
+        this.position = position;
+        this.centerPieceColumnIndex = centerPieceColumnIndex;
+        this.centerPieceRowIndex = centerPieceRowIndex;
+        this.directions = newDirections;
+        this.type = 0;
+
+        this.rectangle = new Rectangle();
+        this.rectangle.setHeight(this.tileSize);
+        this.rectangle.setWidth(this.tileSize);
+        if(this.setColor)
+            this.setColor(this.tileColor);
+
+        if(this.setTileBorder)
+            this.setBorder();
+
+        if(this.setImage)
+            this.setImage(this.tileImage);
+
+
+        int dx = 0, dy = 0;
+
+        for (Direction d : directions)
+        {
+            dx += position * d.colIndex;
+            dy += position * d.rowIndex;
+        }
+
+        this.columnIndex = this.centerPieceColumnIndex + dx;
+        this.rowIndex = this.centerPieceRowIndex + dy;
+
+        this.setCoordinates(this.columnIndex, this.rowIndex);
+    }
 
 
     //TODO for now just set color, replace with image later
