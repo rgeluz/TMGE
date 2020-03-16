@@ -38,10 +38,13 @@ public class Main extends Application {
     public void start(Stage stage) throws Exception {
         //testGame(stage);
 
-        /**/Parent root = FXMLLoader.load(getClass().getResource("loginportal.fxml"));
+        /*Parent root = FXMLLoader.load(getClass().getResource("loginportal.fxml"));
         stage.setTitle("TMGE");
-        stage.setScene(new Scene(root, 671, 400));
+        Scene scene = new Scene(root, 671, 400);
+        
+        stage.setScene(scene);
         stage.show();
+        */
     }
 
 
