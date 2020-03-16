@@ -1,9 +1,11 @@
 package com.INF122.TMGE;
 
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -36,7 +38,12 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        testGame(stage);
+        //testGame(stage);
+
+        Parent root = FXMLLoader.load(getClass().getResource("loginportal.fxml"));
+        stage.setTitle("TMGE");
+        stage.setScene(new Scene(root, 671, 400));
+        stage.show();
     }
 
     public void testGame(Stage stage){
@@ -296,4 +303,6 @@ public class Main extends Application {
         stage.show();
 
     }
+
+
 }
