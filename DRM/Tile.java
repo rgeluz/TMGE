@@ -25,10 +25,11 @@ public class Tile {
     public int centerPieceColumnIndex;
     public int centerPieceRowIndex;
     public List<Direction> directions;
+    public int type;
 
-
-
-    public Tile(int tileSize, boolean setColor, Color color, boolean setTileBorder, boolean setImage, Image image, int cenColIndex, int cenRowIndex, int position, List<Direction> directions){
+    public Tile(int tileSize, boolean setColor, Color color, boolean setTileBorder, boolean setImage, Image image, 
+    		int cenColIndex, int cenRowIndex, int position, List<Direction> directions, int t)
+    {
         this.tileSize = tileSize;
         this.setColor = setColor;
         this.tileColor = color;
@@ -39,23 +40,24 @@ public class Tile {
         this.centerPieceColumnIndex = cenColIndex;
         this.centerPieceRowIndex = cenRowIndex;
         this.directions = directions;
+        this.type = t;
 
         this.rectangle = new Rectangle();
         this.rectangle.setHeight(this.tileSize);
         this.rectangle.setWidth(this.tileSize);
-        if(this.setColor){
+        if(this.setColor)
             this.setColor(this.tileColor);
-        }
-        if(this.setTileBorder){
+        
+        if(this.setTileBorder)
             this.setBorder();
-        }
-        if(this.setImage){
+        
+        if(this.setImage)
             this.setImage(this.tileImage);
-        }
 
         int dx = 0, dy = 0;
 
-        for (Direction d : directions) {
+        for (Direction d : directions) 
+        {
             dx += position * d.colIndex;
             dy += position * d.rowIndex;
         }
@@ -67,7 +69,8 @@ public class Tile {
 
     }
 
-    public Tile(int tileSize, boolean setColor, Color color, boolean setTileBorder, boolean setImage, Image image, int cenColIndex, int cenRowIndex, int position, Direction... directions){
+    public Tile(int tileSize, boolean setColor, Color color, boolean setTileBorder, boolean setImage, Image image, int cenColIndex, int cenRowIndex, int position, int t, Direction... directions)
+    {
         this.tileSize = tileSize;
         this.setColor = setColor;
         this.tileColor = color;
@@ -78,23 +81,25 @@ public class Tile {
         this.centerPieceColumnIndex = cenColIndex;
         this.centerPieceRowIndex = cenRowIndex;
         this.directions = Arrays.asList(directions);
+        this.type = t;
 
         this.rectangle = new Rectangle();
         this.rectangle.setHeight(this.tileSize);
         this.rectangle.setWidth(this.tileSize);
-        if(this.setColor){
+        if(this.setColor)
             this.setColor(this.tileColor);
-        }
-        if(this.setTileBorder){
+        
+        if(this.setTileBorder)
             this.setBorder();
-        }
-        if(this.setImage){
+        
+        if(this.setImage)
             this.setImage(this.tileImage);
-        }
+        
 
         int dx = 0, dy = 0;
 
-        for (Direction d : directions) {
+        for (Direction d : directions) 
+        {
             dx += position * d.colIndex;
             dy += position * d.rowIndex;
         }
@@ -102,9 +107,10 @@ public class Tile {
         this.columnIndex = this.centerPieceColumnIndex + dx;
         this.rowIndex = this.centerPieceRowIndex + dy;
 
-        this.setCoordinates(this.columnIndex,this.rowIndex);
+        this.setCoordinates(this.columnIndex, this.rowIndex);
 
     }
+
 
 
 
@@ -124,7 +130,8 @@ public class Tile {
         this.rectangle.setFill(imagePattern);
     }
 
-    public void setCoordinates(int columnIndex, int rowIndex){
+    public void setCoordinates(int columnIndex, int rowIndex)
+    {
         this.rectangle.setX(columnIndex*this.tileSize);
         this.rectangle.setY(rowIndex*this.tileSize);
     }
@@ -133,12 +140,14 @@ public class Tile {
     /*
         JavaFx
      */
-    public void renderTile(Group group){
+    public void renderTile(Group group)
+    {
         //add tile to group
         group.getChildren().add(this.rectangle);
     }
-
-
-
-
+    
+	public boolean isCapsule()
+	{
+		return true;
+	}
 }
