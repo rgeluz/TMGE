@@ -106,7 +106,7 @@ public class TetrisController {
     private void addTetrisBorder(){
         Image image = null;
         try {
-            image = new Image(new FileInputStream("TMGE-module/resources/BlockGrey.png"));
+            image = new Image(new FileInputStream("Tetris-module/resources/BlockGrey.png"));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
