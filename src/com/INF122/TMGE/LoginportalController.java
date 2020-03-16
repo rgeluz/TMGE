@@ -59,8 +59,6 @@ public class LoginportalController{
         if(event.getSource().equals(tetrisIcon)){
             System.out.println("tetris selected");
 
-
-
             try {
                 Stage tetrisStage = new Stage();
                 tetrisStage.setTitle("Tetris");

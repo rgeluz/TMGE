@@ -25,25 +25,39 @@ public class TetrisScene {
     public static int gridHeight = 20;
     public static int gridWidth = 12;
     public static int tileSize = 30;
-    Image imageTetrisLogo = null;
+
+    public static int centerWidth = 300;
+    public static int fieldWidth = 100;
+
+    //public static Color gameColor = Color.AQUA;
+
+    public static TextField player1NameField;
+    public static TextField player1ScoreField;
+    public static TextField player1LineCountField;
 
     public TetrisScene(){
+    }
+    public static ImageView setUpGameLogo() {
+        //Game Logo
+        Image imageTetrisLogo = null;
+        try{
+            imageTetrisLogo = new Image(new FileInputStream("resources/TetrisLogo.png"));
 
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        ImageView imageViewTetris = new ImageView(imageTetrisLogo);
+        imageViewTetris.setFitWidth(tileSize*5);
+        imageViewTetris.setFitHeight(tileSize*2);
+        return imageViewTetris;
     }
 
     public static Scene generateSingleplayerScene(){
         //Center
-        int centerWidth = 300;
-        int fieldWidth = 100;
-
         GridPane gridPaneCenter = new GridPane();
         gridPaneCenter.setPrefWidth(centerWidth);
         gridPaneCenter.setAlignment(Pos.CENTER);
 
-        //TODO important to note, the first coordinate is the column index,
-        //     and the second is the row index of the grid pane
-
-        //TODO this adds spaces above player 1
         Label emptyLabel1 = new Label("");
         gridPaneCenter.add(emptyLabel1, 0, 1);
         Label emptyLabel2 = new Label("");
@@ -54,24 +68,11 @@ public class TetrisScene {
         gridPaneCenter.add(emptyLabel4, 0, 4);
         Label emptyLabel5 = new Label("");
 
-        //Game Logo
-        Image imageTetrisLogo = null;
+        ImageView imageViewTetris = setUpGameLogo();
 
-        try{
-            imageTetrisLogo = new Image(new FileInputStream("resources/TetrisLogo.png"));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        ImageView imageViewTetris = new ImageView(imageTetrisLogo);
-        imageViewTetris.setFitWidth(tileSize*5);
-        imageViewTetris.setFitHeight(tileSize*2);
-        Color gameColor = null;
         gridPaneCenter.getChildren().add(imageViewTetris);
-        gameColor = Color.AQUA;
 
         gridPaneCenter.add(emptyLabel5, 0, 5);
-
         Label emptyLabel6 = new Label("");
         gridPaneCenter.add(emptyLabel6, 0, 6);
 
@@ -80,18 +81,18 @@ public class TetrisScene {
         player1Label.setPadding(new Insets(10, 10, 10, 10));
         gridPaneCenter.add(player1Label, 0, 10);
 
-        TextField player1NameField = new TextField();
+        player1NameField = new TextField();
         player1NameField.setDisable(true);
         player1NameField.setMaxWidth(fieldWidth);
         player1NameField.setPadding(new Insets(10, 10, 10, 10));
-        gridPaneCenter.add(player1NameField, 1,10);
 
+        gridPaneCenter.add(player1NameField, 1,10);
 
         Label player1Score = new Label("Score: ");
         player1Score.setPadding(new Insets(10, 10, 10, 10));
         gridPaneCenter.add(player1Score, 0, 11);
 
-        TextField player1ScoreField = new TextField();
+        player1ScoreField = new TextField();
         player1ScoreField.setDisable(true);
         player1ScoreField.setMaxWidth(fieldWidth);
         player1ScoreField.setPadding(new Insets(10, 10, 10, 10));
@@ -101,7 +102,7 @@ public class TetrisScene {
         player1LineCount.setPadding(new Insets(10, 10, 10, 10));
         gridPaneCenter.add(player1LineCount, 0, 12);
 
-        TextField player1LineCountField = new TextField();
+        player1LineCountField = new TextField();
         player1LineCountField.setDisable(true);
         player1LineCountField.setMaxWidth(fieldWidth);
         player1LineCountField.setPadding(new Insets(10, 10, 10, 10));
@@ -146,9 +147,10 @@ public class TetrisScene {
         vboxCenter.setBackground(backgroundCenter);
 
         HBox hbox = new HBox(vbox1,vboxCenter);
-        int masterWindowWidth = board1Width +centerWidth;
+        int masterWindowWidth = board1Width+centerWidth; //need to double width
         int masterWindowHeight = board1Height;
         Color backgroundColor = Color.BLUE;
+
         Scene scene = new Scene(hbox, masterWindowWidth, masterWindowHeight, backgroundColor);
 
         //Key event handler
@@ -173,15 +175,10 @@ public class TetrisScene {
         //Center
         int centerWidth = 300;
         int fieldWidth = 100;
-
         GridPane gridPaneCenter = new GridPane();
         gridPaneCenter.setPrefWidth(centerWidth);
         gridPaneCenter.setAlignment(Pos.CENTER);
 
-        //TODO important to note, the first coordinate is the column index,
-        //     and the second is the row index of the grid pane
-
-        //TODO this adds spaces above player 1
         Label emptyLabel1 = new Label("");
         gridPaneCenter.add(emptyLabel1, 0, 1);
         Label emptyLabel2 = new Label("");
@@ -192,24 +189,12 @@ public class TetrisScene {
         gridPaneCenter.add(emptyLabel4, 0, 4);
         Label emptyLabel5 = new Label("");
 
-        //Game Logo
-        Image imageTetrisLogo = null;
+        ImageView imageViewTetris = setUpGameLogo();
 
-        try{
-            imageTetrisLogo = new Image(new FileInputStream("resources/TetrisLogo.png"));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        ImageView imageViewTetris = new ImageView(imageTetrisLogo);
-        imageViewTetris.setFitWidth(tileSize*5);
-        imageViewTetris.setFitHeight(tileSize*2);
-        Color gameColor = null;
         gridPaneCenter.getChildren().add(imageViewTetris);
-        gameColor = Color.AQUA;
+
 
         gridPaneCenter.add(emptyLabel5, 0, 5);
-
         Label emptyLabel6 = new Label("");
         gridPaneCenter.add(emptyLabel6, 0, 6);
 
@@ -256,6 +241,7 @@ public class TetrisScene {
         Label emptyLabel10 = new Label("");
         gridPaneCenter.add(emptyLabel10, 0, 16);
 
+
         //Player 2
         Label player2Label = new Label("Player2");
         player2Label.setPadding(new Insets(10, 10, 10, 10));
@@ -286,6 +272,7 @@ public class TetrisScene {
         player2LineCountField.setMaxWidth(100);
         player2LineCountField.setPadding(new Insets(10, 10, 10, 10));
         gridPaneCenter.add(player2LineCountField, 1,19);
+
 
         //________________Master window______________________//
 
@@ -332,6 +319,7 @@ public class TetrisScene {
         BackgroundFill backgroundFill2 = new BackgroundFill(Color.BLACK,CornerRadii.EMPTY, Insets.EMPTY);
         Background background2 = new Background(backgroundFill2);
         vbox2.setBackground(background2);
+
 
         HBox hbox = new HBox(vbox1,vboxCenter,vbox2);
         int masterWindowWidth = (board1Width * 2)+centerWidth; //need to double width
