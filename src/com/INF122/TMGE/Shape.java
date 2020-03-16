@@ -9,8 +9,6 @@ import java.util.List;
 public class Shape {
 
     //instance variables
-    private Color defaultColor;
-    private Color shapeColor;
     public int centerPieceColumnIndex;
     public int centerPieceRowIndex;
     public List<Tile> tiles;  //four tiles for tetris, two tiles for drmario
