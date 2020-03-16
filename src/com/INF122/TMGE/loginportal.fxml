@@ -11,7 +11,7 @@
             <left>
                 <Pane prefHeight="400.0" prefWidth="284.0" styleClass="linear-grad" stylesheets="@resources/css/styling.css" BorderPane.alignment="CENTER">
                     <children>
-                        <Label layoutX="43.0" layoutY="81.0" text="Welcome to TGME" textFill="WHITE">
+                        <Label layoutX="43.0" layoutY="81.0" text="Welcome to TMGE" textFill="WHITE">
                             <font>
                                 <Font size="24.0" />
                             </font>
@@ -55,12 +55,12 @@
                                         <Image url="@resources/icon/icons8_back_52px.png" />
                                     </image>
                                 </ImageView>
-                                <ImageView fitHeight="50.0" fitWidth="102.0" layoutX="220.0" layoutY="280.0" pickOnBounds="true" preserveRatio="true">
+                                <ImageView fx:id="drMarioIcon" fitHeight="50.0" fitWidth="102.0" layoutX="220.0" layoutY="280.0" onMouseClicked="#handleMouseEvent" pickOnBounds="true" preserveRatio="true">
                                     <image>
                                         <Image url="@resources/icon/icons8_pill_48px.png" />
                                     </image>
                                 </ImageView>
-                                <ImageView fitHeight="50.0" fitWidth="67.0" layoutX="109.0" layoutY="280.0" pickOnBounds="true" preserveRatio="true">
+                                <ImageView fx:id="tetrisIcon" fitHeight="50.0" fitWidth="67.0" layoutX="109.0" layoutY="280.0" onMouseClicked="#handleMouseEvent" pickOnBounds="true" preserveRatio="true">
                                     <image>
                                         <Image url="@resources/icon/icons8_tetris_100px_1.png" />
                                     </image>
