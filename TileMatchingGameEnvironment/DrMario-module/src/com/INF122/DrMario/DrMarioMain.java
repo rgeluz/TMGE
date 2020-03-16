@@ -230,8 +230,7 @@ public class DrMarioMain extends Application{
         int board1Width = gridWidth*tileSize;
         int board1Height = gridHeight*tileSize;
 
-        DRMController controller1 = new DRMController(GAME_TO_TEST,
-                board1,
+        DRMController controller1 = new DRMController(board1,
                 player1NameField,
                 player1ScoreField,
                 player1LineCountField);
@@ -243,7 +242,7 @@ public class DrMarioMain extends Application{
         int board2Width = gridWidth*tileSize;
         int board2Height = gridHeight*tileSize;
 
-        DRMController controller2 = new DRMController(GAME_TO_TEST,
+        DRMController controller2 = new DRMController(
                 board2,
                 player2NameField,
                 player2ScoreField,

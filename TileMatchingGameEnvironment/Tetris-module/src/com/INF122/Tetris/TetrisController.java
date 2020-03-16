@@ -463,42 +463,8 @@ public class TetrisController extends Controller {
 
         //TODO for tetris game - copy added to Tetris
         Shape newShape = null;
-        //if(GAME_TO_TEST==GameEnum.TETRIS){
-        //newShape = TetrisShapeFactory.getRandomShape(this.board);
-        //} else if (GAME_TO_TEST== GameEnum.DRMARIO){
-        //newShape = DrMarioShapeFactory.getRandomShape(this.board);
-        //}
+        newShape = TetrisShapeFactory.getRandomShape(this.board);
 
-        //Temporary
-        //-------------------------------------//
-        Image image = null;
-        try {
-            image = new Image(new FileInputStream("TMGE-module/resources/BlockPurple.png"));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        int spawnColIndex = 0;
-        int spawnRowIndex = 0;
-        int tileSize = 0;
-        boolean setColor = false;
-        boolean setTileBorder = false; //toggle to add boarder to tile
-        boolean setImage = true;
-        spawnColIndex = (board.gridWidth-1)/2; //half of board width
-        spawnRowIndex = 0;
-        tileSize = board.tileSize;
-
-        Tile tile1 = new Tile(tileSize, setColor, Color.VIOLET, setTileBorder, setImage, image, spawnColIndex,spawnRowIndex, 0 , Direction.DOWN); //Center Tile
-        Tile tile2 = new Tile(tileSize, setColor, Color.VIOLET, setTileBorder, setImage, image, spawnColIndex,spawnRowIndex,1 , Direction.RIGHT);
-        Tile tile3 = new Tile(tileSize, setColor, Color.VIOLET, setTileBorder, setImage, image, spawnColIndex,spawnRowIndex, 1 , Direction.LEFT);
-        Tile tile4 = new Tile(tileSize, setColor, Color.VIOLET, setTileBorder, setImage, image, spawnColIndex,spawnRowIndex, 1 , Direction.DOWN);
-
-        List<Tile> tiles = new ArrayList<Tile>();
-        tiles.add(tile1);
-        tiles.add(tile2);
-        tiles.add(tile3);
-        tiles.add(tile4);
-        newShape = new Shape(tiles);
 
         //set newly created shape as the currently active shape
         this.currentActiveShape = newShape;
