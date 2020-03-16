@@ -114,7 +114,7 @@ public class DRMController  {
         Image image = null;
         try 
         {
-            image = new Image(new FileInputStream("resources/BlockGrey.png"));
+            image = new Image(new FileInputStream("DrMario-module/resources/BlockGrey.png"));
         } 
         catch (FileNotFoundException e) 
         {
