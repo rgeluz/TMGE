@@ -15,7 +15,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TetrisController {
+public class TetrisController extends Controller {
     Board board;
     Group tileGroup;
 
@@ -48,6 +48,7 @@ public class TetrisController {
                       TextField playerNameField,
                       TextField playerScoreField,
                       TextField playerLineCountField) {
+        super(GAME_TO_TEST, board, playerNameField, playerScoreField, playerLineCountField);
         this.GAME_TO_TEST = GAME_TO_TEST;
         this.board = board;
         this.playerNameField = playerNameField;

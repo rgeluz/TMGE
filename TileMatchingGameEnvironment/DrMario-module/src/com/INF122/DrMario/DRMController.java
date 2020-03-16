@@ -5,27 +5,32 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.INF122.TMGE.Board;
-import com.INF122.TMGE.Direction;
+import com.INF122.TMGE.*;
 //import com.INF122.TMGE.Shape;
-import com.INF122.TMGE.Tile;
 //import com.INF122.TMGE.tetris.TetrisShapeFactory;
 
 import javafx.animation.AnimationTimer;
 import javafx.scene.Group;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
-public class DRMController 
-{
+public class DRMController  {
 	Board board;
     Group group;
-    //int tileSize;
+    int tileSize;
     private Pills currentActiveShape;
     private double time;
+
+    TextField playerNameField;
+    TextField playerScoreField;
+    TextField playerLineCountField;
+
+    //For Testing Purposes
+    final GameEnum GAME_TO_TEST;
 
     //TODO move this to tetris - added to tetris
     int LineCount;
@@ -35,11 +40,28 @@ public class DRMController
      * Constructor
      * @param board
      */
-    public DRMController(Board board) 
+    /*public DRMController(Board board)
     {
         this.board = board;
         // tileSize has been outsourced to board, which is passed in to Tetris first
        // this.tileSize = board.tileSize;
+    }*/
+    public DRMController(GameEnum GAME_TO_TEST,
+                         Board board,
+                         TextField playerNameField,
+                         TextField playerScoreField,
+                         TextField playerLineCountField){
+        //super(GAME_TO_TEST, board, playerNameField, playerScoreField, playerLineCountField);
+        this.GAME_TO_TEST = GAME_TO_TEST;
+        this.board = board;
+        this.playerNameField = playerNameField;
+        this.playerScoreField = playerScoreField;
+        this.playerLineCountField = playerLineCountField;
+        this.playerNameField.setText("Player");
+        this.playerScoreField.setText("0");
+        this.playerLineCountField.setText("0");
+        // tileSize has been outsourced to board, which is passed in to Tetris first
+        this.tileSize = board.tileSize;
     }
 
     /**
@@ -107,9 +129,12 @@ public class DRMController
                 for(int rowIndex=0; rowIndex<this.board.gridHeight; rowIndex++)
                 {
                     //create new tile
-                    Tile newBoarderTile = new Tile(board.tileSize, false, null, false,
+                    /*Tile newBoarderTile = new Tile(board.tileSize, false, null, false,
                             true, image, colIndex, rowIndex,
-                            0, 4, Direction.DOWN);
+                            0, 4, Direction.DOWN);*/
+                    Tile newBoarderTile = new Tile(board.tileSize, false, null,false,
+                            true, image, colIndex, rowIndex,
+                            0,Direction.DOWN);
                     //this.board.boardGrid[colIndex][rowIndex]=newBoarderTile;
                     this.board.placeTile(newBoarderTile);
                 }
@@ -120,9 +145,12 @@ public class DRMController
         int floorRowIndex=this.board.gridHeight-1;
         for(int colIndex=0; colIndex<this.board.gridWidth; colIndex++)
         {
+            /*Tile newBoarderTile = new Tile(board.tileSize, false, null,false,
+                    true, image, colIndex, floorRowIndex,
+                    0, 4, Direction.DOWN);*/
             Tile newBoarderTile = new Tile(board.tileSize, false, null,false,
                     true, image, colIndex, floorRowIndex,
-                    0, 4, Direction.DOWN);
+                    0,Direction.DOWN);
             //this.board.boardGrid[colIndex][floorRowIndex]=newBoarderTile;
             this.board.placeTile(newBoarderTile);
         }
@@ -146,7 +174,7 @@ public class DRMController
             }
         }
     }
-    
+
     public boolean isColliding(List<Capsule> newTileList){
         boolean isCollidingWithSelf = false;
         for(Capsule newTile: newTileList){
@@ -171,6 +199,8 @@ public class DRMController
         }
         return false;
     }
+
+
 
     /**
      *

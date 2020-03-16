@@ -9,9 +9,6 @@ import javafx.scene.Group;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -76,11 +73,11 @@ public class Controller {
         Group group = new Group();
         this.tileGroup = group;
 
-        //TODO for tetris - added to Tetris constructor
+
         this.tetrisLineCount = 0;
         this.includeTetrisBorder = true;
         if(this.includeTetrisBorder){
-            addTetrisBorder();
+            addBorder();
         }
 
 
@@ -106,8 +103,8 @@ public class Controller {
         return this.tileGroup;
     }
 
-    //TODO used for tetris border - copy added to Tetris
-    private void addTetrisBorder(){
+
+    private void addBorder(){
         Image image = null;
         try {
             image = new Image(new FileInputStream("TMGE-module/resources/BlockGrey.png"));
@@ -335,7 +332,7 @@ public class Controller {
         }
         return false;
     }
-    
+
 
     //TODO for tetris
     public void checkForFullRows(){
@@ -448,7 +445,7 @@ public class Controller {
 
         //add back tetris border
         if(this.includeTetrisBorder) {
-            addTetrisBorder();
+            addBorder();
         }
 
         //Insert new tiles

@@ -1,5 +1,9 @@
-package com.INF122.TMGE;
+package com.INF122.Tetris;
 
+import com.INF122.TMGE.Board;
+import com.INF122.TMGE.Controller;
+import com.INF122.TMGE.Direction;
+import com.INF122.TMGE.GameEnum;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -21,8 +25,7 @@ import javafx.stage.Stage;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
-public class Main extends Application {
-
+public class TetrisMain extends Application {
     //For JavaFX test
     Stage window;
     Scene scene1, scene2;
@@ -210,11 +213,11 @@ public class Main extends Application {
         int board1Width = gridWidth*tileSize;
         int board1Height = gridHeight*tileSize;
 
-        Controller controller1 = new Controller(GAME_TO_TEST,
-                                                board1,
-                                                player1NameField,
-                                                player1ScoreField,
-                                                player1LineCountField);
+        TetrisController controller1 = new TetrisController(GAME_TO_TEST,
+                board1,
+                player1NameField,
+                player1ScoreField,
+                player1LineCountField);
         Group group1 = controller1.create();
 
 
@@ -223,11 +226,11 @@ public class Main extends Application {
         int board2Width = gridWidth*tileSize;
         int board2Height = gridHeight*tileSize;
 
-        Controller controller2 = new Controller(GAME_TO_TEST,
-                                                board2,
-                                                player2NameField,
-                                                player2ScoreField,
-                                                player2LineCountField);
+        TetrisController controller2 = new TetrisController(GAME_TO_TEST,
+                board2,
+                player2NameField,
+                player2ScoreField,
+                player2LineCountField);
         Group group2 = controller2.create();
 
 
@@ -298,6 +301,5 @@ public class Main extends Application {
         stage.show();
 
     }
-
 
 }
