@@ -1,9 +1,5 @@
-package com.INF122.Tetris;
+package com.INF122.TMGE;
 
-import com.INF122.TMGE.Board;
-import com.INF122.TMGE.Controller;
-import com.INF122.TMGE.Direction;
-import com.INF122.TMGE.GameEnum;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -25,7 +21,8 @@ import javafx.stage.Stage;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
-public class TetrisMain extends Application {
+public class Main extends Application {
+
     //For JavaFX test
     Stage window;
     Scene scene1, scene2;
@@ -39,12 +36,12 @@ public class TetrisMain extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        testGame(stage);
+        //testGame(stage);
 
-        /*Parent root = FXMLLoader.load(getClass().getResource("loginportal.fxml"));
+        /**/Parent root = FXMLLoader.load(getClass().getResource("loginportal.fxml"));
         stage.setTitle("TMGE");
         stage.setScene(new Scene(root, 671, 400));
-        stage.show();*/
+        stage.show();
     }
 
 
@@ -55,7 +52,7 @@ public class TetrisMain extends Application {
             Toggle the value below to switch between games
             eg. GameEnum.DRMARIO <----> Game.TETRIS
         */
-        final GameEnum GAME_TO_TEST = GameEnum.TETRIS;
+        final GameEnum GAME_TO_TEST = GameEnum.DRMARIO;
 
         int gridHeight = 20;
         int gridWidth = 12;
@@ -90,11 +87,7 @@ public class TetrisMain extends Application {
         //Image imageDrMarioLogo = null;
         try{
             //imageDrMarioLogo = new Image(new FileInputStream("resources/DrMarioLogo.png"));
-<<<<<<< HEAD
-            imageTetrisLogo = new Image(new FileInputStream("resources/TetrisLogo.png"));
-=======
-            imageTetrisLogo = new Image(new FileInputStream("Tetris-module/resources/TetrisLogo.png"));
->>>>>>> f94fc9fc0d91dacabd464cd471426614aa5ab245
+            imageTetrisLogo = new Image(new FileInputStream("TMGE-module/resources/TetrisLogo.png"));
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -217,11 +210,11 @@ public class TetrisMain extends Application {
         int board1Width = gridWidth*tileSize;
         int board1Height = gridHeight*tileSize;
 
-        TetrisController controller1 = new TetrisController(GAME_TO_TEST,
-                board1,
-                player1NameField,
-                player1ScoreField,
-                player1LineCountField);
+        Controller controller1 = new Controller(GAME_TO_TEST,
+                                                board1,
+                                                player1NameField,
+                                                player1ScoreField,
+                                                player1LineCountField);
         Group group1 = controller1.create();
 
 
@@ -230,11 +223,11 @@ public class TetrisMain extends Application {
         int board2Width = gridWidth*tileSize;
         int board2Height = gridHeight*tileSize;
 
-        TetrisController controller2 = new TetrisController(GAME_TO_TEST,
-                board2,
-                player2NameField,
-                player2ScoreField,
-                player2LineCountField);
+        Controller controller2 = new Controller(GAME_TO_TEST,
+                                                board2,
+                                                player2NameField,
+                                                player2ScoreField,
+                                                player2LineCountField);
         Group group2 = controller2.create();
 
 
@@ -248,7 +241,7 @@ public class TetrisMain extends Application {
         VBox vboxCenter = new VBox(gridPaneCenter);
         /*vboxCenter.getChildren().addAll(player1Label, player1Score, player1LineCount,
                 player2Label, player2Score, player2LineCount);*/
-        BackgroundFill backgroundFillCenter = new BackgroundFill(gameColor,CornerRadii.EMPTY, Insets.EMPTY);
+        BackgroundFill backgroundFillCenter = new BackgroundFill(Color.AQUA,CornerRadii.EMPTY, Insets.EMPTY);
         Background backgroundCenter = new Background(backgroundFillCenter);
         vboxCenter.setBackground(backgroundCenter);
 
@@ -305,5 +298,6 @@ public class TetrisMain extends Application {
         stage.show();
 
     }
+
 
 }

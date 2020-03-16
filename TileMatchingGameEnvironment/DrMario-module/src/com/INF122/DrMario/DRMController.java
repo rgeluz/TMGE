@@ -6,8 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.INF122.TMGE.*;
-//import com.INF122.TMGE.Shape;
-//import com.INF122.TMGE.tetris.TetrisShapeFactory;
 
 import javafx.animation.AnimationTimer;
 import javafx.scene.Group;
@@ -29,8 +27,6 @@ public class DRMController  {
     TextField playerScoreField;
     TextField playerLineCountField;
 
-    //For Testing Purposes
-    final GameEnum GAME_TO_TEST;
 
     //TODO move this to tetris - added to tetris
     int LineCount;
@@ -46,13 +42,10 @@ public class DRMController  {
         // tileSize has been outsourced to board, which is passed in to Tetris first
        // this.tileSize = board.tileSize;
     }*/
-    public DRMController(GameEnum GAME_TO_TEST,
-                         Board board,
+    public DRMController(Board board,
                          TextField playerNameField,
                          TextField playerScoreField,
                          TextField playerLineCountField){
-        //super(GAME_TO_TEST, board, playerNameField, playerScoreField, playerLineCountField);
-        this.GAME_TO_TEST = GAME_TO_TEST;
         this.board = board;
         this.playerNameField = playerNameField;
         this.playerScoreField = playerScoreField;
@@ -60,7 +53,6 @@ public class DRMController  {
         this.playerNameField.setText("Player");
         this.playerScoreField.setText("0");
         this.playerLineCountField.setText("0");
-        // tileSize has been outsourced to board, which is passed in to Tetris first
         this.tileSize = board.tileSize;
     }
 
@@ -76,11 +68,8 @@ public class DRMController  {
         Group group = new Group();
         this.group = group;
 
-        //TODO for tetris - added to Tetris constructor
         this.LineCount = 0;
-        this.includeTetrisBorder = true;
-        if(this.includeTetrisBorder)
-            addTetrisBorder();
+        addBorder();
 
         //first spawn
         Levels lvl = new Levels(this.board);
@@ -98,7 +87,7 @@ public class DRMController  {
                 if (time >= 0.5) 
                 {
                     moveShape(Direction.DOWN);
-//                    checkForFullRows();
+//                  checkForFullRows();
                     render();
                     time = 0;
                 }
@@ -110,11 +99,11 @@ public class DRMController  {
     }
     
     
-    private void addTetrisBorder(){
+    private void addBorder(){
         Image image = null;
         try 
         {
-            image = new Image(new FileInputStream("resources/BlockGrey.png"));
+            image = new Image(new FileInputStream("DrMario-module/resources/BlockGrey.png"));
         } 
         catch (FileNotFoundException e) 
         {
@@ -399,15 +388,15 @@ public class DRMController  {
             //gameoverText.setStyle("-fx-font: 70 arial;");
             //this.group.getChildren().add(gameoverText);
 
-            Text t = new Text();
-            t.setX(20.0f);
-            t.setY(65.0f);
-            t.setText("Perspective");
-            t.setFill(Color.YELLOW);
-            t.setFont(Font.font(null, FontWeight.BOLD, 36));
-            this.group.getChildren().add(t);
+            //Text t = new Text();
+            //t.setX(20.0f);
+            //t.setY(65.0f);
+            //t.setText("Perspective");
+            //t.setFill(Color.YELLOW);
+            //t.setFont(Font.font(null, FontWeight.BOLD, 36));
+            //this.group.getChildren().add(t);
 
-            System.exit(0);
+            //System.exit(0);
         }
     }
     

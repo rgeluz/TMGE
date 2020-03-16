@@ -1,15 +1,12 @@
-package com.INF122.Tetris;
+package com.INF122.DrMario;
 
 import com.INF122.TMGE.Board;
-import com.INF122.TMGE.Controller;
 import com.INF122.TMGE.Direction;
 import com.INF122.TMGE.GameEnum;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -19,13 +16,13 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
-public class TetrisMain extends Application {
+public class DrMarioMain extends Application{
+
     //For JavaFX test
     Stage window;
     Scene scene1, scene2;
@@ -40,27 +37,20 @@ public class TetrisMain extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         testGame(stage);
-
-        /*Parent root = FXMLLoader.load(getClass().getResource("loginportal.fxml"));
-        stage.setTitle("TMGE");
-        stage.setScene(new Scene(root, 671, 400));
-        stage.show();*/
     }
 
-
-
-    public void testGame(Stage stage){
+    public void testGame(Stage stage)
+    {
 
         /*
             Toggle the value below to switch between games
             eg. GameEnum.DRMARIO <----> Game.TETRIS
         */
-        final GameEnum GAME_TO_TEST = GameEnum.TETRIS;
+        final GameEnum GAME_TO_TEST = GameEnum.DRMARIO;
 
         int gridHeight = 20;
         int gridWidth = 12;
         int tileSize = 30;
-
 
         //Center
         int centerWidth = 300;
@@ -86,26 +76,22 @@ public class TetrisMain extends Application {
         Label emptyLabel5 = new Label("");
 
         //Game Logo
-        Image imageTetrisLogo = null;
-        //Image imageDrMarioLogo = null;
+        //Image imageTetrisLogo = null;
+        Image imageDrMarioLogo = null;
         try{
-            //imageDrMarioLogo = new Image(new FileInputStream("resources/DrMarioLogo.png"));
-<<<<<<< HEAD
-            imageTetrisLogo = new Image(new FileInputStream("resources/TetrisLogo.png"));
-=======
-            imageTetrisLogo = new Image(new FileInputStream("Tetris-module/resources/TetrisLogo.png"));
->>>>>>> f94fc9fc0d91dacabd464cd471426614aa5ab245
+            imageDrMarioLogo = new Image(new FileInputStream("DrMario-module/resources/DrMarioLogo.png"));
+            //imageTetrisLogo = new Image(new FileInputStream("TMGE-module/resources/TetrisLogo.png"));
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
 
-        //ImageView imageViewDrMario = new ImageView(imageDrMarioLogo);
-        ImageView imageViewTetris = new ImageView(imageTetrisLogo);
-        //imageViewDrMario.setFitWidth(tileSize*5);
-        //imageViewDrMario.setFitHeight(tileSize*2);
-        imageViewTetris.setFitWidth(tileSize*5);
-        imageViewTetris.setFitHeight(tileSize*2);
+        ImageView imageViewDrMario = new ImageView(imageDrMarioLogo);
+        //ImageView imageViewTetris = new ImageView(imageTetrisLogo);
+        imageViewDrMario.setFitWidth(tileSize*5);
+        imageViewDrMario.setFitHeight(tileSize*2);
+        //imageViewTetris.setFitWidth(tileSize*5);
+        //imageViewTetris.setFitHeight(tileSize*2);
 
         Color gameColor = null;
         /*if(GAME_TO_TEST==GameEnum.DRMARIO){
@@ -116,8 +102,9 @@ public class TetrisMain extends Application {
             gameColor = Color.AQUA;
         }*/
 
-        gridPaneCenter.getChildren().add(imageViewTetris);
-        gameColor = Color.AQUA;
+
+        gridPaneCenter.getChildren().add(imageViewDrMario);
+        gameColor = Color.AQUAMARINE;
 
 
         gridPaneCenter.add(emptyLabel5, 0, 5);
@@ -200,15 +187,41 @@ public class TetrisMain extends Application {
         gridPaneCenter.add(player2LineCountField, 1,19);
 
 
-        //gridPaneCenter.setBackground(background);
-        //Text player1Name = new Text("Player1");
-        //player1Name.setFont();
-        //gridPaneCenter.add(player1Name,0,0);
+        //Board Player1
+        //Board board1 = new Board(gridHeight,gridWidth, tileSize);
+        //int board1Width = gridWidth*tileSize;
+        //int board1Height = gridHeight*tileSize;
 
-        //Text player2Name = new Text("Player2");
-        //gridPaneCenter.add(player2Name,0,0);
+        //TextField player1NameField = new TextField();
+        //TextField player1ScoreField = new TextField();
+        //TextField player1LineCountField = new TextField();
+
+        //final GameEnum GAME_TO_TEST = GameEnum.DRMARIO;
+
+//        Controller controller1 = new Controller(board1);
+        //DRMController controller1 = new DRMController(GAME_TO_TEST,
+        //       board1,
+        //     player1NameField,
+        //      player1ScoreField,
+        //        player1LineCountField);
+        //Group group1 = controller1.create();
+
+//        //Board Player2
+//        Board board2 = new Board(gridHeight,gridWidth, tileSize);
+//        int board2Width = gridWidth*tileSize;
+//        int board2Height = gridHeight*tileSize;
+//
+////        Controller controller2 = new Controller(board2);
+//        DRMController controller2 = new DRMController(board2);
+//        Group group2 = controller2.create();
 
 
+        //Master window
+        //HBox hbox = new HBox(group1);
+//      //HBox hbox = new HBox(group1,group2);
+        //int masterWindowWidth = board1Width * 2; //need to double width
+        //int masterWindowHeight = board1Height;
+        //Color backgroundColor = Color.BLACK;
 
         //________________Master window______________________//
 
@@ -217,8 +230,7 @@ public class TetrisMain extends Application {
         int board1Width = gridWidth*tileSize;
         int board1Height = gridHeight*tileSize;
 
-        TetrisController controller1 = new TetrisController(GAME_TO_TEST,
-                board1,
+        DRMController controller1 = new DRMController(board1,
                 player1NameField,
                 player1ScoreField,
                 player1LineCountField);
@@ -230,7 +242,7 @@ public class TetrisMain extends Application {
         int board2Width = gridWidth*tileSize;
         int board2Height = gridHeight*tileSize;
 
-        TetrisController controller2 = new TetrisController(GAME_TO_TEST,
+        DRMController controller2 = new DRMController(
                 board2,
                 player2NameField,
                 player2ScoreField,
@@ -266,12 +278,8 @@ public class TetrisMain extends Application {
 
 
 
-
         //Scene scene = new Scene(group, gridWidth * tileSize, gridHeight * tileSize, backgroundColor);
         Scene scene = new Scene(hbox, masterWindowWidth, masterWindowHeight, backgroundColor);
-        //Scene scene = new Scene(pane,masterWindowWidth+100, masterWindowHeight+100,backgroundColor);
-
-
 
         //Key event handler
         scene.setOnKeyPressed(e -> {
@@ -289,15 +297,14 @@ public class TetrisMain extends Application {
             controller1.render();
 
             //Player 2
-            if (e.getCode() == KeyCode.UP) { //ROTATE SHAPE CLOCKWISE
+            if (e.getCode() == KeyCode.UP)  //ROTATE SHAPE CLOCKWISE
                 controller2.rotateShape();
-            } else if (e.getCode() == KeyCode.LEFT) {
+            else if (e.getCode() == KeyCode.LEFT)
                 controller2.moveShape(Direction.LEFT);
-            } else if (e.getCode() == KeyCode.RIGHT) {
+            else if (e.getCode() == KeyCode.RIGHT)
                 controller2.moveShape(Direction.RIGHT);
-            } else if (e.getCode() == KeyCode.DOWN) {
+            else if (e.getCode() == KeyCode.DOWN)
                 controller2.moveShape(Direction.DOWN);
-            }
             controller2.render();
         });
 
@@ -305,5 +312,4 @@ public class TetrisMain extends Application {
         stage.show();
 
     }
-
 }

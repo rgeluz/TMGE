@@ -26,6 +26,7 @@ public class Tile implements Cloneable{
     public int centerPieceColumnIndex;
     public int centerPieceRowIndex;
     public List<Direction> directions;
+    public int type;
 
 
 
@@ -107,7 +108,87 @@ public class Tile implements Cloneable{
 
     }
 
+    public Tile(int tileSize, boolean setColor, Color color, boolean setTileBorder, boolean setImage, Image image, int cenColIndex, int cenRowIndex, int position, int type, Direction... directions)
+    {
+        this.tileSize = tileSize;
+        this.setColor = setColor;
+        this.tileColor = color;
+        this.setTileBorder =setTileBorder;
+        this.setImage = setImage;
+        this.tileImage = image;
+        this.position = position;
+        this.centerPieceColumnIndex = cenColIndex;
+        this.centerPieceRowIndex = cenRowIndex;
+        this.directions = Arrays.asList(directions);
+        this.type = type;
 
+        this.rectangle = new Rectangle();
+        this.rectangle.setHeight(this.tileSize);
+        this.rectangle.setWidth(this.tileSize);
+        if(this.setColor)
+            this.setColor(this.tileColor);
+
+        if(this.setTileBorder)
+            this.setBorder();
+
+        if(this.setImage)
+            this.setImage(this.tileImage);
+
+
+        int dx = 0, dy = 0;
+
+        for (Direction d : directions)
+        {
+            dx += position * d.colIndex;
+            dy += position * d.rowIndex;
+        }
+
+        this.columnIndex = this.centerPieceColumnIndex + dx;
+        this.rowIndex = this.centerPieceRowIndex + dy;
+
+        this.setCoordinates(this.columnIndex, this.rowIndex);
+
+    }
+
+    public Tile(int tileSize, boolean setColor, Color color, boolean setTileBorder, boolean setImage, Image image, int cenColIndex, int cenRowIndex, int position, int type, List<Direction> directions) {
+        this.tileSize = tileSize;
+        this.setColor = setColor;
+        this.tileColor = color;
+        this.setTileBorder =setTileBorder;
+        this.setImage = setImage;
+        this.tileImage = image;
+        this.position = position;
+        this.centerPieceColumnIndex = cenColIndex;
+        this.centerPieceRowIndex = cenRowIndex;
+        this.directions = directions; //Arrays.asList(directions);
+        this.type = type;
+
+        this.rectangle = new Rectangle();
+        this.rectangle.setHeight(this.tileSize);
+        this.rectangle.setWidth(this.tileSize);
+        if(this.setColor)
+            this.setColor(this.tileColor);
+
+        if(this.setTileBorder)
+            this.setBorder();
+
+        if(this.setImage)
+            this.setImage(this.tileImage);
+
+
+        int dx = 0, dy = 0;
+
+        for (Direction d : directions)
+        {
+            dx += position * d.colIndex;
+            dy += position * d.rowIndex;
+        }
+
+        this.columnIndex = this.centerPieceColumnIndex + dx;
+        this.rowIndex = this.centerPieceRowIndex + dy;
+
+        this.setCoordinates(this.columnIndex, this.rowIndex);
+    }
 
     //TODO for now just set color, replace with image later
     public void setColor(Color color){
@@ -147,6 +228,11 @@ public class Tile implements Cloneable{
     public void renderTile(Group group){
         //add tile to group
         group.getChildren().add(this.rectangle);
+    }
+
+    public boolean isCapsule()
+    {
+        return true;
     }
 
     //Provides a deepCopy of the tile

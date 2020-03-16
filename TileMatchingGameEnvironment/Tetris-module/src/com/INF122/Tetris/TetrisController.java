@@ -452,6 +452,7 @@ public class TetrisController extends Controller {
 
         //TODO for tetris game - copy added to Tetris
         Shape newShape = null;
+<<<<<<< HEAD
         //if(GAME_TO_TEST==GameEnum.TETRIS){
         newShape = TetrisShapeFactory.getRandomShape(this.board);
         //} else if (GAME_TO_TEST== GameEnum.DRMARIO){
@@ -490,6 +491,11 @@ public class TetrisController extends Controller {
         tiles.add(tile4);
         newShape = new Shape(tiles);
 		*/
+=======
+        newShape = TetrisShapeFactory.getRandomShape(this.board);
+
+
+>>>>>>> f94fc9fc0d91dacabd464cd471426614aa5ab245
         //set newly created shape as the currently active shape
         this.currentActiveShape = newShape;
 

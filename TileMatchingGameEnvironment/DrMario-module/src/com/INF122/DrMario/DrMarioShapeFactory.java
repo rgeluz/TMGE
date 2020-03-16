@@ -4,7 +4,6 @@ import com.INF122.TMGE.Board;
 import com.INF122.TMGE.Direction;
 import com.INF122.TMGE.Shape;
 import com.INF122.TMGE.Tile;
-//import com.INF122.Tetris;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 
@@ -73,7 +72,7 @@ public class DrMarioShapeFactory {
     private static Shape create_Red_Red_Pill(){
         Image imageRed = null;
         try {
-            imageRed = new Image(new FileInputStream("resources/BlockRed.png"));
+            imageRed = new Image(new FileInputStream("DrMario-module/resources/BlockRed.png"));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -89,8 +88,8 @@ public class DrMarioShapeFactory {
         Image imageRed = null;
         Image imageBlue = null;
         try {
-            imageRed = new Image(new FileInputStream("resources/BlockRed.png"));
-            imageBlue = new Image(new FileInputStream("resources/BlockBlue.png"));
+            imageRed = new Image(new FileInputStream("DrMario-module/resources/BlockRed.png"));
+            imageBlue = new Image(new FileInputStream("DrMario-module/resources/BlockBlue.png"));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -106,8 +105,8 @@ public class DrMarioShapeFactory {
         Image imageRed = null;
         Image imageYellow = null;
         try {
-            imageRed = new Image(new FileInputStream("resources/BlockRed.png"));
-            imageYellow = new Image(new FileInputStream("resources/BlockYellow.png"));
+            imageRed = new Image(new FileInputStream("DrMario-module/resources/BlockRed.png"));
+            imageYellow = new Image(new FileInputStream("DrMario-module/resources/BlockYellow.png"));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -123,8 +122,8 @@ public class DrMarioShapeFactory {
         Image imageBlue = null;
         Image imageRed = null;
         try {
-            imageBlue = new Image(new FileInputStream("resources/BlockBlue.png"));
-            imageRed = new Image(new FileInputStream("resources/BlockRed.png"));
+            imageBlue = new Image(new FileInputStream("DrMario-module/resources/BlockBlue.png"));
+            imageRed = new Image(new FileInputStream("DrMario-module/resources/BlockRed.png"));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -139,7 +138,7 @@ public class DrMarioShapeFactory {
     private static Shape create_Blue_Blue_Pill(){
         Image imageBlue = null;
         try {
-            imageBlue = new Image(new FileInputStream("resources/BlockBlue.png"));
+            imageBlue = new Image(new FileInputStream("DrMario-module/resources/BlockBlue.png"));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -155,8 +154,8 @@ public class DrMarioShapeFactory {
         Image imageBlue = null;
         Image imageYellow = null;
         try {
-            imageBlue = new Image(new FileInputStream("resources/BlockBlue.png"));
-            imageYellow = new Image(new FileInputStream("resources/BlockYellow.png"));
+            imageBlue = new Image(new FileInputStream("DrMario-module/resources/BlockBlue.png"));
+            imageYellow = new Image(new FileInputStream("DrMario-module/resources/BlockYellow.png"));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -172,8 +171,8 @@ public class DrMarioShapeFactory {
         Image imageYellow = null;
         Image imageRed = null;
         try {
-            imageYellow = new Image(new FileInputStream("resources/BlockYellow.png"));
-            imageRed = new Image(new FileInputStream("resources/BlockRed.png"));
+            imageYellow = new Image(new FileInputStream("DrMario-module/resources/BlockYellow.png"));
+            imageRed = new Image(new FileInputStream("DrMario-module/resources/BlockRed.png"));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -189,8 +188,8 @@ public class DrMarioShapeFactory {
         Image imageYellow = null;
         Image imageBlue = null;
         try {
-            imageYellow = new Image(new FileInputStream("resources/BlockYellow.png"));
-            imageBlue  = new Image(new FileInputStream("resources/BlockBlue.png"));
+            imageYellow = new Image(new FileInputStream("DrMario-module/resources/BlockYellow.png"));
+            imageBlue  = new Image(new FileInputStream("DrMario-module/resources/BlockBlue.png"));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -205,7 +204,7 @@ public class DrMarioShapeFactory {
     private static Shape create_Yellow_Yellow_Pill(){
         Image imageYellow = null;
         try {
-            imageYellow = new Image(new FileInputStream("resources/BlockYellow.png"));
+            imageYellow = new Image(new FileInputStream("DrMario-module/resources/BlockYellow.png"));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
