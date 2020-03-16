@@ -113,6 +113,10 @@ public class Tile implements Cloneable{
     public void setColor(Color color){
         this.rectangle.setFill(color);
     }
+    
+    public int getRowIndex() {
+    	return this.rowIndex;
+    }
 
     public void setBorder() { this.rectangle.setStroke(Color.WHITE); }
 
@@ -128,6 +132,12 @@ public class Tile implements Cloneable{
     public void setCoordinates(int columnIndex, int rowIndex){
         this.rectangle.setX(columnIndex*this.tileSize);
         this.rectangle.setY(rowIndex*this.tileSize);
+    }
+    
+    public void changeIndex(int columnIndex, int rowIndex) {
+    	this.columnIndex = columnIndex;
+    	this.rowIndex = rowIndex;
+    	setCoordinates(columnIndex, rowIndex);
     }
 
     //TODO

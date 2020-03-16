@@ -90,7 +90,7 @@ public class TetrisMain extends Application {
         //Image imageDrMarioLogo = null;
         try{
             //imageDrMarioLogo = new Image(new FileInputStream("resources/DrMarioLogo.png"));
-            imageTetrisLogo = new Image(new FileInputStream("TMGE-module/resources/TetrisLogo.png"));
+            imageTetrisLogo = new Image(new FileInputStream("resources/TetrisLogo.png"));
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();

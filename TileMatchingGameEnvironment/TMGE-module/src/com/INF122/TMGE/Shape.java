@@ -24,5 +24,15 @@ public class Shape {
             tile.renderTile(group);
         }
     }
+    
+    public int highestIndex() {
+    	int highest = this.centerPieceRowIndex;
+    	for(Tile tile: tiles){
+    		if (tile.getRowIndex() > highest) {
+    			highest = tile.getRowIndex();
+    		}
+    	}
+    	return highest;
+    }
 
 }

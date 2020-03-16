@@ -65,6 +65,10 @@ public class Board {
                     " or row index:" + tile.rowIndex + " is off the board grid.");
         }
     }
+    
+    public void placeNull(int col, int row) {
+    	this.boardGrid[col][row] = null;
+    }
 
     public void removeTile(Tile tile){
         if(!isTileOffGrid(tile.columnIndex, tile.rowIndex)){

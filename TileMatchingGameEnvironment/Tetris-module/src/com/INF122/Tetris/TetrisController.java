@@ -92,7 +92,6 @@ public class TetrisController extends Controller {
 
                 if (time >= 0.5) {
                     moveShape(Direction.DOWN);
-                    checkForFullRows();
                     render();
                     time = 0;
                 }
@@ -107,7 +106,7 @@ public class TetrisController extends Controller {
     private void addTetrisBorder(){
         Image image = null;
         try {
-            image = new Image(new FileInputStream("Tetris-module/resources/BlockGrey.png"));
+            image = new Image(new FileInputStream("resources/BlockGrey.png"));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -244,6 +243,7 @@ public class TetrisController extends Controller {
             } else {
                 //spawn new shape
                 generateShape();
+                checkAllRows();
             }
             //checkForFullRows();
         }
@@ -333,125 +333,114 @@ public class TetrisController extends Controller {
         return false;
     }
 
-
-    //TODO for tetris
-    public void checkForFullRows(){
-        //TODO this is only for tetris, need to move outside
-        //check for any full rows
-        List<List<Tile>> listOfFullRows = getFullRows(this.includeTetrisBorder);
-        if(listOfFullRows.size()>0){
-            removeFullRowTiles(listOfFullRows);
-            int shiftAmount = listOfFullRows.size();
-            shiftDownTiles(this.includeTetrisBorder, shiftAmount);
-
-        }
+    
+    public void checkAllRows(){
+    	//first get the row indexes of filled rows
+    	List<Integer> rowIndexes = getFilledRowIndexes(this.includeTetrisBorder);
+    	
+    	if (rowIndexes.size()>0) {
+    		//if there are filled rows, first remove the filled rows
+    		//then shift all other rows above it down
+    		removeRowsFromIndex(rowIndexes, this.includeTetrisBorder);
+    		int shiftAmount = rowIndexes.size();
+    		int shiftIndex = rowIndexes.get(0);
+			shiftRows(shiftIndex, shiftAmount, this.includeTetrisBorder);
+			render();
+    	}
     }
-
-    //TODO for tetris - copy added to Tetris
-    public List<List<Tile>> getFullRows(boolean isBorder){
-        List<List<Tile>> listOfFullRows = new ArrayList<List<Tile>>();
-
-
-        int floorRowIndex;
-        if(isBorder){
-            floorRowIndex = this.board.gridHeight-2;
-        }else {
+    
+    public List<Integer> getFilledRowIndexes(boolean border){
+    	
+    	//initial border checking and calculations
+    	int floorRowIndex, columnStartIndex, columnEndIndex, maxTileCount;
+        if(border){
             floorRowIndex = this.board.gridHeight-1;
+            columnStartIndex = 1;
+            columnEndIndex = this.board.gridWidth-1;
+            maxTileCount = columnEndIndex - columnStartIndex;
+        }else {
+            floorRowIndex = this.board.gridHeight;
+            columnStartIndex = 0;
+            columnEndIndex = this.board.gridWidth;
+            maxTileCount = columnEndIndex - columnStartIndex;
         }
-        for(int rowIndex=0; rowIndex<=floorRowIndex; rowIndex++){
-            int tileCount=0;
-            List<Tile> tilesInRow = new ArrayList<Tile>();
-            for(int colIndex=0; colIndex<this.board.gridWidth; colIndex++){
-                if(this.board.getTile(colIndex,rowIndex)!=null){
-                    tileCount++;
-                    tilesInRow.add(this.board.getTile(colIndex,rowIndex));
-                }
-
-            }
-            /**/
-            if(tileCount>=this.board.gridWidth){ //Found full row
-                this.rowToBeRemovedIndex=rowIndex;
-                this.tetrisLineCount++;
-                listOfFullRows.add(tilesInRow);
-                System.out.println("line count: " + this.tetrisLineCount);
-                System.out.println("FULL ROW");
-
-                //update player line count:
-                this.playerLineCountField.setText(Integer.toString(this.tetrisLineCount) );
-                //return true;
-            }
+        
+        //scans through every row, counts the number of tiles in each row, 
+        //if the number of tiles == how many tiles should be in a row, then 
+        // that row's index is added onto a list
+        List <Integer> filledRows = new ArrayList<Integer>();
+        for (int rowIndex = 0; rowIndex < floorRowIndex; rowIndex++) {
+        	int tileCount = 0;
+        	for (int colIndex = columnStartIndex; colIndex<columnEndIndex; colIndex++) {
+        		if (this.board.getTile(colIndex,rowIndex)!=null) {
+        			tileCount++;
+        		}
+        	}
+        	if (tileCount == maxTileCount) {
+        		filledRows.add(rowIndex);
+        	}
         }
-        //return false;
-        return listOfFullRows;
+        return filledRows;
     }
-
-    //TODO for tetris - copy added to Tetris
-    private void removeFullRowTiles(List<List<Tile>> listOfFullRows){
-        for(List<Tile> tilesInRow : listOfFullRows){
-            for(Tile tile : tilesInRow){
-                //Remove old tile from board
-                this.board.removeTile(tile);
-
-                //set old tiles to null
-                tile = null;
-            }
+    
+    public void removeRowsFromIndex(List<Integer> filledRowIndexes, boolean border) {
+    	
+    	//initial calculation and checking
+    	int columnStartIndex, columnEndIndex; 
+    	Tile currentTile;
+        if(border){
+            columnStartIndex = 1;
+            columnEndIndex = this.board.gridWidth-1;
+        }else {
+            columnStartIndex = 0;
+            columnEndIndex = this.board.gridWidth;
         }
+        
+        //iterates through the filled rows, takes the tiles there and removes them 
+    	for (Integer rowIndex: filledRowIndexes) {
+            for(int colIndex = columnStartIndex; colIndex<columnEndIndex; colIndex++){
+            	currentTile = this.board.getTile(colIndex, rowIndex);
+            	this.board.removeTile(currentTile);
+            	currentTile = null;
+            }
+		}
     }
-
-    //TODO for tetris - copy added to Tetris
-    private void shiftDownTiles(boolean isBorder, int shiftAmount){
-        List<Tile> listOfTilesToUpdate = new ArrayList<Tile>();
-        int floorRowIndex;
-        if(isBorder){
-            floorRowIndex=this.board.gridHeight-2;
-        } else {
-            floorRowIndex=this.board.gridHeight-1;
+    
+    public void shiftRows(int startIndex, int size, boolean border){
+    	
+    	//initial calculation and checking
+    	int columnStartIndex, columnEndIndex; 
+    	Tile currentTile;
+    	if(border){
+            columnStartIndex = 1;
+            columnEndIndex = this.board.gridWidth-1;
+        }else {
+            columnStartIndex = 0;
+            columnEndIndex = this.board.gridWidth;
         }
-
-
-        //update all existing tiles y coordinates with shifted y coordinates
-        //only shift tile above the row that is being removed
-        for(int rowIndex=0; rowIndex<this.rowToBeRemovedIndex; rowIndex++){
-            for(int colIndex=0; colIndex<this.board.gridWidth; colIndex++){
-                if(this.board.getTile(colIndex,rowIndex)!=null){ //tile exist at coordinates
-                    if(isBorder){
-                        if(rowIndex<=floorRowIndex){ //Stop at floor wall
-                            int leftWallIndex=0;
-                            int rightWallIndex=this.board.gridWidth-1;
-                            if(colIndex>leftWallIndex && colIndex<rightWallIndex){ //Ignore the the left and right walls
-                                Tile tile = this.board.getTile(colIndex,rowIndex);
-                                tile.rowIndex+=shiftAmount;
-                                tile.setCoordinates(tile.columnIndex,tile.rowIndex);
-                                listOfTilesToUpdate.add(tile);
-                            }
-                        }
-                    } else {
-                        Tile tile = this.board.getTile(colIndex,rowIndex);
-                        tile.rowIndex+=shiftAmount;
-                        tile.setCoordinates(tile.columnIndex,tile.rowIndex);
-                        listOfTilesToUpdate.add(tile);
-                    }
-                }
+    	
+    	// iterates through the rows, starting with the one directly above the highest
+    	// sweeped row (so if rows 3 and 4 were sweeped, it would start at row 2 since 
+    	// the higher the row, the closer it is to 0)
+    	for (int rowIndex = startIndex-1; rowIndex >= 0; rowIndex--) {
+    		int newRowIndex = rowIndex + size;
+    		//iterates through each column and shifts it down by however many rows were
+    		//previously sweeped (so if 3 rows were sweeped, a block at row 1 will be at
+    		//row 4)
+    		for(int colIndex = columnStartIndex; colIndex<columnEndIndex; colIndex++){
+    			currentTile = this.board.getTile(colIndex, rowIndex);
+    			if (currentTile != null) {
+    				currentTile.changeIndex(colIndex, newRowIndex);
+    				this.board.placeTile(currentTile);
+    				this.board.placeNull(colIndex, rowIndex);
+    			}
+    			else {
+    				this.board.placeNull(colIndex, rowIndex);
+    				this.board.placeNull(colIndex, newRowIndex);
+    			}
+    			currentTile = null;
             }
-        }
-
-        //Clear Board Grid. Set every element in 2D array to null.
-        for(int rowIndex=0; rowIndex<this.board.gridHeight; rowIndex++){
-            for(int colIndex=0; colIndex<this.board.gridWidth; colIndex++){
-                Tile tile = this.board.getTile(colIndex, rowIndex);
-                this.board.removeTile(tile);
-            }
-        }
-
-        //add back tetris border
-        if(this.includeTetrisBorder) {
-            addTetrisBorder();
-        }
-
-        //Insert new tiles
-        for(Tile newTile : listOfTilesToUpdate){
-            this.board.placeTile(newTile);
-        }
+    	}
     }
 
 
@@ -464,16 +453,17 @@ public class TetrisController extends Controller {
         //TODO for tetris game - copy added to Tetris
         Shape newShape = null;
         //if(GAME_TO_TEST==GameEnum.TETRIS){
-        //newShape = TetrisShapeFactory.getRandomShape(this.board);
+        newShape = TetrisShapeFactory.getRandomShape(this.board);
         //} else if (GAME_TO_TEST== GameEnum.DRMARIO){
         //newShape = DrMarioShapeFactory.getRandomShape(this.board);
         //}
 
         //Temporary
         //-------------------------------------//
+        /*
         Image image = null;
         try {
-            image = new Image(new FileInputStream("TMGE-module/resources/BlockPurple.png"));
+            image = new Image(new FileInputStream("resources/BlockPurple.png"));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -499,7 +489,7 @@ public class TetrisController extends Controller {
         tiles.add(tile3);
         tiles.add(tile4);
         newShape = new Shape(tiles);
-
+		*/
         //set newly created shape as the currently active shape
         this.currentActiveShape = newShape;
 
