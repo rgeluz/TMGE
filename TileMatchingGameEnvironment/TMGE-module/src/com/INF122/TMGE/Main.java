@@ -84,30 +84,33 @@ public class Main extends Application {
 
         //Game Logo
         Image imageTetrisLogo = null;
-        Image imageDrMarioLogo = null;
+        //Image imageDrMarioLogo = null;
         try{
-            imageDrMarioLogo = new Image(new FileInputStream("resources/DrMarioLogo.png"));
-            imageTetrisLogo = new Image(new FileInputStream("resources/TetrisLogo.png"));
+            //imageDrMarioLogo = new Image(new FileInputStream("resources/DrMarioLogo.png"));
+            imageTetrisLogo = new Image(new FileInputStream("TMGE-module/resources/TetrisLogo.png"));
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
 
-        ImageView imageViewDrMario = new ImageView(imageDrMarioLogo);
+        //ImageView imageViewDrMario = new ImageView(imageDrMarioLogo);
         ImageView imageViewTetris = new ImageView(imageTetrisLogo);
-        imageViewDrMario.setFitWidth(tileSize*5);
-        imageViewDrMario.setFitHeight(tileSize*2);
+        //imageViewDrMario.setFitWidth(tileSize*5);
+        //imageViewDrMario.setFitHeight(tileSize*2);
         imageViewTetris.setFitWidth(tileSize*5);
         imageViewTetris.setFitHeight(tileSize*2);
 
         Color gameColor = null;
-        if(GAME_TO_TEST==GameEnum.DRMARIO){
+        /*if(GAME_TO_TEST==GameEnum.DRMARIO){
             gridPaneCenter.getChildren().add(imageViewDrMario);
             gameColor = Color.AQUAMARINE;
         } else if (GAME_TO_TEST==GameEnum.TETRIS){
             gridPaneCenter.getChildren().add(imageViewTetris);
             gameColor = Color.AQUA;
-        }
+        }*/
+
+        gridPaneCenter.getChildren().add(imageViewTetris);
+        gameColor = Color.AQUA;
 
 
         gridPaneCenter.add(emptyLabel5, 0, 5);

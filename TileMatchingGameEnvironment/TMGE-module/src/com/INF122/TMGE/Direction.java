@@ -7,7 +7,7 @@ public enum Direction {
     LEFT(-1, 0);
 
 
-    int colIndex, rowIndex;
+    public int colIndex, rowIndex;
 
     Direction(int colIndex, int rowIndex) {
         this.colIndex = colIndex;
