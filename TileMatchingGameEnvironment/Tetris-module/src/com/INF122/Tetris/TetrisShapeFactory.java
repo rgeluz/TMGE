@@ -67,7 +67,7 @@ public class TetrisShapeFactory {
     private static Shape create_I_Tetromino(){
         Image image = null;
         try {
-            image = new Image(new FileInputStream("Tetris-module/resources/BlockCyan.png"));
+            image = new Image(new FileInputStream("resources/BlockCyan.png"));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -87,7 +87,7 @@ public class TetrisShapeFactory {
     private static Shape create_O_Tetromino(){
         Image image = null;
         try {
-            image = new Image(new FileInputStream("Tetris-module/resources/BlockYellow.png"));
+            image = new Image(new FileInputStream("resources/BlockYellow.png"));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -107,7 +107,7 @@ public class TetrisShapeFactory {
     private static Shape create_T_Tetromino(){
         Image image = null;
         try {
-            image = new Image(new FileInputStream("Tetris-module/resources/BlockPurple.png"));
+            image = new Image(new FileInputStream("resources/BlockPurple.png"));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -127,7 +127,7 @@ public class TetrisShapeFactory {
     private static Shape create_J_Tetromino(){
         Image image = null;
         try {
-            image = new Image(new FileInputStream("Tetris-module/resources/BlockBlue.png"));
+            image = new Image(new FileInputStream("resources/BlockBlue.png"));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -147,7 +147,7 @@ public class TetrisShapeFactory {
     private static Shape create_L_Tetromino(){
         Image image = null;
         try {
-            image = new Image(new FileInputStream("Tetris-module/resources/BlockOrange.png"));
+            image = new Image(new FileInputStream("resources/BlockOrange.png"));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -167,7 +167,7 @@ public class TetrisShapeFactory {
     private static Shape create_S_Tetromino(){
         Image image = null;
         try {
-            image = new Image(new FileInputStream("Tetris-module/resources/BlockGreen.png"));
+            image = new Image(new FileInputStream("resources/BlockGreen.png"));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -188,7 +188,7 @@ public class TetrisShapeFactory {
     private static Shape create_Z_Tetromino(){
         Image image = null;
         try {
-            image = new Image(new FileInputStream("Tetris-module/resources/BlockRed.png"));
+            image = new Image(new FileInputStream("resources/BlockRed.png"));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
