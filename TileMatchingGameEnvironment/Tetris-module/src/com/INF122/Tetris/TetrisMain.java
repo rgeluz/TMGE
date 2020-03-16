@@ -55,7 +55,7 @@ public class TetrisMain extends Application {
             Toggle the value below to switch between games
             eg. GameEnum.DRMARIO <----> Game.TETRIS
         */
-        final GameEnum GAME_TO_TEST = GameEnum.DRMARIO;
+        final GameEnum GAME_TO_TEST = GameEnum.TETRIS;
 
         int gridHeight = 20;
         int gridWidth = 12;
@@ -90,7 +90,7 @@ public class TetrisMain extends Application {
         //Image imageDrMarioLogo = null;
         try{
             //imageDrMarioLogo = new Image(new FileInputStream("resources/DrMarioLogo.png"));
-            imageTetrisLogo = new Image(new FileInputStream("TMGE-module/resources/TetrisLogo.png"));
+            imageTetrisLogo = new Image(new FileInputStream("Tetris-module/resources/TetrisLogo.png"));
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -244,7 +244,7 @@ public class TetrisMain extends Application {
         VBox vboxCenter = new VBox(gridPaneCenter);
         /*vboxCenter.getChildren().addAll(player1Label, player1Score, player1LineCount,
                 player2Label, player2Score, player2LineCount);*/
-        BackgroundFill backgroundFillCenter = new BackgroundFill(Color.AQUA,CornerRadii.EMPTY, Insets.EMPTY);
+        BackgroundFill backgroundFillCenter = new BackgroundFill(gameColor,CornerRadii.EMPTY, Insets.EMPTY);
         Background backgroundCenter = new Background(backgroundFillCenter);
         vboxCenter.setBackground(backgroundCenter);
 
