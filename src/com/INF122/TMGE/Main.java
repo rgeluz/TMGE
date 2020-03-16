@@ -209,7 +209,8 @@ public class Main extends Application {
         int board1Width = gridWidth*tileSize;
         int board1Height = gridHeight*tileSize;
 
-        Controller controller1 = new Controller(board1,
+        Controller controller1 = new Controller(GAME_TO_TEST,
+                                                board1,
                                                 player1NameField,
                                                 player1ScoreField,
                                                 player1LineCountField);
@@ -221,7 +222,8 @@ public class Main extends Application {
         int board2Width = gridWidth*tileSize;
         int board2Height = gridHeight*tileSize;
 
-        Controller controller2 = new Controller(board2,
+        Controller controller2 = new Controller(GAME_TO_TEST,
+                                                board2,
                                                 player2NameField,
                                                 player2ScoreField,
                                                 player2LineCountField);

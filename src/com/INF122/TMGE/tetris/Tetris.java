@@ -29,6 +29,7 @@ public class Tetris {
     // TODO - refactor tileSize that is now based on Board.tileSize
     private Shape currentActiveShape;
     private double time;
+    final GameEnum GAME_TO_TEST = GameEnum.TETRIS;
 
 
 
@@ -42,7 +43,8 @@ public class Tetris {
         this.playerNameField = playerNameField;
         this.playerScoreField = playerScoreField;
         this.playerLineCountField = playerLineCountField;
-        c = new Controller(bo,
+        c = new Controller(GAME_TO_TEST,
+                        bo,
                         playerNameField,
                         playerScoreField,
                         playerLineCountField);
