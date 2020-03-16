@@ -1,0 +1,18 @@
+.linear-grad
+{
+    -fx-background-color: linear-gradient(to bottom left, #4AB8BF,#2D75E8);
+}
+.button1
+{
+    -fx-background-color: #1E4E90;
+    -fx-text-fill: #ffffff;
+}
+
+.button1:hover
+{
+    -fx-text-fill: #73A3E5;
+}
+.button1:pressed
+{
+    -fx-text-fill: #0A1A30;
+}
