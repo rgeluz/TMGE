@@ -10,11 +10,16 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 
 public class Main extends Application {
 
@@ -31,45 +36,23 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        //testGame(stage);
+        testGame(stage);
 
-        Parent root = FXMLLoader.load(getClass().getResource("loginportal.fxml"));
+        /*Parent root = FXMLLoader.load(getClass().getResource("loginportal.fxml"));
         stage.setTitle("TMGE");
         stage.setScene(new Scene(root, 671, 400));
-        stage.show();
+        stage.show();*/
     }
 
-    //Simple method to test JavaFx
-    /*
-        Tutorial 4 - Switching Scenes
-     */
-    private void tutorial4(Stage primaryStage){
-        window = primaryStage;
 
-        Label label1 = new Label("Welcome to the first scene");
-        Button button1 = new Button("Go to scene 2");
-        button1.setOnAction(e -> window.setScene(scene2));
-
-        //Layout 1 - children are laid out in vertical column
-        VBox layout1 = new VBox(20);
-        layout1.getChildren().addAll(label1, button1);
-        scene1 = new Scene(layout1, 200, 200);
-
-        //Button 2
-        Button button2= new Button("Go back to scene 1");
-        button2.setOnAction(e -> window.setScene(scene1));
-
-        //Layout 2
-        StackPane layout2 = new StackPane();
-        layout2.getChildren().add(button2);
-        scene2 = new Scene(layout2, 600, 300);
-
-        window.setScene(scene1);
-        window.setTitle("Title here");
-        window.show();
-    }
 
     public void testGame(Stage stage){
+
+        /*
+            Toggle the value below to switch between games
+            eg. GameEnum.DRMARIO <----> Game.TETRIS
+        */
+        final GameEnum GAME_TO_TEST = GameEnum.TETRIS;
 
         int gridHeight = 20;
         int gridWidth = 12;
@@ -92,17 +75,46 @@ public class Main extends Application {
         //TODO very hacky, but don't have to time to be picky!
         //TODO this adds spaces above player 1
         Label emptyLabel1 = new Label("");
-        gridPaneCenter.add(emptyLabel1, 0, 4);
+        gridPaneCenter.add(emptyLabel1, 0, 1);
         Label emptyLabel2 = new Label("");
-        gridPaneCenter.add(emptyLabel2, 0, 5);
+        gridPaneCenter.add(emptyLabel2, 0, 2);
         Label emptyLabel3 = new Label("");
-        gridPaneCenter.add(emptyLabel3, 0, 6);
+        gridPaneCenter.add(emptyLabel3, 0, 3);
         Label emptyLabel4 = new Label("");
-        gridPaneCenter.add(emptyLabel4, 0, 7);
+        gridPaneCenter.add(emptyLabel4, 0, 4);
         Label emptyLabel5 = new Label("");
-        gridPaneCenter.add(emptyLabel5, 0, 8);
+
+        //Game Logo
+        Image imageTetrisLogo = null;
+        Image imageDrMarioLogo = null;
+        try{
+            imageDrMarioLogo = new Image(new FileInputStream("resources/DrMarioLogo.png"));
+            imageTetrisLogo = new Image(new FileInputStream("resources/TetrisLogo.png"));
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        ImageView imageViewDrMario = new ImageView(imageDrMarioLogo);
+        ImageView imageViewTetris = new ImageView(imageTetrisLogo);
+        imageViewDrMario.setFitWidth(tileSize*5);
+        imageViewDrMario.setFitHeight(tileSize*2);
+        imageViewTetris.setFitWidth(tileSize*5);
+        imageViewTetris.setFitHeight(tileSize*2);
+
+        Color gameColor = null;
+        if(GAME_TO_TEST==GameEnum.DRMARIO){
+            gridPaneCenter.getChildren().add(imageViewDrMario);
+            gameColor = Color.AQUAMARINE;
+        } else if (GAME_TO_TEST==GameEnum.TETRIS){
+            gridPaneCenter.getChildren().add(imageViewTetris);
+            gameColor = Color.AQUA;
+        }
+
+
+        gridPaneCenter.add(emptyLabel5, 0, 5);
         Label emptyLabel6 = new Label("");
-        gridPaneCenter.add(emptyLabel6, 0, 9);
+        gridPaneCenter.add(emptyLabel6, 0, 6);
 
         //Player 1
         Label player1Label = new Label("Player1");
