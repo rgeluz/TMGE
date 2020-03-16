@@ -6,10 +6,11 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Tile {
+public class Tile implements Cloneable{
 
     //instance variables
     public int tileSize;
@@ -138,7 +139,21 @@ public class Tile {
         group.getChildren().add(this.rectangle);
     }
 
+    //Provides a deepCopy of the tile
+    public Tile deepCopyClone() throws CloneNotSupportedException{
+        //assign the shallow copy to new reference variable
+        Tile t = (Tile)super.clone();
 
+        //t.tileImage = new Image("");
+        t.directions = new ArrayList<Direction>();
+        t.rectangle = new Rectangle();
+
+        //create a new object for the titleImage, directions, rectangle
+        //and assign it to shallow copy obtained,
+        //to make it a deep copy
+        return t;
+
+    }
 
 
 }
