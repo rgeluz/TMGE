@@ -34,13 +34,12 @@ public class TetrisController extends Controller {
      * Constructor
      * @param board
      */
-    public TetrisController(GameEnum GAME_TO_TEST,
-                      Board board,
+    public TetrisController(Board board,
                       TextField playerNameField,
                       TextField playerScoreField,
                       TextField playerLineCountField) {
 
-        super(GAME_TO_TEST, board, playerNameField, playerScoreField, playerLineCountField);
+        super(board, playerNameField, playerScoreField, playerLineCountField);
 
     }
 

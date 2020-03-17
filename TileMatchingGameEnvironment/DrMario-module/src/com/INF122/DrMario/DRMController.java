@@ -18,18 +18,15 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
-public class DRMController {
-	Board board;
-    Group group;
-    int tileSize;
+public class DRMController extends Controller{
+
     private Pills currentActiveShape;
+
     private double time;
     public static int virusCount = 0;
     public static int score = 0;
 
-    TextField playerNameField;
-    TextField playerScoreField;
-    TextField playerLineCountField;
+
 
 
     //TODO move this to tetris - added to tetris
@@ -50,14 +47,7 @@ public class DRMController {
                          TextField playerNameField,
                          TextField playerScoreField,
                          TextField playerLineCountField){
-        this.board = board;
-        this.playerNameField = playerNameField;
-        this.playerScoreField = playerScoreField;
-        this.playerLineCountField = playerLineCountField;
-        this.playerNameField.setText("Player");
-        this.playerScoreField.setText("0");
-        this.playerLineCountField.setText("0");
-        this.tileSize = board.tileSize;
+        super(board, playerNameField, playerScoreField, playerLineCountField);
     }
 
     /**
@@ -70,7 +60,7 @@ public class DRMController {
 
         //JavaFX group
         Group group = new Group();
-        this.group = group;
+        this.tileGroup = group;
 
         //TODO for tetris - added to Tetris constructor
         this.LineCount = 0;
@@ -150,25 +140,12 @@ public class DRMController {
         render();
     }
 
-    public void render()
-    {
-        this.group.getChildren().clear();
-        for(int colIndex=0; colIndex<this.board.gridWidth; colIndex++)
-        {
-            for(int rowIndex=0; rowIndex<this.board.gridHeight; rowIndex++)
-            {
-                //if(this.board.boardGrid[colIndex][rowIndex]!=null){
-                    //System.out.println(this.board.boardGrid[colIndex][rowIndex].rectangle.);
-                    //this.group.getChildren().add(this.board.boardGrid[colIndex][rowIndex].rectangle);
-                //}
-                Tile tile = this.board.getTile(colIndex,rowIndex);
-                if(tile!=null)
-                    this.group.getChildren().add(tile.rectangle);
-            }
-        }
-    }
 
-    public boolean isColliding(List<Capsule> newTileList){
+
+
+
+
+    private boolean isCollidingWithCaps(List<Capsule> newTileList){
         boolean isCollidingWithSelf = false;
         for(Capsule newTile: newTileList){
         	Tile tile = this.board.getTile(newTile.columnIndex,newTile.rowIndex);
@@ -198,7 +175,7 @@ public class DRMController {
      * @param newTileList
      * @return
      */
-    public boolean isBottom(List<Capsule> newTileList)
+    public boolean isBottomWithCap(List<Capsule> newTileList)
     {
         for(Capsule newTile: newTileList)
         {
@@ -213,7 +190,7 @@ public class DRMController {
      * @param newTileList
      * @return
      */
-    public boolean isLeftOrRightWall(List<Capsule> newTileList)
+    public boolean isLeftOrRightWallWithCaps(List<Capsule> newTileList)
     {
         for(Capsule newTile: newTileList)
         {
@@ -223,7 +200,7 @@ public class DRMController {
         return false;
     }
 
-    private void updateBoard(List<Capsule> newTileList)
+    private void updateBoardWithCaps(List<Capsule> newTileList)
     {
         //Remove old shape
         for(Tile tile : this.currentActiveShape.caps)
@@ -269,14 +246,14 @@ public class DRMController {
         //Update Board if not out of bounds and no collision
         if(direction==Direction.LEFT || direction==Direction.RIGHT)
         {
-            if( !isLeftOrRightWall(newTileList) && !isColliding(newTileList))
-                updateBoard(newTileList);
+            if( !isLeftOrRightWallWithCaps(newTileList) && !isCollidingWithCaps(newTileList))
+                updateBoardWithCaps(newTileList);
         }
         else if(direction==Direction.DOWN)
         {
             //check for out of bounds and collision
-            if( !isBottom(newTileList) && !isColliding(newTileList))
-        		updateBoard(newTileList);
+            if( !isBottomWithCap(newTileList) && !isCollidingWithCaps(newTileList))
+        		updateBoardWithCaps(newTileList);
 
             else
             {
@@ -415,13 +392,13 @@ public class DRMController {
             //gameoverText.setStyle("-fx-font: 70 arial;");
             //this.group.getChildren().add(gameoverText);
 
-            Text t = new Text();
-            t.setX(20.0f);
-            t.setY(65.0f);
-            t.setText("Perspective");
-            t.setFill(Color.YELLOW);
-            t.setFont(Font.font(null, FontWeight.BOLD, 36));
-            this.group.getChildren().add(t);
+            //Text t = new Text();
+            //t.setX(20.0f);
+            //t.setY(65.0f);
+            //t.setText("Perspective");
+            //t.setFill(Color.YELLOW);
+            //t.setFont(Font.font(null, FontWeight.BOLD, 36));
+            //this.group.getChildren().add(t);
 
             System.exit(0);
         }

@@ -39,14 +39,7 @@ public class DrMarioMain extends Application{
         testGame(stage);
     }
 
-    public void testGame(Stage stage)
-    {
-
-        /*
-            Toggle the value below to switch between games
-            eg. GameEnum.DRMARIO <----> Game.TETRIS
-        */
-        final GameEnum GAME_TO_TEST = GameEnum.DRMARIO;
+    public void testGame(Stage stage) {
 
         int gridHeight = 20;
         int gridWidth = 12;
@@ -79,8 +72,8 @@ public class DrMarioMain extends Application{
         //Image imageTetrisLogo = null;
         Image imageDrMarioLogo = null;
         try{
-            //imageDrMarioLogo = new Image(new FileInputStream("DrMario-module/resources/DrMarioLogo.png"));
-        	imageDrMarioLogo = new Image(new FileInputStream("resources/DrMarioLogo.png"));
+            imageDrMarioLogo = new Image(new FileInputStream("DrMario-module/resources/DrMarioLogo.png"));
+        	//imageDrMarioLogo = new Image(new FileInputStream("resources/DrMarioLogo.png"));
             //imageTetrisLogo = new Image(new FileInputStream("TMGE-module/resources/TetrisLogo.png"));
 
         } catch (FileNotFoundException e) {

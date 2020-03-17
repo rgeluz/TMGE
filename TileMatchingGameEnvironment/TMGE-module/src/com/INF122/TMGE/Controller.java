@@ -30,9 +30,6 @@ public class Controller {
     public TextField playerScoreField;
     public TextField playerLineCountField;
 
-    //For Testing Purposes
-    public final GameEnum GAME_TO_TEST;
-
 
 
 
@@ -44,12 +41,10 @@ public class Controller {
      * Constructor
      * @param board
      */
-    public Controller(GameEnum GAME_TO_TEST,
-                      Board board,
+    public Controller(Board board,
                       TextField playerNameField,
                       TextField playerScoreField,
                       TextField playerLineCountField) {
-        this.GAME_TO_TEST = GAME_TO_TEST;
         this.board = board;
         this.playerNameField = playerNameField;
         this.playerScoreField = playerScoreField;

@@ -25,7 +25,7 @@ public class Virus extends Tile
 			case 1:
 		        try 
 		        {   
-		        	image = new Image(new FileInputStream("resources/VirusBlue.png"));
+		        	image = new Image(new FileInputStream("DrMario-module/resources/VirusBlue.png"));
 		        	v = new Virus(b.tileSize, false, Color.BLUE, false, true, image, col, row, 0, Direction.DOWN, 1);
 		        }
 		        catch (FileNotFoundException e) 
@@ -34,7 +34,7 @@ public class Virus extends Tile
 			case 2:
 		        try 
 		        {   
-		        	image = new Image(new FileInputStream("resources/VirusRed.png"));
+		        	image = new Image(new FileInputStream("DrMario-module/resources/VirusRed.png"));
 		        	v = new Virus(b.tileSize, false, Color.RED, false, true, image, col, row, 0, Direction.DOWN, 2);
 		        }
 		        catch (FileNotFoundException e) 
@@ -43,7 +43,7 @@ public class Virus extends Tile
 			case 3:
 		        try 
 		        {   
-		        	image = new Image(new FileInputStream("resources/VirusYellow.png"));
+		        	image = new Image(new FileInputStream("DrMario-module/resources/VirusYellow.png"));
 		        	v = new Virus(b.tileSize, false, Color.YELLOW, false, true, image, col, row, 0, Direction.DOWN, 3);
 		        }
 		        catch (FileNotFoundException e) 

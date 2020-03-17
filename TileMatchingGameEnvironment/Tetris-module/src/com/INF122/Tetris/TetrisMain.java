@@ -70,11 +70,6 @@ public class TetrisMain extends Application {
 
     public static void testGame(Stage stage)
     {
-    	/*
-        Toggle the value below to switch between games
-        eg. GameEnum.DRMARIO <----> Game.TETRIS
-    	 */
-    	final GameEnum GAME_TO_TEST = GameEnum.TETRIS;
     	
         int gridHeight = 20;
         int gridWidth = 12;
@@ -210,8 +205,7 @@ public class TetrisMain extends Application {
         int board1Width = gridWidth*tileSize;
         int board1Height = gridHeight*tileSize;
 
-        TetrisController controller1 = new TetrisController(GAME_TO_TEST,
-                board1,
+        TetrisController controller1 = new TetrisController(board1,
                 player1NameField,
                 player1ScoreField,
                 player1LineCountField);
@@ -223,8 +217,7 @@ public class TetrisMain extends Application {
         int board2Width = gridWidth*tileSize;
         int board2Height = gridHeight*tileSize;
 
-        TetrisController controller2 = new TetrisController(GAME_TO_TEST,
-                board2,
+        TetrisController controller2 = new TetrisController(board2,
                 player2NameField,
                 player2ScoreField,
                 player2LineCountField);
