@@ -5,6 +5,8 @@ import com.INF122.TMGE.Controller;
 import com.INF122.TMGE.Direction;
 import com.INF122.TMGE.GameEnum;
 import javafx.application.Application;
+import javafx.event.EventHandler;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -17,6 +19,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -24,6 +27,7 @@ import javafx.stage.Stage;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class TetrisMain extends Application {
     Stage window;
@@ -46,6 +50,21 @@ public class TetrisMain extends Application {
         stage.setScene(scene);
         stage.show();
         
+        scene.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+            @Override public void handle(MouseEvent event) {
+            	Stage tetrisStage = new Stage();
+                tetrisStage.setTitle("Tetris");
+                try {
+					Parent root = FXMLLoader.load(getClass().getResource("GameStage.fxml"));
+					testGame(stage);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+                
+            	//testGame(stage);
+            }
+            });
+            
     }
     
 
