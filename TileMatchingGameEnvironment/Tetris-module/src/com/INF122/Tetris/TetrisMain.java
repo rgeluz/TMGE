@@ -26,10 +26,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 public class TetrisMain extends Application {
-    //For JavaFX test
     Stage window;
-    Scene scene1, scene2;
-    Button button;
+    
 
     public static void main(String[] args){
         System.out.println("Hello World");
@@ -39,24 +37,26 @@ public class TetrisMain extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        testGame(stage);
-
-        /*Parent root = FXMLLoader.load(getClass().getResource("loginportal.fxml"));
+        //testGame(stage);
+        
+        Parent root = FXMLLoader.load(getClass().getResource("loginportal.fxml"));
         stage.setTitle("TMGE");
-        stage.setScene(new Scene(root, 671, 400));
-        stage.show();*/
+        
+        Scene scene = new Scene(root, 671, 400);
+        stage.setScene(scene);
+        stage.show();
+        
     }
+    
 
-
-
-    public void testGame(Stage stage){
-
-        /*
-            Toggle the value below to switch between games
-            eg. GameEnum.DRMARIO <----> Game.TETRIS
-        */
-        final GameEnum GAME_TO_TEST = GameEnum.TETRIS;
-
+    public static void testGame(Stage stage)
+    {
+    	/*
+        Toggle the value below to switch between games
+        eg. GameEnum.DRMARIO <----> Game.TETRIS
+    	 */
+    	final GameEnum GAME_TO_TEST = GameEnum.TETRIS;
+    	
         int gridHeight = 20;
         int gridWidth = 12;
         int tileSize = 30;
@@ -87,30 +87,18 @@ public class TetrisMain extends Application {
 
         //Game Logo
         Image imageTetrisLogo = null;
-        //Image imageDrMarioLogo = null;
         try{
-            //imageDrMarioLogo = new Image(new FileInputStream("resources/DrMarioLogo.png"));
             imageTetrisLogo = new Image(new FileInputStream("resources/TetrisLogo.png"));
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
 
-        //ImageView imageViewDrMario = new ImageView(imageDrMarioLogo);
         ImageView imageViewTetris = new ImageView(imageTetrisLogo);
-        //imageViewDrMario.setFitWidth(tileSize*5);
-        //imageViewDrMario.setFitHeight(tileSize*2);
         imageViewTetris.setFitWidth(tileSize*5);
         imageViewTetris.setFitHeight(tileSize*2);
 
         Color gameColor = null;
-        /*if(GAME_TO_TEST==GameEnum.DRMARIO){
-            gridPaneCenter.getChildren().add(imageViewDrMario);
-            gameColor = Color.AQUAMARINE;
-        } else if (GAME_TO_TEST==GameEnum.TETRIS){
-            gridPaneCenter.getChildren().add(imageViewTetris);
-            gameColor = Color.AQUA;
-        }*/
 
         gridPaneCenter.getChildren().add(imageViewTetris);
         gameColor = Color.AQUA;
@@ -196,17 +184,7 @@ public class TetrisMain extends Application {
         gridPaneCenter.add(player2LineCountField, 1,19);
 
 
-        //gridPaneCenter.setBackground(background);
-        //Text player1Name = new Text("Player1");
-        //player1Name.setFont();
-        //gridPaneCenter.add(player1Name,0,0);
-
-        //Text player2Name = new Text("Player2");
-        //gridPaneCenter.add(player2Name,0,0);
-
-
-
-        //________________Master window______________________//
+        //________________Master window______________________
 
         //Board Player1
         Board board1 = new Board(gridHeight,gridWidth, tileSize);
@@ -242,8 +220,8 @@ public class TetrisMain extends Application {
 
         //Center
         VBox vboxCenter = new VBox(gridPaneCenter);
-        /*vboxCenter.getChildren().addAll(player1Label, player1Score, player1LineCount,
-                player2Label, player2Score, player2LineCount);*/
+        //vboxCenter.getChildren().addAll(player1Label, player1Score, player1LineCount,
+        //        player2Label, player2Score, player2LineCount);
         BackgroundFill backgroundFillCenter = new BackgroundFill(gameColor,CornerRadii.EMPTY, Insets.EMPTY);
         Background backgroundCenter = new Background(backgroundFillCenter);
         vboxCenter.setBackground(backgroundCenter);
@@ -301,5 +279,6 @@ public class TetrisMain extends Application {
         stage.show();
 
     }
+    
 
 }

@@ -1,5 +1,4 @@
-package com.INF122.TMGE;
-
+package com.INF122.Tetris;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -7,6 +6,7 @@ import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -17,9 +17,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-
-public class LoginportalController{
-
+public class TetrisLoginController {
     @FXML
     private Button SigninBtn;
     @FXML
@@ -104,28 +102,34 @@ public class LoginportalController{
             pnSignIn.toFront();
         }
         if(event.getSource().equals(tetrisIcon)){
+        	
+        	
             System.out.println("tetris selected");
-            try {
+            //try {
                 Stage tetrisStage = new Stage();
                 tetrisStage.setTitle("Tetris");
                 FXMLLoader fxmlLoader = new FXMLLoader();
-                Pane root = fxmlLoader.load(getClass().getResource("gameStage.fxml").openStream());
-
+                //Pane root = fxmlLoader.load(getClass().getResource("GameStage.fxml").openStream());
+                Parent root = fxmlLoader.load(getClass().getResource("loginportal.fxml"));
+                
+                TetrisMain.testGame(tetrisStage);
+                tetrisStage.show();
+                /*
                 if(!pc1NameInput.getText().isEmpty() && !pc2NameInput.getText().isEmpty()) {
-                	
-                    //Scene sceneMP = TetrisGUI.generateMultiplayerScene();
-                    //tetrisStage.setScene(sceneMP);
+                	TetrisGUI gui = new TetrisGUI();
+                    Scene sceneMP = gui.generateMultiplayerScene();
+                    tetrisStage.setScene(sceneMP);
                 }
                 else {
-                	
-                	
-                    //Scene sceneSP = TetrisGUI.generateSingleplayerScene();
-                    //tetrisStage.setScene(sceneSP);
+                	TetrisGUI gui = new TetrisGUI();
+                	Scene sceneSP = gui.generateSingleplayerScene();
+                    tetrisStage.setScene(sceneSP);
                 }
-                tetrisStage.show();
+                
             }catch (IOException e){
                 e.printStackTrace();
             }
+            */
         }
         if(event.getSource().equals(drMarioIcon)){
             System.out.println("Dr.Mario selected");
