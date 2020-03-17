@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.INF122.TMGE.*;
+//import com.INF122.TMGE.Direction;
+//import com.INF122.TMGE.tetris.TetrisShapeFactory;
 
 import javafx.animation.AnimationTimer;
 import javafx.scene.Group;
@@ -16,12 +18,14 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
-public class DRMController  {
+public class DRMController {
 	Board board;
     Group group;
     int tileSize;
     private Pills currentActiveShape;
     private double time;
+    public static int virusCount = 0;
+    public static int score = 0;
 
     TextField playerNameField;
     TextField playerScoreField;
@@ -68,28 +72,34 @@ public class DRMController  {
         Group group = new Group();
         this.group = group;
 
+        //TODO for tetris - added to Tetris constructor
         this.LineCount = 0;
-        addBorder();
+        this.includeTetrisBorder = true;
+        if(this.includeTetrisBorder)
+            addTetrisBorder();
 
         //first spawn
         Levels lvl = new Levels(this.board);
         lvl.getLvl(1);
+        virusCount = lvl.blueVirusList.size() + lvl.redVirusList.size() + lvl.yellowVirusList.size();
+        System.out.println(virusCount);
+
         generateShape();
         render();
 
-        AnimationTimer timer = new AnimationTimer() 
+        AnimationTimer timer = new AnimationTimer()
         {
             @Override
-            public void handle(long now) 
+            public void handle(long now)
             {
                 time += 0.017;
 
-                if (time >= 0.5) 
+                if (time >= 0.5)
                 {
                     moveShape(Direction.DOWN);
-//                  checkForFullRows();
+//                    checkForFullRows();
                     render();
-                    time = 0;
+                    time  = 0;
                 }
             }
         };
@@ -97,15 +107,15 @@ public class DRMController  {
 
         return group;
     }
-    
-    
-    private void addBorder(){
+
+
+    private void addTetrisBorder(){
         Image image = null;
-        try 
+        try
         {
-            image = new Image(new FileInputStream("resources/BlockGrey.png"));
-        } 
-        catch (FileNotFoundException e) 
+            image = new Image(new FileInputStream("DrMario-module/resources/BlockGrey.png"));
+        }
+        catch (FileNotFoundException e)
         {
             e.printStackTrace();
         }
@@ -118,12 +128,9 @@ public class DRMController  {
                 for(int rowIndex=0; rowIndex<this.board.gridHeight; rowIndex++)
                 {
                     //create new tile
-                    /*Tile newBoarderTile = new Tile(board.tileSize, false, null, false,
+                    Tile newBoarderTile = new Tile(board.tileSize, false, null, false,
                             true, image, colIndex, rowIndex,
-                            0, 4, Direction.DOWN);*/
-                    Tile newBoarderTile = new Tile(board.tileSize, false, null,false,
-                            true, image, colIndex, rowIndex,
-                            0,Direction.DOWN);
+                            0, 4, Direction.DOWN);
                     //this.board.boardGrid[colIndex][rowIndex]=newBoarderTile;
                     this.board.placeTile(newBoarderTile);
                 }
@@ -134,18 +141,15 @@ public class DRMController  {
         int floorRowIndex=this.board.gridHeight-1;
         for(int colIndex=0; colIndex<this.board.gridWidth; colIndex++)
         {
-            /*Tile newBoarderTile = new Tile(board.tileSize, false, null,false,
-                    true, image, colIndex, floorRowIndex,
-                    0, 4, Direction.DOWN);*/
             Tile newBoarderTile = new Tile(board.tileSize, false, null,false,
                     true, image, colIndex, floorRowIndex,
-                    0,Direction.DOWN);
+                    0, 4, Direction.DOWN);
             //this.board.boardGrid[colIndex][floorRowIndex]=newBoarderTile;
             this.board.placeTile(newBoarderTile);
         }
         render();
     }
-    
+
     public void render()
     {
         this.group.getChildren().clear();
@@ -189,8 +193,6 @@ public class DRMController  {
         return false;
     }
 
-
-
     /**
      *
      * @param newTileList
@@ -220,7 +222,7 @@ public class DRMController  {
         }
         return false;
     }
-    
+
     private void updateBoard(List<Capsule> newTileList)
     {
         //Remove old shape
@@ -246,8 +248,8 @@ public class DRMController  {
             this.board.placeTile(newTile);
         }
     }
-    
-    public void moveShape(Direction direction) 
+
+    public void moveShape(Direction direction)
     {
         //calculate new center tile coordinates
         int newColIndex = this.currentActiveShape.centerPieceColumnIndex + direction.colIndex;
@@ -269,41 +271,57 @@ public class DRMController  {
         {
             if( !isLeftOrRightWall(newTileList) && !isColliding(newTileList))
                 updateBoard(newTileList);
-        } 
+        }
         else if(direction==Direction.DOWN)
         {
             //check for out of bounds and collision
             if( !isBottom(newTileList) && !isColliding(newTileList))
         		updateBoard(newTileList);
 
-            else 
-            { 
-            	for(Tile t: newTileList)
+            else
+            {
+                List<Tile> match = new ArrayList<Tile>();
+//                List<Tile> matches = new ArrayList<Tile>();
+//            	boolean matched = false;
+                for(Tile t: newTileList)
         		{
-        			List<Tile> match = checkFourCaps(t);
+        			match = checkFourCaps(t);
+//        			matched = true;
         			if(!match.isEmpty())
         			{
         				for(Tile c: match)
-        					board.removeTile(c);
+                        {
+//                            matches.add(c);
+                            if(!c.isCapsule())
+                            {
+                                virusCount--;
+                                score += 100;
+                            }
+                            board.removeTile(c);
+                        }
         			}
         		}
             	render();
-            	
-            	System.out.println("toRemove");
-            	
-            	List<Tile> move = this.isSingleCap();
-            	if(!move.isEmpty())
-            	{
-            		for(Tile t: move)
-            			this.moveCapDown((Capsule) t);
-            	}
+
+//            	if (matched)
+//                {
+//                    List<Tile> move = this.isSingleCap(matches);
+//                    System.out.println("Moving down");
+//                    int i = 0;
+//                    while(move.get(move.size()-1).rowIndex != board.gridWidth-1)
+//                    {
+//                        System.out.println(i);
+//                        for (Tile t : move)
+//                            moveCapDown(t);
+//                    }
+//                }
                 generateShape();
-         		
+
 //            checkForFullRows();
             }
         }
     }
-    
+
     public void rotateShape()
     {
         if(this.currentActiveShape.centerPieceRowIndex>0)
@@ -350,8 +368,8 @@ public class DRMController  {
             }
         }
     }
-    
-    public void generateShape() 
+
+    public void generateShape()
     {
         //TODO for tetris game - copy added to Tetris
         Pills newShape = Pills.getPill(this.board);
@@ -361,21 +379,30 @@ public class DRMController  {
 
         //check if spawn area is occupied
         boolean isOccupied =false;
-        for (Tile newTile : this.currentActiveShape.caps) 
+        for (Tile newTile : this.currentActiveShape.caps)
         {
             if(this.board.getTile(newTile.columnIndex,newTile.rowIndex)!=null)
                 isOccupied = true;
         }
 
+
+        System.out.println("Score: " + score + "\n" +
+                "Viruses: "+ virusCount + "\n");
         //TODO
         //check if shape reaches top
-        if(!isOccupied)
+        if (virusCount == 0)
+        {
+            render();
+            System.out.println("Game Won");
+            System.exit(0);
+        }
+        else if(!isOccupied)
         {
             //add tiles to board
-            for (Tile newTile : this.currentActiveShape.caps) 
+            for (Tile newTile : this.currentActiveShape.caps)
                 this.board.placeTile(newTile);
-        } 
-        else 
+        }
+        else
         {
             //TODO later add Game Over JavaFx message
             System.out.println("GAME OVER");
@@ -388,39 +415,39 @@ public class DRMController  {
             //gameoverText.setStyle("-fx-font: 70 arial;");
             //this.group.getChildren().add(gameoverText);
 
-            //Text t = new Text();
-            //t.setX(20.0f);
-            //t.setY(65.0f);
-            //t.setText("Perspective");
-            //t.setFill(Color.YELLOW);
-            //t.setFont(Font.font(null, FontWeight.BOLD, 36));
-            //this.group.getChildren().add(t);
+            Text t = new Text();
+            t.setX(20.0f);
+            t.setY(65.0f);
+            t.setText("Perspective");
+            t.setFill(Color.YELLOW);
+            t.setFont(Font.font(null, FontWeight.BOLD, 36));
+            this.group.getChildren().add(t);
 
-            //System.exit(0);
+            System.exit(0);
         }
     }
-    
-    private List<Tile> checkFourCaps(Tile t) 
+
+    private List<Tile> checkFourCaps(Tile t)
     {
     	int col = t.columnIndex;
     	int row = t.rowIndex;
     	List<Tile> toClear = new ArrayList<Tile>();
-    	
+
     	for( int r =0; r < this.board.gridHeight-1; r++)
     	{
     		if (r < this.board.gridHeight-4 && this.board.getTile(col, r) != null)
-    		{    		
+    		{
     			toClear.add(this.board.getTile(col, r));
     			for (int c = 1; c < 5; c++)
     			{
-    				if(this.board.getTile(col, c+r)!= null && this.board.getTile(col, c+r).type != 4 && 
+    				if(this.board.getTile(col, c+r)!= null && this.board.getTile(col, c+r).type != 4 &&
     				   this.board.getTile(col, c+r).type == this.board.getTile(col, r).type)
-    					toClear.add(this.board.getTile(col, c+r));
-    				
+                        toClear.add(this.board.getTile(col, c+r));
     				else
     				{
     					if (c > 3)
-    						return toClear;
+                            return toClear;
+
     					else
     					{
     						toClear.clear();
@@ -430,18 +457,19 @@ public class DRMController  {
     			}
 	    	}
     	}
-    	
+
     	for( int c = 1; c < this.board.gridWidth-2; c++)
     	{
     		if (c < this.board.gridWidth-4 && this.board.getTile(c, row) != null)
-    		{    		
+    		{
     			toClear.add(this.board.getTile(c, row));
     			for (int i = 1; i < 5; i++)
     			{
 //    				System.out.println("c: " + c +" i: " + i + " row: " + row );
     				if(this.board.getTile(c+i, row)!= null && this.board.getTile(c+i, row).type != 4 &&
     				   this.board.getTile(c+i, row).type == this.board.getTile(c, row).type)
-    					toClear.add(this.board.getTile(c+i, row));
+                        toClear.add(this.board.getTile(c+i, row));
+
     				else
     				{
     					if (i > 3)
@@ -455,63 +483,71 @@ public class DRMController  {
     			}
 	    	}
     	}
-    	
+
     	return toClear;
     }
-    
-    private List<Tile> isSingleCap()
+
+
+    private List<Tile> isSingleCap(List<Tile> removed)
     {
     	List<Tile> toMove = new ArrayList<Tile>();
-        for(int colIndex=0; colIndex<this.board.gridWidth; colIndex++)
+        for (Tile t: removed)
         {
-            for(int rowIndex=0; rowIndex<this.board.gridHeight; rowIndex++)
+            if(board.getTile(t.columnIndex-1,t.rowIndex) != null && board.getTile(t.columnIndex-1,t.rowIndex).isCapsule()) //checking left
             {
-            	Tile toCheck = this.board.getTile(colIndex, rowIndex);
-            	if( toCheck != null && toCheck.isCapsule() &&
-            			toCheck.columnIndex >= 1 && toCheck.columnIndex <= board.gridWidth -2)
-            	{
-                    if(toCheck.rowIndex >= 0 && toCheck.rowIndex <= board.gridHeight -2)
+                Tile left = board.getTile(t.columnIndex-1, t.rowIndex);
+                toMove.add(left);
+                int c = 1;
+
+                while (left.rowIndex+c != board.gridHeight)
+                {
+                    if(board.getTile(left.columnIndex, left.rowIndex+c) != null && board.getTile(left.columnIndex, left.rowIndex+c).isCapsule())
                     {
-                    	if(this.board.getTile(toCheck.columnIndex-1, toCheck.rowIndex  ) == null &&  //left
-                    	   this.board.getTile(toCheck.columnIndex+1, toCheck.rowIndex  ) == null &&  //right
-                    	   this.board.getTile(toCheck.columnIndex,   toCheck.rowIndex+1) == null)    //down
-                    		toMove.add(toCheck);
+                        Tile toCheck = board.getTile(left.columnIndex, left.rowIndex+c);
+                        toMove.add(toCheck);
                     }
-            	}
+
+                    c++;
+                }
+
+                if(left.rowIndex + c == board.gridHeight)
+                    toMove.clear();
+            }
+
+            else if(board.getTile(t.columnIndex+1,t.rowIndex) != null && board.getTile(t.columnIndex+1,t.rowIndex).isCapsule()) //checking left
+            {
+                Tile right = board.getTile(t.columnIndex+1, t.rowIndex);
+                toMove.add(right);
+                int c = 1;
+
+                while (right.rowIndex+c != board.gridHeight)
+                {
+                    if(board.getTile(right.columnIndex, right.rowIndex+c) != null && board.getTile(right.columnIndex, right.rowIndex+c).isCapsule())
+                    {
+                        Tile toCheck = board.getTile(right.columnIndex, right.rowIndex+c);
+                        toMove.add(toCheck);
+                    }
+
+                    c++;
+                }
+
+                if(right.rowIndex + c == board.gridHeight)
+                    toMove.clear();
             }
         }
+
         return toMove;
     }
-    
-    private void moveCapDown(Capsule tile)
+
+    private void moveCapDown(Tile tile)
     {
-        int newColIndex = tile.columnIndex + Direction.DOWN.colIndex;
-        int newRowIndex = tile.rowIndex + Direction.DOWN.rowIndex;
+        int newRow = tile.rowIndex + 1;
 
-        //Creating new shape
-    	Capsule newTile = new Capsule(tile.tileSize, tile.setColor, tile.tileColor, tile.setTileBorder,
-                                tile.setImage, tile.tileImage,
-                                newColIndex, newRowIndex, tile.position, tile.directions, tile.type);
-    	board.removeTile(tile);
-    	board.placeTile(newTile);
-    	render();
-    	
-        //Update Board if not out of bounds and no collision
-        //check for out of bounds and collision
-        while(newTile.rowIndex != board.gridHeight-2 || board.getTile(newTile.columnIndex, newTile.rowIndex+1) == null)
-        {
-        	System.out.println("Moving");
-            int newRow = newTile.rowIndex + 1;
-
-            //Creating new shape
-        	Capsule oldTile = newTile;
-            newTile = new Capsule(tile.tileSize, tile.setColor, tile.tileColor, tile.setTileBorder,
-                                    tile.setImage, tile.tileImage,
-                                    newTile.columnIndex, newRow, tile.position, tile.directions, tile.type);
-        	board.removeTile(oldTile);
-        	board.placeTile(newTile);
-        	render();
-        }
-        tile = null;
+        Capsule newTile = new Capsule(tile.tileSize, tile.setColor, tile.tileColor, tile.setTileBorder,
+                tile.setImage, tile.tileImage,
+                tile.columnIndex, newRow, tile.position , tile.directions, tile.type);
+        this.board.removeTile(tile);
+        this.board.placeTile(newTile);
+        render();
     }
 }
