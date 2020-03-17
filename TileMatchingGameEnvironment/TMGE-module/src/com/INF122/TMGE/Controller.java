@@ -17,21 +17,21 @@ import java.util.List;
 
 public class Controller {
 
-    Board board;
-    Group tileGroup;
+    public Board board;
+    public Group tileGroup;
 
-    int tileSize;
-    private Shape currentActiveShape;
-    private double time;
-    int rowToBeRemovedIndex;
+    public int tileSize;
+    public Shape currentActiveShape;
+    public double time;
+    public int rowToBeRemovedIndex;
 
 
-    TextField playerNameField;
-    TextField playerScoreField;
-    TextField playerLineCountField;
+    public TextField playerNameField;
+    public TextField playerScoreField;
+    public TextField playerLineCountField;
 
     //For Testing Purposes
-    final GameEnum GAME_TO_TEST;
+    public final GameEnum GAME_TO_TEST;
 
 
 
@@ -92,7 +92,7 @@ public class Controller {
 
                 if (time >= 0.5) {
                     moveShape(Direction.DOWN);
-                    checkForFullRows();
+                    //checkForFullRows();
                     render();
                     time = 0;
                 }
@@ -104,7 +104,7 @@ public class Controller {
     }
 
 
-    private void addBorder(){
+    public void addBorder(){
         Image image = null;
         try {
             image = new Image(new FileInputStream("TMGE-module/resources/BlockGrey.png"));
@@ -254,7 +254,7 @@ public class Controller {
      *
      * @param newTileList
      */
-    private void updateBoard(List<Tile> newTileList){
+    public void updateBoard(List<Tile> newTileList){
         //Remove old shape
         for(Tile tile : this.currentActiveShape.tiles){
             //Remove old tile from board

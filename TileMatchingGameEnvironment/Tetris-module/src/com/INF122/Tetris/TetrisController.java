@@ -16,21 +16,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TetrisController extends Controller {
-    Board board;
-    Group tileGroup;
-
-    int tileSize;
-    private Shape currentActiveShape;
-    private double time;
-    int rowToBeRemovedIndex, score, lines;
 
 
-    TextField playerNameField;
-    TextField playerScoreField;
-    TextField playerLineCountField;
-
-    //For Testing Purposes
-    final GameEnum GAME_TO_TEST;
+    int score, lines;
 
 
 
@@ -38,6 +26,9 @@ public class TetrisController extends Controller {
     //TODO move this to tetris - added to tetris
     int tetrisLineCount;
     boolean includeTetrisBorder;
+
+
+
 
     /**
      * Constructor
@@ -48,18 +39,11 @@ public class TetrisController extends Controller {
                       TextField playerNameField,
                       TextField playerScoreField,
                       TextField playerLineCountField) {
+
         super(GAME_TO_TEST, board, playerNameField, playerScoreField, playerLineCountField);
-        this.GAME_TO_TEST = GAME_TO_TEST;
-        this.board = board;
-        this.playerNameField = playerNameField;
-        this.playerScoreField = playerScoreField;
-        this.playerLineCountField = playerLineCountField;
-        this.playerNameField.setText("Player");
-        this.playerScoreField.setText("0");
-        this.playerLineCountField.setText("0");
-        // tileSize has been outsourced to board, which is passed in to Tetris first
-        this.tileSize = board.tileSize;
+
     }
+
 
     /**
      *
@@ -77,7 +61,8 @@ public class TetrisController extends Controller {
         this.tetrisLineCount = 0;
         this.includeTetrisBorder = true;
         if(this.includeTetrisBorder){
-            addTetrisBorder();
+            //addTetrisBorder();
+            addBorder();
         }
 
 
@@ -100,115 +85,6 @@ public class TetrisController extends Controller {
         timer.start();
 
         return this.tileGroup;
-    }
-
-    //TODO used for tetris border - copy added to Tetris
-    private void addTetrisBorder(){
-        Image image = null;
-        try {
-            image = new Image(new FileInputStream("resources/BlockGrey.png"));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        //create left and right wall
-        for(int colIndex=0; colIndex<this.board.gridWidth; colIndex++){
-            if(colIndex==0 || colIndex==(this.board.gridWidth-1)){  //leftmost and rightmost columns
-                for(int rowIndex=0; rowIndex<this.board.gridHeight; rowIndex++){
-                    //create new tile
-                    Tile newBoarderTile = new Tile(board.tileSize, false, null,false,
-                            true, image, colIndex, rowIndex,
-                            0,Direction.DOWN);
-                    this.board.placeTile(newBoarderTile);
-                }
-            }
-        }
-
-        //create floor
-        int floorRowIndex=this.board.gridHeight-1;
-        for(int colIndex=0; colIndex<this.board.gridWidth; colIndex++){
-            Tile newBoarderTile = new Tile(board.tileSize, false, null,false,
-                    true, image, colIndex, floorRowIndex,
-                    0,Direction.DOWN);
-            this.board.placeTile(newBoarderTile);
-        }
-    }
-
-    /**
-     *
-     */
-    public void render(){
-        this.tileGroup.getChildren().clear();
-        for(int colIndex=0; colIndex<this.board.gridWidth; colIndex++){
-            for(int rowIndex=0; rowIndex<this.board.gridHeight; rowIndex++){
-                Tile tile = this.board.getTile(colIndex,rowIndex);
-                if(tile!=null){
-                    this.tileGroup.getChildren().add(tile.rectangle);
-                }
-            }
-        }
-    }
-
-    /**
-     *
-     */
-
-    public void rotateShape() {
-        if(this.currentActiveShape.centerPieceRowIndex>0){ //don't allow rotation when shape is at the top of board
-            List<Tile> newTileList = getNewOrientation(this.currentActiveShape.tiles);
-
-            if (!(isColliding(newTileList))) {
-                updateBoard(newTileList);
-            }
-        }
-    }
-
-
-    //gets new pieces for rotation
-    public List<Tile> getNewOrientation(List<Tile> tiles){
-        List<Tile> newTileList = new ArrayList<Tile>();
-        for(Tile tile : tiles){
-            List<Direction> newDirections = new ArrayList<>();
-            for(Direction direction: tile.directions){
-                Direction newDirection = direction.next();
-                newDirections.add(newDirection);
-            }
-
-            Tile newTile = new Tile(tile.tileSize, tile.setColor, tile.tileColor, tile.setTileBorder,
-                    tile.setImage, tile.tileImage,
-                    tile.centerPieceColumnIndex, tile.centerPieceRowIndex, tile.position , newDirections);
-            newTileList.add(newTile);
-        }
-
-        if(!isColliding(newTileList)) {
-            //if the new tiles are not colliding with anything, return
-            return newTileList;
-        }
-        else {
-            //if there is a collision, try and offset left once or right once
-            if(!isColliding(offsetTile(newTileList, Direction.LEFT))) {
-                newTileList = offsetTile(newTileList, Direction.LEFT);
-                return newTileList;
-            } else if(!isColliding(offsetTile(newTileList, Direction.RIGHT))) {
-                newTileList = offsetTile(newTileList, Direction.RIGHT);
-                return newTileList;
-            }
-            else return getNewOrientation(newTileList);
-        }
-    }
-
-    public List<Tile> offsetTile(List<Tile> tiles, Direction direction){
-        //offsets the tile list in a direction
-        int newColIndex = this.currentActiveShape.centerPieceColumnIndex + direction.colIndex;
-        int newRowIndex = this.currentActiveShape.centerPieceRowIndex + direction.rowIndex;
-        List<Tile> newTileList = new ArrayList<Tile>();
-        for(Tile tile : tiles){
-            Tile newTile = new Tile(tile.tileSize, tile.setColor, tile.tileColor, tile.setTileBorder,
-                    tile.setImage, tile.tileImage,
-                    newColIndex, newRowIndex, tile.position , tile.directions);
-            newTileList.add(newTile);
-        }
-        return newTileList;
     }
 
 
@@ -250,88 +126,7 @@ public class TetrisController extends Controller {
     }
 
 
-    /**
-     *
-     * @param newTileList
-     */
-    private void updateBoard(List<Tile> newTileList){
-        //Remove old shape
-        for(Tile tile : this.currentActiveShape.tiles){
-            //Remove old tile from board
-            this.board.removeTile(tile);
 
-            //set old tiles to null
-            tile = null;
-        }
-
-        this.currentActiveShape = null;
-
-        //Create a new shape
-        Shape newShape = new Shape(newTileList);
-        this.currentActiveShape = newShape;
-
-        //Update board
-        for(Tile newTile: this.currentActiveShape.tiles){
-            //Update board with new tile
-            this.board.placeTile(newTile);
-        }
-    }
-
-    /**
-     *
-     * @param newTileList
-     * @return
-     */
-    public boolean isColliding(List<Tile> newTileList){
-        boolean isCollidingWithSelf = false;
-        for(Tile newTile: newTileList){
-            Tile tile = this.board.getTile(newTile.columnIndex,newTile.rowIndex);
-            if(tile!=null){
-                for(Tile activeTile: this.currentActiveShape.tiles){
-                    isCollidingWithSelf = false;
-                    if((activeTile.rowIndex==newTile.rowIndex) && (activeTile.columnIndex==newTile.columnIndex)){
-                        isCollidingWithSelf= true;
-                        break;
-                    }
-                }
-                //if its not colliding with itself
-                //but there is a existing object,
-                //then return isColliding=true
-                if(!isCollidingWithSelf){
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-    /**
-     *
-     * @param newTileList
-     * @return
-     */
-    public boolean isBottom(List<Tile> newTileList){
-        for(Tile newTile: newTileList){
-            if( newTile.rowIndex <0 || newTile.rowIndex >= board.gridHeight){
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
-     *
-     * @param newTileList
-     * @return
-     */
-    public boolean isLeftOrRightWall(List<Tile> newTileList){
-        for(Tile newTile: newTileList){
-            if( newTile.columnIndex <=0 || newTile.columnIndex >= board.gridWidth-1){
-                return true;
-            }
-        }
-        return false;
-    }
 
     public void calculateScore(int lines){
     	if (lines == 1) {

@@ -41,9 +41,9 @@ public class TetrisMain extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        //testGame(stage);
+        testGame(stage);
         
-        /**/Parent root = FXMLLoader.load(getClass().getResource("loginportal.fxml"));
+        /*Parent root = FXMLLoader.load(getClass().getResource("loginportal.fxml"));
         stage.setTitle("TMGE");
         
         Scene scene = new Scene(root, 671, 400);
@@ -64,7 +64,7 @@ public class TetrisMain extends Application {
             	//testGame(stage);
             }
             });
-            
+            */
     }
     
 
@@ -107,7 +107,7 @@ public class TetrisMain extends Application {
         //Game Logo
         Image imageTetrisLogo = null;
         try{
-            imageTetrisLogo = new Image(new FileInputStream("resources/TetrisLogo.png"));
+            imageTetrisLogo = new Image(new FileInputStream("Tetris-module/resources/TetrisLogo.png"));
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
