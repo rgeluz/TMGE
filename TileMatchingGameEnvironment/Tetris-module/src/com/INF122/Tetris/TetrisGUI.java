@@ -123,7 +123,7 @@ public class TetrisGUI {
         int board1Width = gridWidth*tileSize;
         int board1Height = gridHeight*tileSize;
 
-        TetrisController controller1 = new TetrisController(GAME_TO_TEST,
+        TetrisController controller1 = new TetrisController(
                 board1,
                 player1NameField,
                 player1ScoreField,
@@ -307,7 +307,7 @@ public class TetrisGUI {
         int board1Width = gridWidth*tileSize;
         int board1Height = gridHeight*tileSize;
 
-        TetrisController controller1 = new TetrisController(GAME_TO_TEST,
+        TetrisController controller1 = new TetrisController(
                 board1,
                 player1NameField,
                 player1ScoreField,
@@ -320,7 +320,7 @@ public class TetrisGUI {
         int board2Width = gridWidth*tileSize;
         int board2Height = gridHeight*tileSize;
 
-        TetrisController controller2 = new TetrisController(GAME_TO_TEST,
+        TetrisController controller2 = new TetrisController(
                 board2,
                 player2NameField,
                 player2ScoreField,

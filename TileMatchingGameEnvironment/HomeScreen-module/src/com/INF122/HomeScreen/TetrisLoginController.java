@@ -1,8 +1,9 @@
-package com.INF122.Tetris;
+package com.INF122.HomeScreen;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import com.INF122.Tetris.TetrisMain;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

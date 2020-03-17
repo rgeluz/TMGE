@@ -1,7 +1,8 @@
-package com.INF122.Tetris;
+package com.INF122.HomeScreen;
 
 import com.INF122.TMGE.Board;
 import com.INF122.TMGE.Direction;
+import com.INF122.Tetris.TetrisController;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -24,9 +25,10 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-public class TetrisMain extends Application {
+public class HomeScreenMain extends Application {
+
     Stage window;
-    
+
 
     public static void main(String[] args){
         System.out.println("Hello World");
@@ -37,35 +39,36 @@ public class TetrisMain extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         //testGame(stage);
-        
-        /**/Parent root = FXMLLoader.load(getClass().getResource("loginportal.fxml"));
+
+        /**/
+        Parent root = FXMLLoader.load(getClass().getResource("loginportal.fxml"));
         stage.setTitle("TMGE");
-        
+
         Scene scene = new Scene(root, 671, 400);
         stage.setScene(scene);
         stage.show();
-        
+
         scene.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
             @Override public void handle(MouseEvent event) {
-            	Stage tetrisStage = new Stage();
+                Stage tetrisStage = new Stage();
                 tetrisStage.setTitle("Tetris");
                 try {
-					Parent root = FXMLLoader.load(getClass().getResource("GameStage.fxml"));
-					testGame(stage);
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-                
-            	//testGame(stage);
-            }
-            });
+                    Parent root = FXMLLoader.load(getClass().getResource("GameStage.fxml"));
+                    testGame(stage);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
 
+                //testGame(stage);
+            }
+        });
     }
-    
+
+
 
     public static void testGame(Stage stage)
     {
-    	
+
         int gridHeight = 20;
         int gridWidth = 12;
         int tileSize = 30;
@@ -221,7 +224,7 @@ public class TetrisMain extends Application {
 
         //Player1
         VBox vbox1 = new VBox(group1);
-        BackgroundFill backgroundFill1 = new BackgroundFill(Color.BLACK,CornerRadii.EMPTY, Insets.EMPTY);
+        BackgroundFill backgroundFill1 = new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY);
         Background background1 = new Background(backgroundFill1);
         vbox1.setBackground(background1);
 
@@ -286,6 +289,9 @@ public class TetrisMain extends Application {
         stage.show();
 
     }
-    
+
+
+
+
 
 }
