@@ -13,10 +13,6 @@ import javafx.animation.AnimationTimer;
 import javafx.scene.Group;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
 
 public class DRMController extends Controller{
 
@@ -27,22 +23,10 @@ public class DRMController extends Controller{
     public static int score = 0;
 
 
-
-
-    //TODO move this to tetris - added to tetris
-    int LineCount;
-    boolean includeTetrisBorder;
-
     /**
      * Constructor
      * @param board
      */
-    /*public DRMController(Board board)
-    {
-        this.board = board;
-        // tileSize has been outsourced to board, which is passed in to Tetris first
-       // this.tileSize = board.tileSize;
-    }*/
     public DRMController(Board board,
                          TextField playerNameField,
                          TextField playerScoreField,
@@ -62,11 +46,7 @@ public class DRMController extends Controller{
         Group group = new Group();
         this.tileGroup = group;
 
-        //TODO for tetris - added to Tetris constructor
-        this.LineCount = 0;
-        this.includeTetrisBorder = true;
-        if(this.includeTetrisBorder)
-            addTetrisBorder();
+        addDrMarioBorder();
 
         //first spawn
         Levels lvl = new Levels(this.board);
@@ -99,7 +79,7 @@ public class DRMController extends Controller{
     }
 
 
-    private void addTetrisBorder(){
+    private void addDrMarioBorder(){
         Image image = null;
         try
         {
@@ -139,10 +119,6 @@ public class DRMController extends Controller{
         }
         render();
     }
-
-
-
-
 
 
     private boolean isCollidingWithCaps(List<Capsule> newTileList){
