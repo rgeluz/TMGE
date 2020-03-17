@@ -22,7 +22,7 @@ public class TetrisController extends Controller {
     int tileSize;
     private Shape currentActiveShape;
     private double time;
-    int rowToBeRemovedIndex;
+    int rowToBeRemovedIndex, score, lines;
 
 
     TextField playerNameField;
@@ -333,6 +333,17 @@ public class TetrisController extends Controller {
         return false;
     }
 
+    public void calculateScore(int lines){
+    	if (lines == 1) {
+    		this.score += 40;
+    	} else if (lines == 2) {
+    		this.score += 100;
+    	} else if (lines == 3) {
+    		this.score += 300;
+    	} else if (lines == 4) {
+    		this.score += 1200;
+    	}
+    }
     
     public void checkAllRows(){
     	//first get the row indexes of filled rows
@@ -344,10 +355,15 @@ public class TetrisController extends Controller {
     		removeRowsFromIndex(rowIndexes, this.includeTetrisBorder);
     		int shiftAmount = rowIndexes.size();
     		int shiftIndex = rowIndexes.get(0);
+    		this.lines += shiftAmount;
+    		calculateScore(shiftAmount);
+    		this.playerScoreField.setText(Integer.toString(this.score));
+            this.playerLineCountField.setText(Integer.toString(this.lines));
 			shiftRows(shiftIndex, shiftAmount, this.includeTetrisBorder);
 			render();
     	}
     }
+    
     
     public List<Integer> getFilledRowIndexes(boolean border){
     	

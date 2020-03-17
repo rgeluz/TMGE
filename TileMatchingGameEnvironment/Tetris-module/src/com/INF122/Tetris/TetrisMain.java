@@ -37,14 +37,14 @@ public class TetrisMain extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        //testGame(stage);
+        testGame(stage);
         
-        Parent root = FXMLLoader.load(getClass().getResource("loginportal.fxml"));
+        /*Parent root = FXMLLoader.load(getClass().getResource("loginportal.fxml"));
         stage.setTitle("TMGE");
         
         Scene scene = new Scene(root, 671, 400);
         stage.setScene(scene);
-        stage.show();
+        stage.show();*/
         
     }
     
