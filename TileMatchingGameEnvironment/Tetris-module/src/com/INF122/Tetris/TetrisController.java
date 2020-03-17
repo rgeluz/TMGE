@@ -242,8 +242,8 @@ public class TetrisController extends Controller {
                 updateBoard(newTileList);
             } else {
                 //spawn new shape
-                generateShape();
                 checkAllRows();
+                generateShape();
             }
             //checkForFullRows();
         }
@@ -360,7 +360,6 @@ public class TetrisController extends Controller {
     		this.playerScoreField.setText(Integer.toString(this.score));
             this.playerLineCountField.setText(Integer.toString(this.lines));
 			shiftRows(shiftIndex, shiftAmount, this.includeTetrisBorder);
-			render();
     	}
     }
     
@@ -385,7 +384,7 @@ public class TetrisController extends Controller {
         //if the number of tiles == how many tiles should be in a row, then 
         // that row's index is added onto a list
         List <Integer> filledRows = new ArrayList<Integer>();
-        for (int rowIndex = 0; rowIndex < floorRowIndex; rowIndex++) {
+        for (int rowIndex = floorRowIndex-1; rowIndex >= 0; rowIndex--) {
         	int tileCount = 0;
         	for (int colIndex = columnStartIndex; colIndex<columnEndIndex; colIndex++) {
         		if (this.board.getTile(colIndex,rowIndex)!=null) {
@@ -434,30 +433,41 @@ public class TetrisController extends Controller {
             columnStartIndex = 0;
             columnEndIndex = this.board.gridWidth;
         }
-    	
-    	// iterates through the rows, starting with the one directly above the highest
-    	// sweeped row (so if rows 3 and 4 were sweeped, it would start at row 2 since 
-    	// the higher the row, the closer it is to 0)
+    	int holder = startIndex;
+    	// iterates through the rows the rows above the lowest sweeped row
+    	// then shifts all rows above it down
     	for (int rowIndex = startIndex-1; rowIndex >= 0; rowIndex--) {
-    		int newRowIndex = rowIndex + size;
-    		//iterates through each column and shifts it down by however many rows were
-    		//previously sweeped (so if 3 rows were sweeped, a block at row 1 will be at
-    		//row 4)
-    		for(int colIndex = columnStartIndex; colIndex<columnEndIndex; colIndex++){
-    			currentTile = this.board.getTile(colIndex, rowIndex);
-    			if (currentTile != null) {
-    				currentTile.changeIndex(colIndex, newRowIndex);
-    				this.board.placeTile(currentTile);
-    				this.board.placeNull(colIndex, rowIndex);
-    			}
-    			else {
-    				this.board.placeNull(colIndex, rowIndex);
-    				this.board.placeNull(colIndex, newRowIndex);
-    			}
-    			currentTile = null;
+    		int newRowIndex = holder;
+    		//iterates through each column and shifts it down to the next index
+    		if (rowNotNull(rowIndex, columnStartIndex, columnEndIndex)){
+				for(int colIndex = columnStartIndex; colIndex<columnEndIndex; colIndex++){
+					currentTile = this.board.getTile(colIndex, rowIndex);
+					if (currentTile != null) {
+						currentTile.changeIndex(colIndex, newRowIndex);
+						this.board.placeTile(currentTile);
+						this.board.placeNull(colIndex, rowIndex);
+					}
+					else {
+						this.board.placeNull(colIndex, rowIndex);
+						this.board.placeNull(colIndex, newRowIndex);
+					}
+					currentTile = null;
+				}
+				holder--;
             }
     	}
     }
+    
+    public boolean rowNotNull(int index, int colStart, int colEnd) {
+    	for(int colIndex = colStart; colIndex<colEnd; colIndex++){
+			Tile currentTile = this.board.getTile(colIndex, index);
+			if (currentTile != null) {
+				return true;
+			}
+    	}
+		return false;
+    }
+    
 
 
 
