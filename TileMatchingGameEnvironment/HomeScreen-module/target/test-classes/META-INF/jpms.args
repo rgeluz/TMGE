@@ -1,0 +1,4 @@
+--patch-module
+HomeScreen.module=_
+--add-reads
+HomeScreen.module=ALL-UNNAMED

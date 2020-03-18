@@ -1,0 +1,4 @@
+--patch-module
+TMGE.module=_
+--add-reads
+TMGE.module=ALL-UNNAMED

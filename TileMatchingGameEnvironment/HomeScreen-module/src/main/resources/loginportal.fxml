@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.INF122.HomeScreen.LoginController">
+    <children>
+        <BorderPane prefHeight="400.0" prefWidth="671.0" style="-fx-background-color: #fff;">
+            <left>
+                <Pane fx:id="leftPane" prefHeight="400.0" prefWidth="284.0" styleClass="linear-grad" BorderPane.alignment="CENTER">
+                    <children>
+                        <Label layoutX="43.0" layoutY="81.0" text="Welcome to TGME" textFill="WHITE">
+                            <font>
+                                <Font size="24.0" />
+                            </font>
+                        </Label>
+                        <ImageView fx:id="TMGE_logo" fitHeight="95.0" fitWidth="93.0" layoutX="95.0" layoutY="154.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@TMGE-module/resources/icon/icons8_game_controller_500px.png" />
+                            </image>
+                        </ImageView>
+                        <Label layoutX="88.0" layoutY="239.0" text="Tile-Matching Game" textFill="#c7ede6" />
+                        <Label layoutX="108.0" layoutY="256.0" text="Environment" textFill="#c7ede6" />
+                    </children></Pane>
+            </left>
+            <center>
+                <StackPane prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                    <children>
+                        <Pane fx:id="pnSelectGame" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #ffff;">
+                            <children>
+                                <Label layoutX="80.0" layoutY="117.0" text="Get started!">
+                                    <font>
+                                        <Font name="System Bold" size="25.0" />
+                                    </font>
+                                </Label>
+                                <Label layoutX="80.0" layoutY="171.0" text="Player :">
+                                    <font>
+                                        <Font size="14.0" />
+                                    </font>
+                                </Label>
+                                <Label fx:id="pc1NameDisplay" layoutX="137.0" layoutY="171.0" prefHeight="20.0" prefWidth="171.0">
+                                    <font>
+                                        <Font size="14.0" />
+                                    </font>
+                                </Label>
+                                <Label layoutX="80.0" layoutY="248.0" text="Select a game.">
+                                    <font>
+                                        <Font size="17.0" />
+                                    </font>
+                                </Label>
+                                <ImageView fx:id="backBtn" fitHeight="20.0" fitWidth="20.0" layoutX="68.0" layoutY="42.0" onMouseClicked="#handleMouseEvent" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@TMGE-module/resources/icon/icons8_back_52px.png" />
+                                    </image>
+                                </ImageView>
+                                <ImageView fx:id="drMarioIcon" fitHeight="50.0" fitWidth="102.0" layoutX="220.0" layoutY="280.0" onMouseClicked="#handleMouseEvent" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@TMGE-module/resources/icon/icons8_pill_48px.png" />
+                                    </image>
+                                </ImageView>
+                                <ImageView fx:id="tetrisIcon" fitHeight="50.0" fitWidth="67.0" layoutX="109.0" layoutY="280.0" onMouseClicked="#handleMouseEvent" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@TMGE-module/resources/icon/icons8_tetris_100px_1.png" />
+                                    </image>
+                                </ImageView>
+                                <Label layoutX="120.0" layoutY="331.0" text="Tetris" />
+                                <Label layoutX="220.0" layoutY="331.0" text="Dr. Mario" />
+                        <Label fx:id="pc2NameDisplay" layoutX="137.0" layoutY="200.0" prefHeight="20.0" prefWidth="176.0">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                            </children></Pane>
+                        <Pane fx:id="pnSignIn" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #ffff;">
+                            <children>
+                                <TextField fx:id="pc1NameInput" layoutX="69.0" layoutY="146.0" prefHeight="35.0" prefWidth="252.0" promptText="Player 1 name" />
+                                <Button fx:id="SigninBtn" layoutX="140.0" layoutY="257.0" mnemonicParsing="false" onAction="#loginButtonClicked" prefHeight="35.0" prefWidth="104.0" styleClass="button1"  text="Sign in" />
+                                <TextField fx:id="pc2NameInput" layoutX="69.0" layoutY="200.0" prefHeight="35.0" prefWidth="255.0" promptText="Player 2 name" />
+                                <Label layoutX="69.0" layoutY="89.0" text="Sign In">
+                                    <font>
+                                        <Font name="System Bold" size="20.0" />
+                                    </font>
+                                </Label>
+                            </children></Pane>
+                    </children>
+                </StackPane>
+            </center>
+        </BorderPane>
+    </children>
+</AnchorPane>

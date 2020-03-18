@@ -1,0 +1,4 @@
+--patch-module
+Tetris.module=_
+--add-reads
+Tetris.module=ALL-UNNAMED

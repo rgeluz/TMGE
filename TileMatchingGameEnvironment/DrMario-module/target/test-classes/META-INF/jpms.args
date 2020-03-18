@@ -1,0 +1,4 @@
+--patch-module
+DrMario.module=_
+--add-reads
+DrMario.module=ALL-UNNAMED
