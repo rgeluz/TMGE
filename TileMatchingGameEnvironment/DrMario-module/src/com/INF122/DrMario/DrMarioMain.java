@@ -23,11 +23,6 @@ import java.io.FileNotFoundException;
 
 public class DrMarioMain extends Application{
 
-    //For JavaFX test
-    Stage window;
-    Scene scene1, scene2;
-    Button button;
-
     public static void main(String[] args){
         System.out.println("Hello World");
         launch(args);
