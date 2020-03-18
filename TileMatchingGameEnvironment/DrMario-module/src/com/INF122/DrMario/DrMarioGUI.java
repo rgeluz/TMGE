@@ -25,14 +25,14 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
 public class DrMarioGUI {
-	public static int gridHeight = 20;
-    public static int gridWidth = 12;
-    public static int tileSize = 30;
+	public static final int gridHeight = 20;
+    public static final int gridWidth = 12;
+    public static final int tileSize = 30;
 
-    public static int centerWidth = 300;
-    public static int fieldWidth = 100;
+    public static final int centerWidth = 300;
+    public static final int fieldWidth = 100;
     
-    public static Color gameColor = Color.AQUAMARINE;
+    public static final Color gameColor = Color.AQUAMARINE;
     
     public ImageView setUpGameLogo() {
         //Game Logo

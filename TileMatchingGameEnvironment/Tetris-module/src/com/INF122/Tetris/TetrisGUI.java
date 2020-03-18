@@ -25,16 +25,16 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
 public class TetrisGUI {
-    static final int gridHeight = 20;
-    public static int gridWidth = 12;
-    public static int tileSize = 30;
+    public static final int gridHeight = 20;
+    public static final int gridWidth = 12;
+    public static final int tileSize = 30;
 
-    public static int centerWidth = 300;
-    public static int fieldWidth = 100;
+    public static final int centerWidth = 300;
+    public static final int fieldWidth = 100;
     
-    public static Color gameColor = Color.AQUA;
+    public static final Color gameColor = Color.AQUA;
    
-    public final GameEnum GAME_TO_TEST = GameEnum.TETRIS;
+    //public final GameEnum GAME_TO_TEST = GameEnum.TETRIS;
     
     public ImageView setUpGameLogo() {
         //Game Logo
@@ -176,8 +176,6 @@ public class TetrisGUI {
     public Scene generateMultiplayerScene(String player1Name, String player2Name)
     {
         //Center
-        int centerWidth = 300;
-        int fieldWidth = 100;
         GridPane gridPaneCenter = new GridPane();
         gridPaneCenter.setPrefWidth(centerWidth);
         gridPaneCenter.setAlignment(Pos.CENTER);
