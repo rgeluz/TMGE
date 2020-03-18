@@ -6,5 +6,6 @@ module HomeScreen.module {
     requires javafx.controls;
     requires javafx.fxml;
     exports com.INF122.HomeScreen;
+    opens com.INF122.HomeScreen;
 
 }

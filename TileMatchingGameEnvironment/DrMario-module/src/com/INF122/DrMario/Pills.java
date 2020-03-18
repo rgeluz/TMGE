@@ -57,7 +57,7 @@ public class Pills
         Image image = null;
         try 
         {
-            image = new Image(new FileInputStream("DrMario-module/resources/BlockBlue.png"));
+            image = new Image(new FileInputStream("resources/BlockBlue.png"));
         } 
         catch (FileNotFoundException e) 
         {
@@ -72,7 +72,7 @@ public class Pills
         Image image = null;
         try 
         {
-            image = new Image(new FileInputStream("DrMario-module/resources/BlockRed.png"));
+            image = new Image(new FileInputStream("resources/BlockRed.png"));
         } 
         catch (FileNotFoundException e) 
         {
@@ -87,7 +87,7 @@ public class Pills
         Image image = null;
         try 
         {
-            image = new Image(new FileInputStream("DrMario-module/resources/BlockYellow.png"));
+            image = new Image(new FileInputStream("resources/BlockYellow.png"));
         } 
         catch (FileNotFoundException e) 
         {

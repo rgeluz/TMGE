@@ -97,7 +97,7 @@ public class TetrisMain extends Application {
         //Game Logo
         Image imageTetrisLogo = null;
         try{
-            imageTetrisLogo = new Image(new FileInputStream("Tetris-module/resources/TetrisLogo.png"));
+            imageTetrisLogo = new Image(new FileInputStream("resources/TetrisLogo.png"));
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();

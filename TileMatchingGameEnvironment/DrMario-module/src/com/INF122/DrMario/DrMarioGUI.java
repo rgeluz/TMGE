@@ -1,4 +1,4 @@
-package com.INF122.Tetris;
+package com.INF122.DrMario;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -24,35 +24,32 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
-public class TetrisGUI {
-    static final int gridHeight = 20;
+public class DrMarioGUI {
+	public static int gridHeight = 20;
     public static int gridWidth = 12;
     public static int tileSize = 30;
 
     public static int centerWidth = 300;
     public static int fieldWidth = 100;
     
-    public static Color gameColor = Color.AQUA;
-   
-    public final GameEnum GAME_TO_TEST = GameEnum.TETRIS;
+    public static Color gameColor = Color.AQUAMARINE;
     
     public ImageView setUpGameLogo() {
         //Game Logo
-        Image imageTetrisLogo = null;
+        Image imageDRMLogo = null;
         try{
-            imageTetrisLogo = new Image(new FileInputStream("resources/TetrisLogo.png"));
+        	imageDRMLogo = new Image(new FileInputStream("resources/DrMarioLogo.png"));
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        ImageView imageViewTetris = new ImageView(imageTetrisLogo);
-        imageViewTetris.setFitWidth(tileSize*5);
-        imageViewTetris.setFitHeight(tileSize*2);
-        return imageViewTetris;
+        ImageView imageViewDRM = new ImageView(imageDRMLogo);
+        imageViewDRM.setFitWidth(tileSize*5);
+        imageViewDRM.setFitHeight(tileSize*2);
+        return imageViewDRM;
     }
     
-	public Scene generateSingleplayerScene(String player1Name){
-    	//Center
+    public Scene generateSingleplayerScene(String player1Name){
     	GridPane gridPaneCenter = new GridPane();
         gridPaneCenter.setPrefWidth(centerWidth);
         gridPaneCenter.setAlignment(Pos.CENTER);
@@ -67,8 +64,8 @@ public class TetrisGUI {
         gridPaneCenter.add(emptyLabel4, 0, 4);
         Label emptyLabel5 = new Label("");
         
-        ImageView imageViewTetris = setUpGameLogo();
-        gridPaneCenter.getChildren().add(imageViewTetris);
+        ImageView imageViewDRM = setUpGameLogo();
+        gridPaneCenter.getChildren().add(imageViewDRM);
         
         gridPaneCenter.add(emptyLabel5, 0, 5);
         Label emptyLabel6 = new Label("");
@@ -79,14 +76,13 @@ public class TetrisGUI {
         player1Label.setPadding(new Insets(10, 10, 10, 10));
         gridPaneCenter.add(player1Label, 0, 10);
 
-        TextField player1NameField = new TextField();  // not needed
-        
+        TextField player1NameField = new TextField();
         Label pc1Name = new Label(player1Name);
         pc1Name.setPadding(new Insets(10, 10, 10, 10));
         gridPaneCenter.add(pc1Name, 1,10);
         //player1NameField.setDisable(true);
         //player1NameField.setMaxWidth(fieldWidth);
-        //player1NameField.setPadding(new Insets(10, 10, 10, 10));   
+        //player1NameField.setPadding(new Insets(10, 10, 10, 10));
         //gridPaneCenter.add(player1NameField, 1,10);
 
 
@@ -109,8 +105,9 @@ public class TetrisGUI {
         player1LineCountField.setMaxWidth(fieldWidth);
         player1LineCountField.setPadding(new Insets(10, 10, 10, 10));
         gridPaneCenter.add(player1LineCountField, 1,12);
-        
-      //TODO this adds four space between player 1 and player 2
+
+
+        //TODO this adds four space between player 1 and player 2
         Label emptyLabel7 = new Label("");
         gridPaneCenter.add(emptyLabel7, 0, 13);
         Label emptyLabel8 = new Label("");
@@ -119,27 +116,26 @@ public class TetrisGUI {
         gridPaneCenter.add(emptyLabel9, 0, 15);
         Label emptyLabel10 = new Label("");
         gridPaneCenter.add(emptyLabel10, 0, 16);
-        
-      //________________Master window______________________
+
+      //________________Master window______________________//
 
         //Board Player1
         Board board1 = new Board(gridHeight,gridWidth, tileSize);
         int board1Width = gridWidth*tileSize;
         int board1Height = gridHeight*tileSize;
 
-        TetrisController controller1 = new TetrisController(
-                board1,
+        DRMController controller1 = new DRMController(board1,
                 player1NameField,
                 player1ScoreField,
                 player1LineCountField);
         Group group1 = controller1.create();
-        
+
         //Player1
         VBox vbox1 = new VBox(group1);
         BackgroundFill backgroundFill1 = new BackgroundFill(Color.BLACK,CornerRadii.EMPTY, Insets.EMPTY);
         Background background1 = new Background(backgroundFill1);
         vbox1.setBackground(background1);
-
+        
         //Center
         VBox vboxCenter = new VBox(gridPaneCenter);
         BackgroundFill backgroundFillCenter = new BackgroundFill(gameColor,CornerRadii.EMPTY, Insets.EMPTY);
@@ -147,13 +143,13 @@ public class TetrisGUI {
         vboxCenter.setBackground(backgroundCenter);
         
         HBox hbox = new HBox(vbox1,vboxCenter);
-        int masterWindowWidth = board1Width + centerWidth; 
+        int masterWindowWidth = board1Width+centerWidth; //need to double width
         int masterWindowHeight = board1Height;
         Color backgroundColor = Color.BLUE;
-
+        
         Scene scene = new Scene(hbox, masterWindowWidth, masterWindowHeight, backgroundColor);
-
-        //Key event handler
+        
+      //Key event handler
         scene.setOnKeyPressed(e -> {
 
             //Player 1
@@ -167,21 +163,20 @@ public class TetrisGUI {
                 controller1.moveShape(Direction.DOWN);
             }
             controller1.render();
-        });
-        
-        return scene;
 
+        });
+
+        return scene;
     }
-    
-    public Scene generateMultiplayerScene(String player1Name, String player2Name)
-    {
-        //Center
+
+    public Scene generateMultiplayerScene(String player1Name, String player2Name) {
+    	//Center
         int centerWidth = 300;
         int fieldWidth = 100;
         GridPane gridPaneCenter = new GridPane();
         gridPaneCenter.setPrefWidth(centerWidth);
         gridPaneCenter.setAlignment(Pos.CENTER);
-
+        
         Label emptyLabel1 = new Label("");
         gridPaneCenter.add(emptyLabel1, 0, 1);
         Label emptyLabel2 = new Label("");
@@ -191,22 +186,20 @@ public class TetrisGUI {
         Label emptyLabel4 = new Label("");
         gridPaneCenter.add(emptyLabel4, 0, 4);
         Label emptyLabel5 = new Label("");
-
-        ImageView imageViewTetris = setUpGameLogo();
-        gridPaneCenter.getChildren().add(imageViewTetris);
-
-
+        
+        ImageView imageViewDRM = setUpGameLogo();
+        gridPaneCenter.getChildren().add(imageViewDRM);
+        
         gridPaneCenter.add(emptyLabel5, 0, 5);
         Label emptyLabel6 = new Label("");
         gridPaneCenter.add(emptyLabel6, 0, 6);
-
-        //Player 1
+        
+      //Player 1
         Label player1Label = new Label("Player1");
         player1Label.setPadding(new Insets(10, 10, 10, 10));
         gridPaneCenter.add(player1Label, 0, 10);
 
         TextField player1NameField = new TextField();
-        
         Label pc1Name = new Label(player1Name);
         pc1Name.setPadding(new Insets(10, 10, 10, 10));
         gridPaneCenter.add(pc1Name, 1,10);
@@ -215,7 +208,7 @@ public class TetrisGUI {
         //player1NameField.setMaxWidth(fieldWidth);
         //player1NameField.setPadding(new Insets(10, 10, 10, 10));
         //gridPaneCenter.add(player1NameField, 1,10);
-		
+
 
         Label player1Score = new Label("Score: ");
         player1Score.setPadding(new Insets(10, 10, 10, 10));
@@ -283,17 +276,15 @@ public class TetrisGUI {
         player2LineCountField.setMaxWidth(100);
         player2LineCountField.setPadding(new Insets(10, 10, 10, 10));
         gridPaneCenter.add(player2LineCountField, 1,19);
-
-
-        //________________Master window______________________
+        
+      //________________Master window______________________//
 
         //Board Player1
         Board board1 = new Board(gridHeight,gridWidth, tileSize);
         int board1Width = gridWidth*tileSize;
         int board1Height = gridHeight*tileSize;
 
-        TetrisController controller1 = new TetrisController(
-                board1,
+        DRMController controller1 = new DRMController(board1,
                 player1NameField,
                 player1ScoreField,
                 player1LineCountField);
@@ -305,7 +296,7 @@ public class TetrisGUI {
         int board2Width = gridWidth*tileSize;
         int board2Height = gridHeight*tileSize;
 
-        TetrisController controller2 = new TetrisController(
+        DRMController controller2 = new DRMController(
                 board2,
                 player2NameField,
                 player2ScoreField,
@@ -319,8 +310,10 @@ public class TetrisGUI {
         Background background1 = new Background(backgroundFill1);
         vbox1.setBackground(background1);
 
-        //Center
+      //Center
         VBox vboxCenter = new VBox(gridPaneCenter);
+        /*vboxCenter.getChildren().addAll(player1Label, player1Score, player1LineCount,
+                player2Label, player2Score, player2LineCount);*/
         BackgroundFill backgroundFillCenter = new BackgroundFill(gameColor,CornerRadii.EMPTY, Insets.EMPTY);
         Background backgroundCenter = new Background(backgroundFillCenter);
         vboxCenter.setBackground(backgroundCenter);
@@ -336,10 +329,10 @@ public class TetrisGUI {
         int masterWindowWidth = (board1Width * 2)+centerWidth; //need to double width
         int masterWindowHeight = board1Height;
         Color backgroundColor = Color.BLUE;
-
+        
         Scene scene = new Scene(hbox, masterWindowWidth, masterWindowHeight, backgroundColor);
-
-        //Key event handler
+        
+      //Key event handler
         scene.setOnKeyPressed(e -> {
 
             //Player 1
@@ -355,18 +348,17 @@ public class TetrisGUI {
             controller1.render();
 
             //Player 2
-            if (e.getCode() == KeyCode.UP) { //ROTATE SHAPE CLOCKWISE
+            if (e.getCode() == KeyCode.UP)  //ROTATE SHAPE CLOCKWISE
                 controller2.rotateShape();
-            } else if (e.getCode() == KeyCode.LEFT) {
+            else if (e.getCode() == KeyCode.LEFT)
                 controller2.moveShape(Direction.LEFT);
-            } else if (e.getCode() == KeyCode.RIGHT) {
+            else if (e.getCode() == KeyCode.RIGHT)
                 controller2.moveShape(Direction.RIGHT);
-            } else if (e.getCode() == KeyCode.DOWN) {
+            else if (e.getCode() == KeyCode.DOWN)
                 controller2.moveShape(Direction.DOWN);
-            }
             controller2.render();
         });
+        
         return scene;
     }
-    
 }

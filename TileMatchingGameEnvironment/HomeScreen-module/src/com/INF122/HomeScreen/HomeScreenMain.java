@@ -3,6 +3,8 @@ package com.INF122.HomeScreen;
 import com.INF122.TMGE.Board;
 import com.INF122.TMGE.Direction;
 import com.INF122.Tetris.TetrisController;
+//import com.INF122.Tetris.TetrisGUI;
+
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -48,20 +50,6 @@ public class HomeScreenMain extends Application {
         stage.setScene(scene);
         stage.show();
 
-        scene.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-            @Override public void handle(MouseEvent event) {
-                Stage tetrisStage = new Stage();
-                tetrisStage.setTitle("Tetris");
-                try {
-                    Parent root = FXMLLoader.load(getClass().getResource("GameStage.fxml"));
-                    testGame(stage);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-                //testGame(stage);
-            }
-        });
     }
 
 
@@ -100,7 +88,7 @@ public class HomeScreenMain extends Application {
         //Game Logo
         Image imageTetrisLogo = null;
         try{
-            imageTetrisLogo = new Image(new FileInputStream("Tetris-module/resources/TetrisLogo.png"));
+            imageTetrisLogo = new Image(new FileInputStream("resources/TetrisLogo.png"));
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();

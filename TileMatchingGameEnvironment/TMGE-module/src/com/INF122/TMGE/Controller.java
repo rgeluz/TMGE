@@ -102,7 +102,7 @@ public class Controller {
     public void addBorder(){
         Image image = null;
         try {
-            image = new Image(new FileInputStream("TMGE-module/resources/BlockGrey.png"));
+            image = new Image(new FileInputStream("resources/BlockGrey.png"));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -468,7 +468,7 @@ public class Controller {
         //-------------------------------------//
         Image image = null;
         try {
-            image = new Image(new FileInputStream("TMGE-module/resources/BlockPurple.png"));
+            image = new Image(new FileInputStream("resources/BlockPurple.png"));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }

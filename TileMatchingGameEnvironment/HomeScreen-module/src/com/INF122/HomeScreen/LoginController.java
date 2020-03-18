@@ -3,6 +3,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import com.INF122.DrMario.DrMarioGUI;
+import com.INF122.Tetris.TetrisGUI;
 import com.INF122.Tetris.TetrisMain;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -18,7 +20,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-public class TetrisLoginController {
+public class LoginController {
     @FXML
     private Button SigninBtn;
     @FXML
@@ -106,34 +108,52 @@ public class TetrisLoginController {
         	
         	
             System.out.println("tetris selected");
-            //try {
+            try {
                 Stage tetrisStage = new Stage();
                 tetrisStage.setTitle("Tetris");
                 FXMLLoader fxmlLoader = new FXMLLoader();
-                //Pane root = fxmlLoader.load(getClass().getResource("GameStage.fxml").openStream());
-                Parent root = fxmlLoader.load(getClass().getResource("loginportal.fxml"));
-                
-                TetrisMain.testGame(tetrisStage);
-                tetrisStage.show();
-                /*
+                Pane root = fxmlLoader.load(getClass().getResource("GameStage.fxml").openStream());
+
                 if(!pc1NameInput.getText().isEmpty() && !pc2NameInput.getText().isEmpty()) {
                 	TetrisGUI gui = new TetrisGUI();
-                    Scene sceneMP = gui.generateMultiplayerScene();
+                    Scene sceneMP = gui.generateMultiplayerScene(pc1NameInput.getText(),pc2NameInput.getText());
                     tetrisStage.setScene(sceneMP);
                 }
                 else {
                 	TetrisGUI gui = new TetrisGUI();
-                	Scene sceneSP = gui.generateSingleplayerScene();
+                	Scene sceneSP = gui.generateSingleplayerScene(pc1NameInput.getText());
                     tetrisStage.setScene(sceneSP);
                 }
-                
+                tetrisStage.show();
             }catch (IOException e){
                 e.printStackTrace();
             }
-            */
+            
         }
         if(event.getSource().equals(drMarioIcon)){
             System.out.println("Dr.Mario selected");
+            
+            try {
+                Stage tetrisStage = new Stage();
+                tetrisStage.setTitle("Dr.Mario");
+                FXMLLoader fxmlLoader = new FXMLLoader();
+                Pane root = fxmlLoader.load(getClass().getResource("GameStage.fxml").openStream());
+                
+                if(!pc1NameInput.getText().isEmpty() && !pc2NameInput.getText().isEmpty()) {
+                	DrMarioGUI gui = new DrMarioGUI();
+                    Scene sceneMP = gui.generateMultiplayerScene(pc1NameInput.getText(),pc2NameInput.getText());
+                    tetrisStage.setScene(sceneMP);
+                }
+                else {
+                	DrMarioGUI gui = new DrMarioGUI();
+                	Scene sceneSP = gui.generateSingleplayerScene(pc1NameInput.getText());
+                    tetrisStage.setScene(sceneSP);
+                }
+                tetrisStage.show();
+            }catch (IOException e){
+                e.printStackTrace();
+            }
+            
         }
     }
 
