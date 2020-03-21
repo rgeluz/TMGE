@@ -72,7 +72,7 @@ public class DrMarioMain extends Application{
         //Image imageTetrisLogo = null;
         Image imageDrMarioLogo = null;
         try{
-            imageDrMarioLogo = new Image(new FileInputStream("resources/DrMarioLogo.png"));
+            imageDrMarioLogo = new Image(new FileInputStream("DrMario-module/resources/DrMarioLogo.png"));
         	//imageDrMarioLogo = new Image(new FileInputStream("resources/DrMarioLogo.png"));
             //imageTetrisLogo = new Image(new FileInputStream("TMGE-module/resources/TetrisLogo.png"));
 
